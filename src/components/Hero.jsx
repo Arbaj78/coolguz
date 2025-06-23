@@ -2,73 +2,188 @@ import { curve, heroBackground, robot } from "../assets";
 import Section from "./Section";
 import { BackgroundCircles, BottomLine, Gradient } from "./design/Hero";
 import CompanyLogos from "./CompanyLogos";
-import { useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Bot, Users, UserCheck, Lightbulb, Sparkles, Zap, Brain, Cpu, Network, Target,
+} from 'lucide-react';
 
 const Hero = () => {
   const parallaxRef = useRef(null);
+  const containerRef = useRef(null);
+
+  const [currentText, setCurrentText] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const rotatingTexts = [
+    { text: 'Agents', color: 'text-orange-400' },
+    { text: 'Teams', color: 'text-orange-400' },
+    { text: 'Employees', color: 'text-orange-400' },
+    { text: 'Solutions', color: 'text-orange-400' }
+  ];
+
+  useEffect(() => {
+    setIsLoaded(true);
+    const interval = setInterval(() => {
+      setCurrentText((prev) => (prev + 1) % rotatingTexts.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleMouseMove = (e) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      setMousePos({ x: x * 20, y: y * 20 });
+    }
+  };
+
+  const FloatingShape = ({ shape, size, color, position, delay, duration }) => (
+    <div
+      className={`absolute ${position} ${color} opacity-30`}
+      style={{
+        animation: `float ${duration}s ease-in-out infinite`,
+        animationDelay: `${delay}s`,
+        transform: `translate(${mousePos.x * 0.1}px, ${mousePos.y * 0.1}px)`,
+      }}
+    >
+      {shape === 'circle' && <div className={`${size} rounded-full bg-current`} />}
+      {shape === 'square' && <div className={`${size} bg-current transform rotate-45`} />}
+      {shape === 'triangle' && (
+        <div className={`${size} bg-current`} style={{ clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)' }} />
+      )}
+    </div>
+  );
+
+  const NetworkNode = ({ position, size = 'w-3 h-3', delay = 0 }) => (
+    <div className={`absolute ${position} ${size} bg-blue-400 rounded-full opacity-60 animate-pulse`}
+      style={{ animationDelay: `${delay}s` }}>
+      <div className={`absolute inset-0 bg-blue-400 rounded-full blur-sm`} />
+    </div>
+  );
 
   return (
-    <Section
-      className="pt-[12rem] -mt-[5.25rem]"
-      crosses
-      crossesOffset="lg:translate-y-[5.25rem]"
-      customPaddings
-      id="hero"
+    <div
+      ref={containerRef}
+      className="min-h-screen bg-black relative overflow-hidden"
+      onMouseMove={handleMouseMove}
     >
-      <div className="container relative" ref={parallaxRef}>
-        <div className="relative z-1 max-w-[62rem] mx-auto text-center mb-[3.875rem] md:mb-20 lg:mb-[6.25rem]">
-          <h1 className="h1 mb-6">
-            Explore the Possibilities of&nbsp;AI&nbsp;Chatting with {` `}
-            <span className="inline-block relative">
-              coolguyz{" "}
-              <img
-                src={curve}
-                className="absolute top-full left-0 w-full xl:-mt-2"
-                width={624}
-                height={28}
-                alt="Curve"
-              />
-            </span>
-          </h1>
-          <p className="body-1 max-w-3xl mx-auto mb-6 text-n-2 lg:mb-8">
-            Unleash the power of AI within coolguyz. Upgrade your productivity
-            with coolguyz, the open AI chat app.
-          </p>
-        </div>
-        <div className="relative max-w-[23rem] mx-auto md:max-w-5xl xl:mb-24">
-          <div className="relative z-1 p-0.5 rounded-2xl bg-conic-gradient">
-            <div className="relative bg-n-8 rounded-[1rem]">
-              <div className="h-[1.4rem] bg-n-10 rounded-t-[0.9rem]" />
+      {/* Background Lines */}
+      <div className="absolute inset-0 opacity-20">
+        <svg className="w-full h-full" viewBox="0 0 1200 800">
+          <g stroke="url(#gradient)" strokeWidth="1" fill="none">
+            <path d="M100,100 Q300,200 500,100 T900,150" className="animate-pulse">
+              <animate attributeName="stroke-dasharray" values="0,1000;1000,0;0,1000" dur="8s" repeatCount="indefinite" />
+            </path>
+            <path d="M200,300 Q400,100 700,300 T1000,250" className="animate-pulse" style={{ animationDelay: '2s' }}>
+              <animate attributeName="stroke-dasharray" values="0,1000;1000,0;0,1000" dur="8s" repeatCount="indefinite" />
+            </path>
+            <path d="M50,500 Q350,600 650,400 T1100,500" className="animate-pulse" style={{ animationDelay: '4s' }}>
+              <animate attributeName="stroke-dasharray" values="0,1000;1000,0;0,1000" dur="8s" repeatCount="indefinite" />
+            </path>
+          </g>
+          <defs>
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#3b82f6" />
+              <stop offset="50%" stopColor="#8b5cf6" />
+              <stop offset="100%" stopColor="#ec4899" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
 
-              <div className="aspect-[33/40] rounded-b-[0.9rem] overflow-hidden md:aspect-[688/490] lg:aspect-[1024/490]">
-                <img
-                  src={robot}
-                  className="w-full scale-[1.7] translate-y-[8%] md:scale-[1] md:-translate-y-[10%] lg:-translate-y-[23%]"
-                  width={1024}
-                  height={490}
-                  alt="AI"
-                />
-              </div>
-            </div>
+      {/* Floating Shapes */}
+      <FloatingShape shape="circle" size="w-16 h-16" color="text-purple-400" position="top-20 left-20" delay={0} duration={6} />
+      <FloatingShape shape="square" size="w-12 h-12" color="text-blue-400" position="top-40 right-32" delay={2} duration={8} />
+      <FloatingShape shape="triangle" size="w-20 h-20" color="text-pink-400" position="bottom-40 left-40" delay={4} duration={7} />
+      <FloatingShape shape="circle" size="w-8 h-8" color="text-cyan-400" position="bottom-20 right-20" delay={1} duration={5} />
+      <FloatingShape shape="square" size="w-6 h-6" color="text-orange-400" position="top-60 left-1/2" delay={3} duration={9} />
 
-            <Gradient />
-          </div>
-          <div className="absolute -top-[54%] left-1/2 w-[234%] -translate-x-1/2 md:-top-[46%] md:w-[138%] lg:-top-[104%]">
-            <img
-              src={heroBackground}
-              className="w-full"
-              width={1440}
-              height={1800}
-              alt="hero"
-            />
-          </div>
+      {/* Network Nodes */}
+      <NetworkNode position="top-32 left-32" delay={0} />
+      <NetworkNode position="top-48 right-40" delay={1} />
+      <NetworkNode position="bottom-32 left-48" delay={2} />
+      <NetworkNode position="bottom-48 right-32" delay={0.5} />
+      <NetworkNode position="top-1/2 left-20" size="w-4 h-4" delay={1.5} />
+      <NetworkNode position="top-1/2 right-20" size="w-2 h-2" delay={2.5} />
 
-          <BackgroundCircles />
+      {/* Golden Circle */}
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+        <div
+          className="w-80 h-80 border-4 border-orange-500 rounded-full opacity-40 animate-spin"
+          style={{
+            animationDuration: '20s',
+            transform: `translate(-50%, -50%) rotate(${mousePos.x * 0.1}deg) scale(${1 + mousePos.y * 0.001})`
+          }}
+        >
+          <div className="absolute inset-4 border-2 border-orange-400 rounded-full opacity-60 animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }} />
+          <div className="absolute inset-8 border border-orange-300 rounded-full opacity-80 animate-spin" style={{ animationDuration: '10s' }} />
         </div>
       </div>
 
-      <BottomLine />
-    </Section>
+      {/* Main Text Content */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 text-center">
+        {/* Heading */}
+        <div className={`mb-6 transition-all duration-1500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-tight tracking-tight">
+            we build{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 animate-pulse">
+              AI
+            </span>
+          </h1>
+
+          {/* Rotating Text */}
+          <div className="relative h-20 overflow-hidden">
+            <div
+              className="absolute inset-0 transition-transform duration-1000 ease-out"
+              style={{
+                transform: `translateY(-${currentText * 100}%) translateX(${mousePos.x * 0.1}px)`
+              }}
+            >
+              {rotatingTexts.map((item) => (
+                <div
+                  key={item.text}
+                  className="h-20 flex items-center justify-center text-3xl md:text-5xl font-semibold"
+                >
+                  <span className={`${item.color} transform transition-all duration-500 hover:scale-110`}>
+                    {item.text}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Description */}
+        <div className={`max-w-5xl mx-auto mb-12 transition-all duration-2000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+          <p className="text-base md:text-lg text-gray-300 leading-relaxed font-light hover:text-white">
+            We design and continuously optimize AI-powered systems that scale with your business — saving 200 hours/month and evolving as fast as AI does.
+          </p>
+        </div>
+
+        {/* Indicators */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+          <div className="flex items-center space-x-2">
+            {rotatingTexts.map((_, index) => (
+              <div
+                key={index}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentText ? 'bg-orange-400 w-6' : 'bg-gray-600'}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Animations */}
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+          33% { transform: translateY(-10px) rotate(5deg) scale(1.05); }
+          66% { transform: translateY(-5px) rotate(-3deg) scale(0.95); }
+        }
+      `}</style>
+    </div>
   );
 };
 

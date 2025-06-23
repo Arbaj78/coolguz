@@ -74,7 +74,7 @@ const Footer = () => {
       </div>
 
       <div className="container mt-10 border-t border-n-6 pt-6 flex flex-col sm:flex-row items-center justify-between text-sm text-n-4">
-        <p>© {new Date().getFullYear()} ClusterX. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} coolguyz. All rights reserved.</p>
       </div>
     </Section>
   );
