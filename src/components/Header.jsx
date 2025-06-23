@@ -36,13 +36,9 @@ const Header = () => {
       <div className="flex items-center px-5 lg:px-7.5 xl:px-10 max-lg:py-4">
         <a className="flex items-center w-fit xl:mr-8" href="#hero">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center mr-2">
-            <img
-              src="./src/assets/brainwave-symbol.svg"
-              alt="ClusterX Logo"
-              className="w-full h-full"
-            />
+            
           </div>
-          <h1 className="text-2xl text-color-1 font-code">coolguyz</h1>
+          <h1 className="text-2xl text-orange-500 font-code">coolguyz</h1>
         </a>
 
         <nav
@@ -72,14 +68,8 @@ const Header = () => {
           <HamburgerMenu />
         </nav>
 
-        <a
-          href="#signup"
-          className="button hidden mr-8 text-n-1/50 transition-colors hover:text-n-1 lg:block"
-        >
-          New account
-        </a>
-        <Button className="hidden lg:flex" href="#login">
-          Sign in
+        <Button className="hidden lg:flex" href="#contact">
+          Work with us
         </Button>
 
         <Button
