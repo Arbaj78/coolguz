@@ -166,7 +166,6 @@ const Roadmap = () => {
                     <path d="M6 18a4 4 0 0 1-1.967-.516"/>
                     <path d="M19.967 17.484A4 4 0 0 1 18 18"/>
                   </svg>
-                  
                 </div>
                 <h1 className="text-3xl font-bold text-white mb-4">How It Works</h1>
                 <p className="text-base text-gray-300 max-w-2xl mx-auto leading-relaxed">
@@ -185,113 +184,72 @@ const Roadmap = () => {
                   </>
                 )}
 
-                <div className="flex flex-col gap-8 pb-12">
-                  {Array.from({ length: Math.ceil(steps.length / 2) }).map((_, pairIndex) => {
-                    const firstStep = steps[pairIndex * 2];
-                    const secondStep = steps[pairIndex * 2 + 1];
-                    
-                    return (
-                      <div key={pairIndex} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {firstStep && (
-                          <div ref={el => timelineStepsRef.current[firstStep.id] = el} className="relative">
-                            {showTimeline && (
-                              <div className={`absolute left-0 md:-left-4 top-6 w-5 h-5 rounded-full border-4 ${visibleSteps.includes(firstStep.id) ? 
-                                `border-white shadow-lg scale-110 bg-gradient-to-r ${colorClasses[firstStep.color]}` : 
-                                'border-gray-600 bg-gray-700 scale-75'} transition-all duration-700 z-20 hidden md:block`}>
-                                <div className={`absolute inset-0 rounded-full bg-gradient-to-r ${colorClasses[firstStep.color]} opacity-0 ${visibleSteps.includes(firstStep.id) ? 'opacity-20 animate-ping' : ''}`}></div>
-                              </div>
-                            )}
-
-                            <div className={`${showTimeline ? 'ml-6 md:ml-0' : 'ml-0'} transition-all duration-700 ${
-                              visibleSteps.includes(firstStep.id) ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0 scale-95'
-                            }`}>
-                              <div className={`rounded-lg border border-gray-700/50 bg-black/70 shadow-sm transition-all duration-500 hover:border-gray-600/50 ${
-                                activeStep === firstStep.id ? 'bg-gray-900/90 border-purple-600/50 shadow-lg' : ''
-                              }`}>
-                                <div className="p-6">
-                                  <div className="flex items-center gap-3 mb-4">
-                                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all duration-300 ${
-                                      visibleSteps.includes(firstStep.id) ? `shadow-lg bg-gradient-to-r ${colorClasses[firstStep.color]}` : 'bg-gray-800'
-                                    }`}>
-                                      <div className={`${visibleSteps.includes(firstStep.id) ? 'text-white' : 'text-gray-400'}`}>
-                                        {firstStep.icon}
-                                      </div>
-                                    </div>
-                                    <div className="flex-1">
-                                      <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-xs font-bold text-purple-400">{firstStep.number}</span>
-                                      </div>
-                                      <h2 className={`text-lg font-bold text-white transition-colors duration-300 ${activeStep === firstStep.id ? 'group-hover:text-purple-300' : ''}`}>
-                                        {firstStep.title}
-                                      </h2>
-                                    </div>
-                                  </div>
-                                  <p className="text-sm text-gray-400 mb-4 leading-relaxed">
-                                    {firstStep.description}
-                                  </p>
-                                  <div className="flex items-center gap-2 text-sm text-purple-300">
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                                    </svg>
-                                    <span>{firstStep.result}</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                <div className="space-y-16 pb-12">
+                  {steps.map((step, index) => (
+                    <div key={step.id} className="relative">
+                      <div 
+                        ref={el => timelineStepsRef.current[step.id] = el}
+                        className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${
+                          step.position === 'right' ? 'md:grid-flow-col-dense' : ''
+                        }`}
+                      >
+                        {/* Timeline dot */}
+                        {showTimeline && (
+                          <div className={`absolute left-1/2 transform -translate-x-1/2 top-6 w-5 h-5 rounded-full border-4 ${
+                            visibleSteps.includes(step.id) ? 
+                              `border-white shadow-lg scale-110 bg-gradient-to-r ${colorClasses[step.color]}` : 
+                              'border-gray-600 bg-gray-700 scale-75'
+                          } transition-all duration-700 z-20 hidden md:block`}>
+                            <div className={`absolute inset-0 rounded-full bg-gradient-to-r ${colorClasses[step.color]} opacity-0 ${
+                              visibleSteps.includes(step.id) ? 'opacity-20 animate-ping' : ''
+                            }`}></div>
                           </div>
                         )}
 
-                        {secondStep && (
-                          <div ref={el => timelineStepsRef.current[secondStep.id] = el} className="relative">
-                            {showTimeline && (
-                              <div className={`absolute left-0 md:-left-4 top-6 w-5 h-5 rounded-full border-4 ${visibleSteps.includes(secondStep.id) ? 
-                                `border-white shadow-lg scale-110 bg-gradient-to-r ${colorClasses[secondStep.color]}` : 
-                                'border-gray-600 bg-gray-700 scale-75'} transition-all duration-700 z-20 hidden md:block`}>
-                                <div className={`absolute inset-0 rounded-full bg-gradient-to-r ${colorClasses[secondStep.color]} opacity-0 ${visibleSteps.includes(secondStep.id) ? 'opacity-20 animate-ping' : ''}`}></div>
-                              </div>
-                            )}
-
-                            <div className={`${showTimeline ? 'ml-6 md:ml-0' : 'ml-0'} transition-all duration-700 ${
-                              visibleSteps.includes(secondStep.id) ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0 scale-95'
-                            }`}>
-                              <div className={`rounded-lg border border-gray-700/50 bg-black/70 shadow-sm transition-all duration-500 hover:border-gray-600/50 ${
-                                activeStep === secondStep.id ? 'bg-gray-900/90 border-purple-600/50 shadow-lg' : ''
-                              }`}>
-                                <div className="p-6">
-                                  <div className="flex items-center gap-3 mb-4">
-                                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all duration-300 ${
-                                      visibleSteps.includes(secondStep.id) ? `shadow-lg bg-gradient-to-r ${colorClasses[secondStep.color]}` : 'bg-gray-800'
-                                    }`}>
-                                      <div className={`${visibleSteps.includes(secondStep.id) ? 'text-white' : 'text-gray-400'}`}>
-                                        {secondStep.icon}
-                                      </div>
-                                    </div>
-                                    <div className="flex-1">
-                                      <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-xs font-bold text-purple-400">{secondStep.number}</span>
-                                      </div>
-                                      <h2 className={`text-lg font-bold text-white transition-colors duration-300 ${activeStep === secondStep.id ? 'group-hover:text-purple-300' : ''}`}>
-                                        {secondStep.title}
-                                      </h2>
-                                    </div>
-                                  </div>
-                                  <p className="text-sm text-gray-400 mb-4 leading-relaxed">
-                                    {secondStep.description}
-                                  </p>
-                                  <div className="flex items-center gap-2 text-sm text-purple-300">
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                                    </svg>
-                                    <span>{secondStep.result}</span>
+                        {/* Step content */}
+                        <div className={`${
+                          step.position === 'right' ? 'md:col-start-2' : 'md:col-start-1'
+                        } transition-all duration-700 ${
+                          visibleSteps.includes(step.id) ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0 scale-95'
+                        }`}>
+                          <div className={`rounded-lg border border-gray-700/50 bg-black/70 shadow-sm transition-all duration-500 hover:border-gray-600/50 ${
+                            activeStep === step.id ? 'bg-gray-900/90 border-purple-600/50 shadow-lg' : ''
+                          }`}>
+                            <div className="p-6">
+                              <div className="flex items-center gap-3 mb-4">
+                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all duration-300 ${
+                                  visibleSteps.includes(step.id) ? `shadow-lg bg-gradient-to-r ${colorClasses[step.color]}` : 'bg-gray-800'
+                                }`}>
+                                  <div className={`${visibleSteps.includes(step.id) ? 'text-white' : 'text-gray-400'}`}>
+                                    {step.icon}
                                   </div>
                                 </div>
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <span className="text-xs font-bold text-purple-400">{step.number}</span>
+                                  </div>
+                                  <h2 className={`text-lg font-bold text-white transition-colors duration-300 ${
+                                    activeStep === step.id ? 'group-hover:text-purple-300' : ''
+                                  }`}>
+                                    {step.title}
+                                  </h2>
+                                </div>
+                              </div>
+                              <p className="text-sm text-gray-400 mb-4 leading-relaxed">
+                                {step.description}
+                              </p>
+                              <div className="flex items-center gap-2 text-sm text-purple-300">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                </svg>
+                                <span>{step.result}</span>
                               </div>
                             </div>
                           </div>
-                        )}
+                        </div>
                       </div>
-                    );
-                  })}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
