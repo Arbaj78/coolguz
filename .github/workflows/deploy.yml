@@ -19,6 +19,9 @@ jobs:
       - name: Build Vite App
         run: npm run build
 
+      - name: Verify Build Output
+        run: ls -R dist/
+
       - name: Upload to Hostinger via FTP
         uses: SamKirkland/ftp-deploy-action@v4.3.4
         with:
@@ -26,4 +29,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
-          server-dir: public_html/
+          server-dir: /public_html/  # Both leading and trailing slashes
+          dangerous-clean-slate: false  # Set true to wipe remote dir before upload (use carefully!)
