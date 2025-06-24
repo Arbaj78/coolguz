@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Roadmap from "./components/Roadmap";
+import Testimonil from "./components/Testimonil";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Collaboration />
         <Roadmap/>
         <CompanyLogos/>
+        <Testimonil/>
         <Faq/>
         <Footer />
       </div>
