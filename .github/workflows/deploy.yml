@@ -29,5 +29,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
-          server-dir: /public_html/  # Both leading and trailing slashes
-          dangerous-clean-slate: false  # Set true to wipe remote dir before upload (use carefully!)
+          server-dir: /public_html/
+          dangerous-clean-slate: false
