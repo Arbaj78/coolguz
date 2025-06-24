@@ -126,15 +126,15 @@ const Hero = () => {
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 text-center">
         {/* Heading */}
         <div className={`mb-6 transition-all duration-1500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-tight tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-4 leading-tight tracking-tight">
             we build{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 animate-pulse">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 animate-gradient">
               AI
             </span>
           </h1>
 
           {/* Rotating Text */}
-          <div className="relative h-20 overflow-hidden">
+          <div className="relative h-24 overflow-hidden">
             <div
               className="absolute inset-0 transition-transform duration-1000 ease-out"
               style={{
@@ -144,7 +144,7 @@ const Hero = () => {
               {rotatingTexts.map((item) => (
                 <div
                   key={item.text}
-                  className="h-20 flex items-center justify-center text-3xl md:text-5xl font-semibold"
+                  className="h-24 flex items-center justify-center text-4xl md:text-6xl font-semibold"
                 >
                   <span className={`${item.color} transform transition-all duration-500 hover:scale-110`}>
                     {item.text}
@@ -158,7 +158,7 @@ const Hero = () => {
         {/* Description */}
         <div className={`max-w-5xl mx-auto mb-12 transition-all duration-2000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
           <p className="text-base md:text-lg text-gray-300 leading-relaxed font-light hover:text-white">
-            We design and continuously optimize AI-powered systems that scale with your business — saving 200 hours/month and evolving as fast as AI does.
+            We deliver working systems, not prototypes — 200 hours and $150K saved, year after year.
           </p>
         </div>
 
@@ -181,6 +181,15 @@ const Hero = () => {
           0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
           33% { transform: translateY(-10px) rotate(5deg) scale(1.05); }
           66% { transform: translateY(-5px) rotate(-3deg) scale(0.95); }
+        }
+        @keyframes gradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+          background-size: 200% 200%;
+          animation: gradient 3s ease infinite;
         }
       `}</style>
     </div>
