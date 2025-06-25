@@ -1,34 +1,43 @@
-import { curve, heroBackground, robot } from "../assets";
-import Section from "./Section";
-import { BackgroundCircles, BottomLine, Gradient } from "./design/Hero";
-import CompanyLogos from "./CompanyLogos";
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  Bot, Users, UserCheck, Lightbulb, Sparkles, Zap, Brain, Cpu, Network, Target,
-} from 'lucide-react';
 
 const Hero = () => {
-  const parallaxRef = useRef(null);
   const containerRef = useRef(null);
-
-  const [currentText, setCurrentText] = useState(0);
+  const [displayText, setDisplayText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [charIndex, setCharIndex] = useState(0);
+  const [textIndex, setTextIndex] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const rotatingTexts = [
-    { text: 'Agents', color: 'text-orange-400' },
-    { text: 'Teams', color: 'text-orange-400' },
-    { text: 'Employees', color: 'text-orange-400' },
-    { text: 'Solutions', color: 'text-orange-400' }
-  ];
+  const rotatingTexts = ['Agents', 'Automations', 'Employees'];
 
   useEffect(() => {
     setIsLoaded(true);
-    const interval = setInterval(() => {
-      setCurrentText((prev) => (prev + 1) % rotatingTexts.length);
-    }, 3000);
-    return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const current = rotatingTexts[textIndex];
+    let typeSpeed = isDeleting ? 70 : 130;
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        setDisplayText(current.substring(0, charIndex + 1));
+        setCharIndex((prev) => prev + 1);
+        if (charIndex + 1 === current.length) {
+          setIsDeleting(true);
+        }
+      } else {
+        setDisplayText(current.substring(0, charIndex - 1));
+        setCharIndex((prev) => prev - 1);
+        if (charIndex === 0) {
+          setIsDeleting(false);
+          setTextIndex((prev) => (prev + 1) % rotatingTexts.length);
+        }
+      }
+    }, typeSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [charIndex, isDeleting, textIndex]);
 
   const handleMouseMove = (e) => {
     if (containerRef.current) {
@@ -133,32 +142,17 @@ const Hero = () => {
             </span>
           </h1>
 
-          {/* Rotating Text */}
-          <div className="relative h-24 overflow-hidden">
-            <div
-              className="absolute inset-0 transition-transform duration-1000 ease-out"
-              style={{
-                transform: `translateY(-${currentText * 100}%) translateX(${mousePos.x * 0.1}px)`
-              }}
-            >
-              {rotatingTexts.map((item) => (
-                <div
-                  key={item.text}
-                  className="h-24 flex items-center justify-center text-4xl md:text-6xl font-semibold"
-                >
-                  <span className={`${item.color} transform transition-all duration-500 hover:scale-110`}>
-                    {item.text}
-                  </span>
-                </div>
-              ))}
-            </div>
+          {/* Typewriter Effect */}
+          <div className="relative h-24 text-4xl md:text-6xl font-semibold text-orange-400">
+            {displayText}
+            <span className="border-r-2 border-orange-400 animate-pulse ml-1" />
           </div>
         </div>
 
         {/* Description */}
         <div className={`max-w-5xl mx-auto mb-12 transition-all duration-2000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
           <p className="text-base md:text-lg text-gray-300 leading-relaxed font-light hover:text-white">
-            We deliver working systems, not prototypes — 200 hours and $150K saved, year after year.
+         We Don't Sell AI. We Sell Result
           </p>
         </div>
 
@@ -168,7 +162,7 @@ const Hero = () => {
             {rotatingTexts.map((_, index) => (
               <div
                 key={index}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentText ? 'bg-orange-400 w-6' : 'bg-gray-600'}`}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${index === textIndex ? 'bg-orange-400 w-6' : 'bg-gray-600'}`}
               />
             ))}
           </div>
