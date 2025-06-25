@@ -71,7 +71,7 @@ const TestimonialSection = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <p className="text-orange-400 text-sm uppercase tracking-wide mb-2">
+          <p className="text-gray-400 text-sm uppercase tracking-wide mb-2">
             Curious how people are using our AI platform
           </p>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">

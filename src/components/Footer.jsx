@@ -10,16 +10,14 @@ const Footer = () => {
       <div className="container grid grid-cols-1 md:grid-cols-5 gap-10">
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-              <img src="./src/assets/brainwave-symbol.svg" alt=" Logo" className="w-[100%] h-[100%]" />
-            </div>
-            <span className="text-lg font-semibold text-white">coolguyz</span>
+            
+            <span className="text-lg font-semibold text-orange-500">coolguyz</span>
           </div>
           <p className="text-sm text-n-4">Transforming businesses with AI intelligence.</p>
         </div>
 
         <div>
-          <h4 className="text-white mb-3 text-base">Product</h4>
+          <h4 className="text-orange-500 mb-3 text-base">Product</h4>
           <ul className="space-y-2 text-sm text-n-4">
             <li><a href="#">Features</a></li>
             <li><a href="#">Pricing</a></li>
@@ -29,7 +27,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h4 className="text-white mb-3 text-base">Company</h4>
+          <h4 className="text-orange-500 mb-3 text-base">Company</h4>
           <ul className="space-y-2 text-sm text-n-4">
             <li><a href="#">About</a></li>
             <li><a href="#">Blog</a></li>
@@ -39,7 +37,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h4 className="text-white mb-3 text-base">Support</h4>
+          <h4 className="text-orange-500 mb-3 text-base">Support</h4>
           <ul className="space-y-2 text-sm text-n-4">
             <li><a href="#">Help Center</a></li>
             <li><a href="#">Documentation</a></li>
@@ -49,7 +47,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h4 className="text-white mb-3 text-base">Subscribe to our newsletter</h4>
+          <h4 className="text-orange-500 mb-3 text-base">Subscribe to our newsletter</h4>
          
           <form
             onSubmit={(e) => {
@@ -65,7 +63,7 @@ const Footer = () => {
             />
             <button
               type="submit"
-              className="bg-white text-n-8 px-4 py-2 rounded hover:bg-gray-200 font-semibold transition"
+              className="bg-orange-300 text-n-8 px-4 py-2 rounded hover:bg-gray-200 font-semibold transition"
             >
               Subscribe
             </button>

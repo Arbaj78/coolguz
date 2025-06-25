@@ -2,8 +2,8 @@ import { useEffect, useState, useRef } from 'react';
 
 const BackgroundCircles = () => (
   <div className="absolute inset-0">
-    <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-600/5 rounded-full blur-3xl"></div>
-    <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-cyan-600/5 rounded-full blur-3xl"></div>
+    <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-orange-600/5 rounded-full blur-3xl"></div>
+    <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-amber-600/5 rounded-full blur-3xl"></div>
   </div>
 );
 
@@ -26,7 +26,7 @@ const Roadmap = () => {
       title: "Audit & Strategy",
       description: "We analyze your ops, map out inefficiencies, and define a high-ROI automation strategy.",
       result: "You get a clear AI roadmap.",
-      color: "purple-pink",
+      color: "amber-orange",
       icon: (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
@@ -40,7 +40,7 @@ const Roadmap = () => {
       title: "Build & Deploy",
       description: "We build your first automation and deploy fast, so you can start seeing value in days, not months.",
       result: "Immediate time savings.",
-      color: "blue-cyan",
+      color: "amber-orange",
       icon: (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="11" cy="11" r="8"/>
@@ -71,7 +71,7 @@ const Roadmap = () => {
       title: "Strategic Partnership",
       description: "You don't just get tech — you get an embedded AI strategist. We meet weekly to align, adapt, and scale.",
       result: "AI becomes part of how you think.",
-      color: "green-emerald",
+      color: "amber-orange",
       icon: (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="16,18 22,12 16,6"/>
@@ -83,10 +83,7 @@ const Roadmap = () => {
   ];
 
   const colorClasses = {
-    "purple-pink": "from-purple-600 to-pink-500",
-    "blue-cyan": "from-blue-600 to-cyan-500",
-    "amber-orange": "from-amber-500 to-orange-500",
-    "green-emerald": "from-green-500 to-emerald-600"
+    "amber-orange": "from-amber-500 to-orange-500"
   };
 
   useEffect(() => {
@@ -140,8 +137,8 @@ const Roadmap = () => {
         {isLoading && (
           <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
             <div className="relative w-16 h-16">
-              <div className="absolute w-16 h-16 border-4 border-transparent rounded-full border-t-purple-600 animate-spin"></div>
-              <div className="absolute w-16 h-16 border-4 border-transparent rounded-full border-t-cyan-500 animate-spin" style={{ animationDirection: 'reverse' }}></div>
+              <div className="absolute w-16 h-16 border-4 border-transparent rounded-full border-t-orange-500 animate-spin"></div>
+              <div className="absolute w-16 h-16 border-4 border-transparent rounded-full border-t-amber-500 animate-spin" style={{ animationDirection: 'reverse' }}></div>
             </div>
           </div>
         )}
@@ -154,19 +151,7 @@ const Roadmap = () => {
           <section className="py-0 px-4 relative">
             <div className="max-w-5xl mx-auto relative z-10">
               <header className="text-center mb-12 pt-12">
-                <div className="flex items-center justify-center gap-2 mb-3">
-                  <svg className="w-6 h-6 text-purple-400" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/>
-                    <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/>
-                    <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/>
-                    <path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/>
-                    <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/>
-                    <path d="M3.477 10.896a4 4 0 0 1 .585-.396"/>
-                    <path d="M19.938 10.5a4 4 0 0 1 .585.396"/>
-                    <path d="M6 18a4 4 0 0 1-1.967-.516"/>
-                    <path d="M19.967 17.484A4 4 0 0 1 18 18"/>
-                  </svg>
-                </div>
+                
                 <h1 className="text-3xl font-bold text-white mb-4">How It Works</h1>
                 <p className="text-base text-gray-300 max-w-2xl mx-auto leading-relaxed">
                   Our signature process is designed to deliver maximum value, fast.
@@ -176,9 +161,9 @@ const Roadmap = () => {
               <div className="relative">
                 {showTimeline && (
                   <>
-                    <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-purple-600 via-blue-600 to-cyan-500 rounded opacity-30"></div>
+                    <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-amber-500 to-orange-500 rounded opacity-30"></div>
                     <div 
-                      className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b from-purple-600 via-blue-600 to-cyan-500 rounded z-10"
+                      className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b from-amber-500 to-orange-500 rounded z-10"
                       style={{ height: `${progressPercentage}%`, transition: 'height 1s ease-out' }}
                     ></div>
                   </>
@@ -213,7 +198,7 @@ const Roadmap = () => {
                           visibleSteps.includes(step.id) ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0 scale-95'
                         }`}>
                           <div className={`rounded-lg border border-gray-700/50 bg-black/70 shadow-sm transition-all duration-500 hover:border-gray-600/50 ${
-                            activeStep === step.id ? 'bg-gray-900/90 border-purple-600/50 shadow-lg' : ''
+                            activeStep === step.id ? 'bg-gray-900/90 border-orange-600/50 shadow-lg' : ''
                           }`}>
                             <div className="p-6">
                               <div className="flex items-center gap-3 mb-4">
@@ -226,10 +211,10 @@ const Roadmap = () => {
                                 </div>
                                 <div className="flex-1">
                                   <div className="flex items-center gap-2 mb-1">
-                                    <span className="text-xs font-bold text-purple-400">{step.number}</span>
+                                    <span className="text-xs font-bold text-orange-400">{step.number}</span>
                                   </div>
                                   <h2 className={`text-lg font-bold text-white transition-colors duration-300 ${
-                                    activeStep === step.id ? 'group-hover:text-purple-300' : ''
+                                    activeStep === step.id ? 'group-hover:text-orange-300' : ''
                                   }`}>
                                     {step.title}
                                   </h2>
@@ -238,7 +223,7 @@ const Roadmap = () => {
                               <p className="text-sm text-gray-400 mb-4 leading-relaxed">
                                 {step.description}
                               </p>
-                              <div className="flex items-center gap-2 text-sm text-purple-300">
+                              <div className="flex items-center gap-2 text-sm text-orange-300">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                                 </svg>
