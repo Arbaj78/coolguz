@@ -9,7 +9,7 @@ const Hero = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const rotatingTexts = ['Agents', 'Automations', 'Employees'];
+  const rotatingTexts = ['Agents', 'Automaition', 'Employees'];
 
   useEffect(() => {
     setIsLoaded(true);
@@ -17,7 +17,7 @@ const Hero = () => {
 
   useEffect(() => {
     const current = rotatingTexts[textIndex];
-    let typeSpeed = isDeleting ? 70 : 130;
+    let typeSpeed = isDeleting ? 100 : 180; // Increased delay for slower typing
 
     const timeout = setTimeout(() => {
       if (!isDeleting) {
@@ -145,14 +145,14 @@ const Hero = () => {
           {/* Typewriter Effect */}
           <div className="relative h-24 text-4xl md:text-6xl font-semibold text-orange-400">
             {displayText}
-            <span className="border-r-2 border-orange-400 animate-pulse ml-1" />
+            {/* Removed the cursor element */}
           </div>
         </div>
 
         {/* Description */}
         <div className={`max-w-5xl mx-auto mb-12 transition-all duration-2000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
           <p className="text-base md:text-lg text-gray-300 leading-relaxed font-light hover:text-white">
-         We Don't Sell AI. We Sell Result
+            We Don't Sell AI. We Sell Results
           </p>
         </div>
 
