@@ -5,7 +5,7 @@ import Button from "./Button";
 import MenuSvg from "../assets/svg/MenuSvg";
 import { HamburgerMenu } from "./design/Header";
 import { useState, useEffect } from "react";
-import logo from "../assets/coolcompany.jpeg";
+import logo from "../assets/tesdfst.png";
 
 
 const Header = () => {

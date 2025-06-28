@@ -66,10 +66,24 @@ const Footer = () => {
   ];
 
   const socialIcons = [
-    { Icon: Twitter, color: "hover:bg-blue-400", name: "Twitter" },
-    { Icon: Facebook, color: "hover:bg-blue-600", name: "Facebook" },
-    { Icon: Instagram, color: "hover:bg-pink-500", name: "Instagram" },
-    { Icon: Linkedin, color: "hover:bg-blue-700", name: "LinkedIn" }
+    { 
+      Icon: Twitter, 
+      color: "hover:bg-blue-400", 
+      name: "Twitter",
+      link: "https://x.com/vasantaddy"
+    },
+    { 
+      Icon: Instagram, 
+      color: "hover:bg-pink-500", 
+      name: "Instagram",
+      link: "https://www.instagram.com/the_boring_ai_guy/"
+    },
+    { 
+      Icon: Linkedin, 
+      color: "hover:bg-blue-700", 
+      name: "LinkedIn",
+      link: "https://www.linkedin.com/in/basant-choudhary/"
+    }
   ];
 
   return (
@@ -117,39 +131,43 @@ const Footer = () => {
             
             {/* Contact Info */}
             <div className="space-y-4 pt-4">
-              <div className="flex items-center space-x-3 group">
+              <a 
+                href="mailto:Basant.choudharynz@gmail.com" 
+                className="flex items-center space-x-3 group"
+              >
                 <Mail className="w-5 h-5 text-orange-400 transform transition-all duration-300 group-hover:scale-110" />
                 <span className="text-gray-300 group-hover:text-white transition-colors duration-300">
-                  teamcoolguyz@gmail.com
+                  Basant.choudharynz@gmail.com
                 </span>
-              </div>
+              </a>
               
-              <div className="flex items-center space-x-3 group">
-                <Phone className="w-5 h-5 text-orange-400 transform transition-all duration-300 group-hover:scale-110" />
-                <span className="text-gray-300 group-hover:text-white transition-colors duration-300">
-                  +1 (555) 123-4567
-                </span>
-              </div>
-              
-              <div className="flex items-center space-x-3 group">
+              <a 
+                href="https://coolguyz.ai" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-3 group"
+              >
                 <Globe className="w-5 h-5 text-orange-400 transform transition-all duration-300 group-hover:scale-110" />
                 <span className="text-gray-300 group-hover:text-white transition-colors duration-300">
-                  www.coolguyz.ai
+                  coolguyz.ai
                 </span>
-              </div>
+              </a>
             </div>
 
             {/* Social Media */}
             <div className="pt-6">
               <h4 className="text-lg font-semibold text-orange-400 mb-4">Connect With Us</h4>
               <div className="flex space-x-3">
-                {socialIcons.map(({ Icon, color, name }, index) => (
-                  <div 
+                {socialIcons.map(({ Icon, color, name, link }, index) => (
+                  <a 
                     key={name}
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center cursor-pointer transform transition-all duration-300 hover:scale-110 hover:-translate-y-1 ${color} group border border-gray-700 hover:border-transparent`}
                   >
                     <Icon className="w-5 h-5 text-gray-300 transform transition-all duration-300 group-hover:text-white group-hover:rotate-12" />
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
