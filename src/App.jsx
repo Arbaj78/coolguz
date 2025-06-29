@@ -15,8 +15,8 @@ const App = () => {
         <Header />
         <Hero />
         <Collaboration />
-        <Roadmap/>
         <CompanyLogos/>
+        <Roadmap/>
         <Testimonil/>
         <Faq/>
         <Footer />
