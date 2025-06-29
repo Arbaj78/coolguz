@@ -65,7 +65,7 @@ const Footer = () => {
     }
   ];
 
-  const socialIcons = [
+   const socialIcons = [
     { 
       Icon: Twitter, 
       color: "hover:bg-blue-400", 
@@ -107,7 +107,7 @@ const Footer = () => {
       </div>
 
       {/* Main Content */}
-      <div className={`relative z-10 container mx-auto px-6 py-16 transform transition-all duration-1000 ${
+      <div className={`relative z-10 container mx-auto px-6 py-4 transform transition-all duration-1000 ${
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
       }`}>
         
@@ -129,7 +129,7 @@ const Footer = () => {
               Empowering your digital experience with cutting-edge solutions and seamless connectivity.
             </p>
             
-            {/* Contact Info */}
+             {/* Contact Info */}
             <div className="space-y-4 pt-4">
               <a 
                 href="mailto:Basant.choudharynz@gmail.com" 
@@ -158,16 +158,13 @@ const Footer = () => {
             <div className="pt-6">
               <h4 className="text-lg font-semibold text-orange-400 mb-4">Connect With Us</h4>
               <div className="flex space-x-3">
-                {socialIcons.map(({ Icon, color, name, link }, index) => (
-                  <a 
+                {socialIcons.map(({ Icon, color, name }, index) => (
+                  <div 
                     key={name}
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className={`w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center cursor-pointer transform transition-all duration-300 hover:scale-110 hover:-translate-y-1 ${color} group border border-gray-700 hover:border-transparent`}
                   >
                     <Icon className="w-5 h-5 text-gray-300 transform transition-all duration-300 group-hover:text-white group-hover:rotate-12" />
-                  </a>
+                  </div>
                 ))}
               </div>
             </div>
@@ -208,7 +205,7 @@ const Footer = () => {
         </div>
 
         {/* Newsletter Section */}
-        <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-lg rounded-xl p-8 border border-gray-700 mb-16">
+        <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-lg rounded-xl p-8 border border-gray-700">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="md:w-1/2">
               <h3 className="text-2xl font-bold text-white mb-3">

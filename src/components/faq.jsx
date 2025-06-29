@@ -80,8 +80,8 @@ const Faq = () => {
   };
 
   return (
-    <Section crosses id="faq">
-      <div className="min-h-screen bg-black relative overflow-hidden">
+    <Section customPaddings="py-0">
+      <div className="bg-black relative overflow-hidden">
         {/* Glow background bubbles */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-orange-600/10 rounded-full blur-3xl animate-pulse"></div>
@@ -92,7 +92,7 @@ const Faq = () => {
         {/* Grid background lines */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
 
-        <div className="relative z-10 container mx-auto px-6 py-20">
+        <div className="relative z-10 container mx-auto px-6">
           {/* Header */}
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-white via-orange-200 to-amber-200 bg-clip-text text-transparent mb-4 tracking-tight">
