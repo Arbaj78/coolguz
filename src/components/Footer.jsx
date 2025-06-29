@@ -65,7 +65,7 @@ const Footer = () => {
     }
   ];
 
-   const socialIcons = [
+  const socialIcons = [
     { 
       Icon: Twitter, 
       color: "hover:bg-blue-400", 
@@ -154,17 +154,20 @@ const Footer = () => {
               </a>
             </div>
 
-            {/* Social Media */}
+            {/* Social Media - Fixed Links */}
             <div className="pt-6">
               <h4 className="text-lg font-semibold text-orange-400 mb-4">Connect With Us</h4>
               <div className="flex space-x-3">
-                {socialIcons.map(({ Icon, color, name }, index) => (
-                  <div 
+                {socialIcons.map(({ Icon, color, name, link }) => (
+                  <a
                     key={name}
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center cursor-pointer transform transition-all duration-300 hover:scale-110 hover:-translate-y-1 ${color} group border border-gray-700 hover:border-transparent`}
                   >
                     <Icon className="w-5 h-5 text-gray-300 transform transition-all duration-300 group-hover:text-white group-hover:rotate-12" />
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
