@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Send, Phone, Twitter, Facebook, Instagram, Linkedin, ArrowUp, Zap, Star, Globe, HelpCircle, Shield, FileText, Code, Settings, BookOpen, Heart, Briefcase, PenTool } from 'lucide-react';
+import logo from "../assets/tesdfst.png";
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -117,12 +118,13 @@ const Footer = () => {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
-                <Zap className="w-5 h-5 text-white animate-pulse" />
-              </div>
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
-                coolguyz
-              </h2>
+               <a className="flex items-center w-fit xl:mr-8 hover:animate-pulse" href="#hero">
+                        <img 
+                           src={logo} 
+                          alt="Logo"  
+                          className="w-[150px] h-[50px] object-contain rounded-lg" // Adjusted logo size
+                        />
+                      </a>
             </div>
             
             <p className="text-gray-300 text-lg leading-relaxed">
