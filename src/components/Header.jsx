@@ -1,18 +1,15 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 import { navigation } from "../constants";
 import Button from "./Button";
 import MenuSvg from "../assets/svg/MenuSvg";
 import { HamburgerMenu } from "./design/Header";
 import { useState, useEffect } from "react";
-import logo from "../assets/tesdfst.png";
-
 
 const Header = () => {
   const pathname = useLocation();
   const [openNavigation, setOpenNavigation] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,6 +35,12 @@ const Header = () => {
     setOpenNavigation(false);
   };
 
+  const filteredNavigation = navigation.filter(item => 
+    !['testimonials', 'faq', 'roadmap', '3', '4'].includes(item.id) || item.id === 'contact'
+  );
+
+
+
   return (
     <div
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 rounded-b-2xl ${
@@ -51,9 +54,9 @@ const Header = () => {
       <div className="flex items-center px-5 lg:px-7.5 xl:px-10 max-lg:py-4">
         <a className="flex items-center w-fit xl:mr-8 hover:animate-pulse" href="#hero">
           <img 
-             src={logo} 
-            alt="Logo"  
-            className="w-[120px] h-[40px] object-contain rounded-lg" // Adjusted logo size
+            src="src/assets/tesdfst.png" 
+            alt="CoolGuyz Logo" 
+            className="w-[120px] h-[40px] object-contain rounded-lg"
           />
         </a>
 
@@ -63,49 +66,36 @@ const Header = () => {
           } fixed top-[5rem] left-0 right-0 bottom-0 bg-white lg:static lg:flex lg:mx-auto lg:bg-transparent`}
         >
           <div className="relative z-2 flex flex-col items-center justify-center m-auto lg:flex-row">
-            {navigation.map((item) => (
-              <a
+            {filteredNavigation.map((item) => (
+              <Link
                 key={item.id}
-                href={item.url}
-                onClick={handleClick}
+                to={item.url}
+                onClick={() => {
+                  if (item.url.startsWith('#')) {
+                    handleClick();
+                  } else {
+                    setOpenNavigation(false);
+                    enablePageScroll();
+                  }
+                }}
                 className={`block relative font-medium text-lg uppercase transition-colors hover:text-orange-500 ${
                   item.onlyMobile ? "lg:hidden" : ""
                 } px-6 py-6 md:py-8 lg:-mr-0.25 lg:text-sm ${
-                  item.url === pathname.hash
+                  (item.url === pathname.pathname || (item.url === '/' && pathname.pathname === '/'))
                     ? "text-orange-500 font-bold"
                     : "text-gray-700"
                 } lg:hover:text-orange-500 xl:px-12 animate-fade-in`}
               >
                 {item.title}
-                {item.url === pathname.hash && (
+                {item.url === pathname.pathname && (
                   <span className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-4 h-1 bg-orange-500 rounded-full lg:bottom-2"></span>
                 )}
-              </a>
+              </Link>
             ))}
           </div>
 
           <HamburgerMenu />
         </nav>
-
-        {/* Animated Work With Us Button */}
-        <a
-          href="#contact"
-          className="hidden lg:flex items-center justify-center relative overflow-hidden group"
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
-        >
-          <div className="relative z-10 px-6 py-3 bg-white border-2 border-black rounded-full font-medium text-black group-hover:text-white transition-all duration-300">
-            Work with us
-            <div className={`absolute inset-0 bg-orange-500 rounded-full z-0 transform origin-bottom ${
-              isHovering ? 'scale-y-100' : 'scale-y-0'
-            } transition-transform duration-300 ease-[cubic-bezier(0.65,0,0.35,1)]`}></div>
-          </div>
-          <div className="absolute -bottom-1 left-0 right-0 h-1 bg-black rounded-full overflow-hidden">
-            <div className={`h-full bg-orange-500 rounded-full ${
-              isHovering ? 'animate-progress' : ''
-            }`}></div>
-          </div>
-        </a>
 
         <Button
           className="ml-auto lg:hidden bg-black hover:bg-gray-800 text-white rounded-xl"
@@ -123,7 +113,7 @@ const Header = () => {
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         @keyframes pulse {
           0%, 100% { transform: scale(1); }
           50% { transform: scale(1.05); }
@@ -132,18 +122,11 @@ const Header = () => {
           from { opacity: 0; transform: translateY(-10px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes progress {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
         .animate-pulse {
           animation: pulse 2s infinite;
         }
         .animate-fade-in {
           animation: fade-in 0.3s ease-out forwards;
-        }
-        .animate-progress {
-          animation: progress 1.5s cubic-bezier(0.65, 0, 0.35, 1) infinite;
         }
       `}</style>
     </div>
