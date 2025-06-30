@@ -6,6 +6,7 @@ import MenuSvg from "../assets/svg/MenuSvg";
 import { HamburgerMenu } from "./design/Header";
 import { useState, useEffect } from "react";
 
+
 const Header = () => {
   const pathname = useLocation();
   const [openNavigation, setOpenNavigation] = useState(false);
@@ -54,7 +55,7 @@ const Header = () => {
       <div className="flex items-center px-5 lg:px-7.5 xl:px-10 max-lg:py-4">
         <a className="flex items-center w-fit xl:mr-8 hover:animate-pulse" href="#hero">
           <img 
-            src="src/assets/tesdfst.png" 
+            src="src/assets/logocool.png" 
             alt="CoolGuyz Logo" 
             className="w-[120px] h-[40px] object-contain rounded-lg"
           />

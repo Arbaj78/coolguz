@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Send, Phone, Twitter, Facebook, Instagram, Linkedin, ArrowUp, Zap, Star, Globe, HelpCircle, Shield, FileText, Code, Settings, BookOpen, Heart, Briefcase, PenTool } from 'lucide-react';
-import logo from "../assets/tesdfst.png";
+import logo from "../assets/logocool.png";
 
 const Footer = () => {
   const [email, setEmail] = useState('');
