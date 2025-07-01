@@ -5,7 +5,7 @@ import Button from "./Button";
 import MenuSvg from "../assets/svg/MenuSvg";
 import { HamburgerMenu } from "./design/Header";
 import { useState, useEffect } from "react";
-
+import logo from "../assets/logocool.png"; // ✅ imported logo correctly
 
 const Header = () => {
   const pathname = useLocation();
@@ -36,30 +36,27 @@ const Header = () => {
     setOpenNavigation(false);
   };
 
-  const filteredNavigation = navigation.filter(item => 
+  const filteredNavigation = navigation.filter(item =>
     !['testimonials', 'faq', 'roadmap', '3', '4'].includes(item.id) || item.id === 'contact'
   );
-
-
 
   return (
     <div
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 rounded-b-2xl ${
-        scrolled 
-          ? 'bg-white/95 shadow-md border-b border-orange-100' 
+        scrolled
+          ? 'bg-white/95 shadow-md border-b border-orange-100'
           : 'bg-gradient-to-b from-white to-white/90'
-      } ${
-        openNavigation ? "bg-white rounded-b-none" : ""
-      }`}
+      } ${openNavigation ? "bg-white rounded-b-none" : ""}`}
     >
       <div className="flex items-center px-5 lg:px-7.5 xl:px-10 max-lg:py-4">
-        <a className="flex items-center w-fit xl:mr-8 hover:animate-pulse" href="#hero">
+        {/* ✅ Updated logo link */}
+        <Link to="/" className="flex items-center w-fit xl:mr-8 hover:animate-pulse">
           <img 
-            src="src/assets/logocool.png" 
+            src={logo} 
             alt="CoolGuyz Logo" 
             className="w-[120px] h-[40px] object-contain rounded-lg"
           />
-        </a>
+        </Link>
 
         <nav
           className={`${
@@ -107,7 +104,6 @@ const Header = () => {
         </Button>
       </div>
 
-      {/* Mobile menu bottom rounded corners when open */}
       {openNavigation && (
         <div className="absolute bottom-0 left-0 right-0 h-4 bg-white">
           <div className="absolute bottom-0 left-0 right-0 h-full bg-white rounded-b-2xl"></div>
