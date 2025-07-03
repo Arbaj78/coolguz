@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Mail, MapPin, Clock, Phone } from 'lucide-react';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -10,42 +11,44 @@ const ContactPage = () => {
   });
   const [status, setStatus] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
-  const [typewriterText, setTypewriterText] = useState('');
-  const backendUrl = "http://localhost:3001/submit-contact";
+const backendUrl = import.meta.env.DEV
+  ? "http://localhost:3001/submit-contact"
+  : "https://coolguyzbackend.onrender.com/submit-contact";
+
+
+
+  // CSS styles for animations (from Collaboration)
+  const animationStyles = `
+    @keyframes dotMove {
+      0% { background-position: 0px 0px; }
+      100% { background-position: 15px 15px; }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.8; }
+    }
+    
+    .animated-dots::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: radial-gradient(circle, rgba(13, 71, 161, 0.3) 0.5px, transparent 0.5px);
+      background-size: 12px 12px;
+      animation: pulse 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+    
+    .dot-container {
+      animation: dotMove 8s linear infinite;
+    }
+  `;
 
   useEffect(() => {
     setIsLoaded(true);
-    
-    // Continuous typewriter effect
-    const text = "Get in Touch";
-    let index = 0;
-    let isDeleting = false;
-    
-    const typeWriter = () => {
-      if (!isDeleting && index <= text.length) {
-        setTypewriterText(text.slice(0, index));
-        index++;
-      } else if (isDeleting && index >= 0) {
-        setTypewriterText(text.slice(0, index));
-        index--;
-      }
-      
-      if (index === text.length + 1) {
-        setTimeout(() => {
-          isDeleting = true;
-        }, 2000); // Wait 2 seconds before deleting
-      }
-      
-      if (index === -1) {
-        isDeleting = false;
-        index = 0;
-      }
-      
-      const speed = isDeleting ? 100 : 150;
-      setTimeout(typeWriter, speed);
-    };
-    
-    typeWriter();
   }, []);
 
   const handleChange = (e) => {
@@ -73,101 +76,89 @@ const ContactPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setStatus('Sending...');
-
     try {
       const response = await fetch(backendUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`HTTP error! status: ${response.status}, Details: ${errorData.message || JSON.stringify(errorData)}`);
-      }
+      if (!response.ok) throw new Error('Network response was not ok');
+      
       setStatus('Message sent successfully!');
       setFormData({ name: '', email: '', mobile: '', address: '', message: '' });
     } catch (error) {
-      console.error('Error sending message:', error);
-      setStatus(`Error sending message. Details: ${error.message}. Please try again later.`);
+      console.error('Error:', error);
+      setStatus('Error sending message. Please try again later.');
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-300 via-blue-200 to-orange-400 relative overflow-hidden">
-      {/* Enhanced Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-200 via-orange-200 to-orange-500 opacity-80"></div>
+    <div className="relative overflow-hidden min-h-screen">
+      <style dangerouslySetInnerHTML={{ __html: animationStyles }} />
       
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-orange-600 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-orange-500 rounded-full mix-blend-multiply filter blur-xl opacity-25 animate-pulse" style={{ animationDelay: '4s' }}></div>
+      {/* Collaboration-inspired background */}
+      <div 
+        className="absolute inset-0 dot-container"
+        style={{
+          background: 'linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%)',
+          backgroundImage: 'radial-gradient(circle, rgba(13, 71, 161, 0.4) 0.8px, transparent 0.8px)',
+          backgroundSize: '15px 15px'
+        }}
+      >
+        <div className="animated-dots absolute inset-0"></div>
       </div>
 
-      {/* Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 bg-white rounded-full opacity-40 animate-bounce"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: `${3 + Math.random() * 4}s`
-            }}
-          ></div>
-        ))}
-      </div>
+      {/* Orange accent overlay (from Contact) */}
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-amber-500/10"></div>
 
       <div className="relative z-10 container mx-auto px-4 py-16">
         {/* Header */}
-        <div className={`text-center mb-16 transform transition-all duration-1000 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-black mb-4 drop-shadow-lg">
-            {typewriterText}<span className="animate-pulse">|</span>
-          </h1>
-          <div className="w-32 h-1 bg-gradient-to-r from-orange-600 to-orange-700 mx-auto rounded-full shadow-lg"></div>
+        <div className={`text-center mb-16 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="inline-flex items-center justify-center mb-4">
+            <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-amber-500 rounded-lg flex items-center justify-center shadow-lg shadow-orange-500/20">
+              <Mail className="w-5 h-5 text-white" />
+            </div>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
+            <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">
+              Get In Touch
+            </span>
+          </h2>
+          <p className="text-gray-700 max-w-md mx-auto text-base md:text-lg">
+            Have questions or want to collaborate? We'd love to hear from you.
+          </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* Contact Form */}
-          <div className={`lg:col-span-2 transform transition-all duration-1000 delay-300 ${isLoaded ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}>
-            <div className="backdrop-blur-xl bg-white bg-opacity-20 p-8 rounded-3xl border border-white border-opacity-30 shadow-2xl hover:shadow-orange-600 hover:shadow-opacity-20 transition-all duration-500 hover:bg-white hover:bg-opacity-30">
-              <h2 className="text-3xl font-bold text-white mb-8 drop-shadow-md">
-                Send us a message
-              </h2>
-              
-              <div className="space-y-6">
+          <div className={`lg:col-span-2 transition-all duration-1000 delay-200 ${isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+            <div className="bg-white rounded-xl p-8 shadow-lg border border-blue-100 hover:border-orange-300 transition-all">
+              <form className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div className="group">
-                    <label className="block text-white text-opacity-90 mb-2 font-medium drop-shadow-sm">Name</label>
+                  <div>
+                    <label className="block text-gray-700 mb-2 font-medium">Name</label>
                     <input
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-4 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-gray-800 placeholder-gray-600 focus:border-orange-600 focus:bg-white focus:bg-opacity-40 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-opacity-50 backdrop-blur-sm"
+                      className="w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all"
                       placeholder="Your Name"
                       required
                     />
                   </div>
-                  <div className="group">
-                    <label className="block text-white text-opacity-90 mb-2 font-medium drop-shadow-sm">Email</label>
+                  <div>
+                    <label className="block text-gray-700 mb-2 font-medium">Email</label>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-4 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-gray-800 placeholder-gray-600 focus:border-orange-600 focus:bg-white focus:bg-opacity-40 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-opacity-50 backdrop-blur-sm"
+                      className="w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all"
                       placeholder="your@email.com"
                       required
                     />
@@ -175,114 +166,118 @@ const ContactPage = () => {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div className="group">
-                    <label className="block text-white text-opacity-90 mb-2 font-medium drop-shadow-sm">Mobile</label>
+                  <div>
+                    <label className="block text-gray-700 mb-2 font-medium">Phone</label>
                     <input
                       type="tel"
                       name="mobile"
                       value={formData.mobile}
                       onChange={handleChange}
-                      className="w-full px-4 py-4 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-gray-800 placeholder-gray-600 focus:border-orange-600 focus:bg-white focus:bg-opacity-40 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-opacity-50 backdrop-blur-sm"
+                      className="w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all"
                       placeholder="1234567890"
                       required
                     />
                   </div>
-                  <div className="group">
-                    <label className="block text-white text-opacity-90 mb-2 font-medium drop-shadow-sm">Address</label>
+                  <div>
+                    <label className="block text-gray-700 mb-2 font-medium">Address</label>
                     <input
                       type="text"
                       name="address"
                       value={formData.address}
                       onChange={handleChange}
-                      className="w-full px-4 py-4 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-gray-800 placeholder-gray-600 focus:border-orange-600 focus:bg-white focus:bg-opacity-40 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-opacity-50 backdrop-blur-sm"
+                      className="w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all"
                       placeholder="Your Address"
                       required
                     />
                   </div>
                 </div>
 
-                <div className="group">
-                  <label className="block text-white text-opacity-90 mb-2 font-medium drop-shadow-sm">Message</label>
+                <div>
+                  <label className="block text-gray-700 mb-2 font-medium">Message</label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    rows={6}
-                    className="w-full px-4 py-4 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-xl text-gray-800 placeholder-gray-600 focus:border-orange-600 focus:bg-white focus:bg-opacity-40 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-opacity-50 resize-none backdrop-blur-sm"
-                    placeholder="Enter your message..."
+                    rows={5}
+                    className="w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all"
+                    placeholder="Your message..."
                     required
                   ></textarea>
                 </div>
 
                 <button
-                  type="submit"
                   onClick={handleSubmit}
                   disabled={status === 'Sending...'}
-                  className="w-full bg-gradient-to-r from-orange-600 to-orange-700 text-white py-4 px-8 rounded-xl font-semibold text-lg hover:from-orange-700 hover:to-orange-800 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-orange-600 hover:shadow-opacity-40 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                  className="w-full bg-gradient-to-r from-orange-500 to-amber-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-orange-600 hover:to-amber-600 transition-all shadow-md hover:shadow-lg disabled:opacity-70 flex items-center justify-center"
                 >
                   {status === 'Sending...' ? (
-                    <div className="flex items-center space-x-2">
-                      <div className="w-5 h-5 border-2 border-white border-opacity-30 border-t-white rounded-full animate-spin"></div>
-                      <span>Sending...</span>
-                    </div>
-                  ) : (
                     <>
-                      <span>Send Message</span>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Sending...
                     </>
+                  ) : (
+                    'Send Message'
                   )}
                 </button>
-              </div>
 
-              {status && status !== 'Sending...' && (
-                <div className={`mt-6 p-4 rounded-xl text-center font-medium transition-all duration-300 backdrop-blur-sm ${
-                  status.includes('successfully') 
-                    ? 'bg-green-500 bg-opacity-30 text-green-800 border border-green-500 border-opacity-50' 
-                    : 'bg-red-500 bg-opacity-30 text-red-800 border border-red-500 border-opacity-50'
-                }`}>
-                  {status}
-                </div>
-              )}
+                {status && !status.includes('Sending') && (
+                  <div className={`p-3 rounded-lg text-center ${status.includes('success') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                    {status}
+                  </div>
+                )}
+              </form>
             </div>
           </div>
 
-          {/* Contact Information */}
-          <div className={`transform transition-all duration-1000 delay-500 ${isLoaded ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
-            <div className="backdrop-blur-xl bg-white bg-opacity-20 p-8 rounded-3xl border border-white border-opacity-30 shadow-2xl hover:shadow-orange-600 hover:shadow-opacity-20 transition-all duration-500 hover:bg-white hover:bg-opacity-30 h-fit">
-              <h2 className="text-2xl font-bold text-white mb-8 drop-shadow-md">
-                Contact Info
-              </h2>
+          {/* Contact Info */}
+          <div className={`transition-all duration-1000 delay-400 ${isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+            <div className="bg-white rounded-xl p-8 shadow-lg border border-blue-100 h-full">
+              <h3 className="text-2xl font-bold text-gray-800 mb-6">Contact Information</h3>
               
-              <div className="space-y-8">
-                <div className="group hover:bg-white hover:bg-opacity-20 p-4 rounded-xl transition-all duration-300">
-                  <div className="flex items-start space-x-4">
-                    
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2 drop-shadow-sm">Email</h3>
-                      <p className="text-white text-opacity-80 hover:text-orange-600 transition-colors cursor-pointer">Teamcoolguyz@gmail.com</p>
-                      <p className="text-white text-opacity-80 hover:text-orange-600 transition-colors cursor-pointer">Basant.choudharynz@gmail.com</p>
-                    </div>
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4 group">
+                  <div className="mt-1 w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center group-hover:bg-orange-50 transition-all">
+                    <Mail className="w-5 h-5 text-blue-500 group-hover:text-orange-500" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-700">Email</h4>
+                    <p className="text-gray-600 hover:text-orange-600 transition-colors cursor-pointer">Teamcoolguyz@gmail.com</p>
+                    <p className="text-gray-600 hover:text-orange-600 transition-colors cursor-pointer">Basant.choudharynz@gmail.com</p>
                   </div>
                 </div>
 
-                <div className="group hover:bg-white hover:bg-opacity-20 p-4 rounded-xl transition-all duration-300">
-                  <div className="flex items-start space-x-4">
-                    
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2 drop-shadow-sm">Office</h3>
-                      <p className="text-white text-opacity-80">123 Main Street</p>
-                      <p className="text-white text-opacity-80">Anytown, USA 12345</p>
-                    </div>
+                <div className="flex items-start space-x-4 group">
+                  <div className="mt-1 w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center group-hover:bg-orange-50 transition-all">
+                    <MapPin className="w-5 h-5 text-blue-500 group-hover:text-orange-500" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-700">Office</h4>
+                    <p className="text-gray-600">123 Main Street</p>
+                    <p className="text-gray-600">Anytown, USA 12345</p>
                   </div>
                 </div>
 
-                <div className="group hover:bg-white hover:bg-opacity-20 p-4 rounded-xl transition-all duration-300">
-                  <div className="flex items-start space-x-4">
-                    
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2 drop-shadow-sm">Hours</h3>
-                      <p className="text-white text-opacity-80">Monday - Friday</p>
-                      <p className="text-white text-opacity-80">9:00 AM - 6:00 PM</p>
-                    </div>
+                <div className="flex items-start space-x-4 group">
+                  <div className="mt-1 w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center group-hover:bg-orange-50 transition-all">
+                    <Clock className="w-5 h-5 text-blue-500 group-hover:text-orange-500" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-700">Hours</h4>
+                    <p className="text-gray-600">Monday - Friday</p>
+                    <p className="text-gray-600">9:00 AM - 6:00 PM</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4 group">
+                  <div className="mt-1 w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center group-hover:bg-orange-50 transition-all">
+                    <Phone className="w-5 h-5 text-blue-500 group-hover:text-orange-500" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-700">Phone</h4>
+                    <p className="text-gray-600">+1 (555) 123-4567</p>
                   </div>
                 </div>
               </div>
