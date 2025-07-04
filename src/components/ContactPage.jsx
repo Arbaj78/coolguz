@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, MapPin, Clock, Phone } from 'lucide-react';
+import { Mail, Clock, Phone } from 'lucide-react';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -11,11 +11,9 @@ const ContactPage = () => {
   });
   const [status, setStatus] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
-const backendUrl = import.meta.env.DEV
-  ? "http://localhost:3001/submit-contact"
-  : "https://coolguyzbackend.onrender.com/submit-contact";
-
-
+  const backendUrl = import.meta.env.DEV
+    ? "http://localhost:3001/submit-contact"
+    : "https://coolguyzbackend.onrender.com/submit-contact";
 
   // CSS styles for animations (from Collaboration)
   const animationStyles = `
@@ -146,7 +144,7 @@ const backendUrl = import.meta.env.DEV
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all"
+                      className="w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-black"
                       placeholder="Your Name"
                       required
                     />
@@ -158,7 +156,7 @@ const backendUrl = import.meta.env.DEV
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all"
+                      className="w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-black"
                       placeholder="your@email.com"
                       required
                     />
@@ -173,7 +171,7 @@ const backendUrl = import.meta.env.DEV
                       name="mobile"
                       value={formData.mobile}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all"
+                      className="w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-black"
                       placeholder="1234567890"
                       required
                     />
@@ -185,7 +183,7 @@ const backendUrl = import.meta.env.DEV
                       name="address"
                       value={formData.address}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all"
+                      className="w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-black"
                       placeholder="Your Address"
                       required
                     />
@@ -199,7 +197,7 @@ const backendUrl = import.meta.env.DEV
                     value={formData.message}
                     onChange={handleChange}
                     rows={5}
-                    className="w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all"
+                    className="w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-black"
                     placeholder="Your message..."
                     required
                   ></textarea>
@@ -251,17 +249,6 @@ const backendUrl = import.meta.env.DEV
 
                 <div className="flex items-start space-x-4 group">
                   <div className="mt-1 w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center group-hover:bg-orange-50 transition-all">
-                    <MapPin className="w-5 h-5 text-blue-500 group-hover:text-orange-500" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-700">Office</h4>
-                    <p className="text-gray-600">123 Main Street</p>
-                    <p className="text-gray-600">Anytown, USA 12345</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4 group">
-                  <div className="mt-1 w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center group-hover:bg-orange-50 transition-all">
                     <Clock className="w-5 h-5 text-blue-500 group-hover:text-orange-500" />
                   </div>
                   <div>
@@ -271,15 +258,7 @@ const backendUrl = import.meta.env.DEV
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-4 group">
-                  <div className="mt-1 w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center group-hover:bg-orange-50 transition-all">
-                    <Phone className="w-5 h-5 text-blue-500 group-hover:text-orange-500" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-700">Phone</h4>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>
