@@ -1,7 +1,7 @@
 export const navigation = [
   { id: 'home', title: 'Home', url: '/' },
   { id: 'services', title: 'Services', url: '#services' },
-  { id: 'pricing', title: 'Pricing', url: '#pricing' },
+  { id: 'blog', title: 'Blog', url: '/blog' },
   { id: 'roadmap', title: 'Roadmap', url: '#roadmap' },
   { id: 'testimonials', title: 'Testimonials', url: '#testimonials' },
   { id: 'faq', title: 'FAQ', url: '#faq' },
