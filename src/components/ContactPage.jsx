@@ -11,9 +11,7 @@ const ContactPage = () => {
   });
   const [status, setStatus] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
-  const backendUrl = import.meta.env.DEV
-    ? "http://localhost:3001/submit-contact"
-    : "https://coolguyzbackend.onrender.com/submit-contact";
+  const url = "https://n8n.srv871973.hstgr.cloud/webhook-test/4a87efa8-a053-4b21-a5bb-84794faa5712"; // Updated URL variable
 
   // CSS styles for animations (from Collaboration)
   const animationStyles = `
@@ -78,7 +76,7 @@ const ContactPage = () => {
 
     setStatus('Sending...');
     try {
-      const response = await fetch(backendUrl, {
+      const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
