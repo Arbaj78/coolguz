@@ -10,6 +10,7 @@ import Hero from "./components/Hero";
 import Roadmap from "./components/Roadmap";
 import Testimonil from "./components/Testimonil";
 import BlogSection from './components/BlogSection';
+import LinkedinAgent from './components/LinkedinAgent';
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/blog" element={<BlogSection />} /> {/* `BlogSection` is still rendered on the /blog route */}
           
           <Route path="/contact" element={<ContactPage />} />
+           <Route path="/linkedin-agent" element={<LinkedinAgent />} />
         </Routes>
         <Footer />
       </div>
