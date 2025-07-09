@@ -11,7 +11,7 @@ const ContactPage = () => {
   });
   const [status, setStatus] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
-  const url = "https://n8n.srv871973.hstgr.cloud/webhook/4a87efa8-a053-4b21-a5bb-84794faa5712"; // Updated URL variable
+  const url = "https://n8n.srv871973.hstgr.cloud/webhook/contact-page"; // Updated URL variable
 
   // CSS styles for animations (from Collaboration)
   const animationStyles = `
