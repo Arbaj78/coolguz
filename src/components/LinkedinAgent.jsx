@@ -1,19 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const LinkedinAgent = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: ''
-  });
+  const [formData, setFormData] = useState({ name: '', email: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const popupRef = useRef(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -26,74 +21,47 @@ const LinkedinAgent = () => {
     }
 
     setIsLoading(true);
+    const webhookId = Math.floor(10000000 + Math.random() * 90000000).toString();
 
     try {
       const response = await fetch('https://n8n.srv871973.hstgr.cloud/webhook/redirect_url', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          Accept: 'application/json',
         },
-        body: JSON.stringify({ 
-          name: formData.name.trim(), 
-          email: formData.email.trim() 
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          webhookId,
         }),
       });
 
-      // First check if we got any response at all
-      if (!response) {
-        throw new Error('No response from server');
-      }
-
-      // Clone the response to read it multiple times if needed
+      if (!response) throw new Error('No response from server');
       const responseClone = response.clone();
-      
-      // First try to parse as JSON
+
       try {
         const data = await response.json();
-        console.log("Response data:", data);
-        
-        if (data.link) {
-          // Try popup first
-          const popup = window.open(
-            '',
-            'authPopup',
-            'width=500,height=600,menubar=no,toolbar=no,location=no,status=no,resizable=no,scrollbars=no'
-          );
-          
-          if (popup) {
-            popup.location.href = data.link;
-          } else {
-            // Fallback to regular redirect
-            window.location.href = data.link;
-          }
-          return;
+        if (data.link && data.link.startsWith('http')) {
+          openPopup(data.link, webhookId);
         } else {
           throw new Error('No redirect link in response');
         }
-      } catch (jsonError) {
-        console.log("JSON parse failed, trying as text");
-        // If JSON parse fails, try reading as text
+      } catch {
         const textResponse = await responseClone.text();
-        console.log("Text response:", textResponse);
-        
-        // Try to see if it's JSON but with wrong headers
         try {
           const possibleJson = JSON.parse(textResponse);
           if (possibleJson.link) {
-            window.open(possibleJson.link, 'authPopup');
+            openPopup(possibleJson.link, webhookId);
             return;
           }
-        } catch (e) {
-          // Not JSON
-        }
-        
-        // Check if text is a URL
+        } catch {}
+
         if (textResponse.startsWith('http')) {
-          window.open(textResponse, 'authPopup');
+          openPopup(textResponse, webhookId);
           return;
         }
-        
+
         throw new Error(`Unexpected response: ${textResponse}`);
       }
     } catch (error) {
@@ -103,6 +71,62 @@ const LinkedinAgent = () => {
       setIsLoading(false);
     }
   };
+
+  const openPopup = (link, webhookId) => {
+    const popup = window.open(
+      '',
+      'authPopup',
+      'width=500,height=600,menubar=no,toolbar=no,location=no,status=no,resizable=no,scrollbars=no'
+    );
+
+    if (popup) {
+      popup.location.href = link;
+      popupRef.current = popup;
+      startPolling(webhookId);
+    } else {
+      window.location.href = link;
+    }
+  };
+
+  const startPolling = (id) => {
+    let attempts = 0;
+    const maxAttempts = 20;
+
+    const pollInterval = setInterval(async () => {
+      attempts++;
+      if (attempts > maxAttempts) {
+        clearInterval(pollInterval);
+        setError('Login timed out. Please try again.');
+        if (popupRef.current) popupRef.current.close();
+        return;
+      }
+
+      try {
+        const response = await fetch(`https://your-backend-url.onrender.com/webhook-status/${id}`);
+        const data = await response.json();
+
+        if (data.received) {
+          clearInterval(pollInterval);
+          if (popupRef.current) {
+            popupRef.current.close();
+            popupRef.current = null;
+          }
+          console.log('Webhook received, popup closed.');
+        }
+      } catch (error) {
+        console.error('Polling error:', error);
+        clearInterval(pollInterval);
+      }
+    }, 3000);
+  };
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (popupRef.current) popupRef.current.close();
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#ffb477] flex flex-col items-center justify-center p-4">
@@ -116,38 +140,32 @@ const LinkedinAgent = () => {
 
       <div className="bg-[#f77f27] p-8 rounded-xl shadow-2xl w-full max-w-md">
         <h2 className="text-white text-2xl font-bold text-center mb-6">LinkedIn Agent</h2>
-        
+
         {error && (
           <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
             {error}
           </div>
         )}
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your Name"
-              required
-              className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ffb477] text-center"
-            />
-          </div>
-          
-          <div>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Your Email"
-              required
-              className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ffb477] text-center"
-            />
-          </div>
-          
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Your Name"
+            required
+            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ffb477] text-center"
+          />
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Your Email"
+            required
+            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ffb477] text-center"
+          />
           <button
             type="submit"
             disabled={isLoading}
