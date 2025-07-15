@@ -12,6 +12,7 @@ import Testimonil from "./components/Testimonil";
 import LinkedinAgent from './components/LinkedinAgent';
 import AITechBlog from './components/AITechBlog';
 import AboutPage from './components/AboutPage';
+import SubscribePage from './components/SubscribePage';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
             </>
           } />
 
+          <Route path="/subscribe" element={<SubscribePage />} />
           <Route path="/blog" element={<AITechBlog />} /> {/* `BlogSection` is still rendered on the /blog route */}
            <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />

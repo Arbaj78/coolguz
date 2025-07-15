@@ -7,10 +7,12 @@ import { HamburgerMenu } from "./design/Header";
 import { useState, useEffect } from "react";
 import logo from "../assets/logocool.png"; // ✅ imported logo correctly
 
+
 const Header = () => {
   const pathname = useLocation();
   const [openNavigation, setOpenNavigation] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,52 +53,74 @@ const Header = () => {
       <div className="flex items-center justify-between px-5 lg:px-7.5 xl:px-10 max-lg:py-4">
         <a className="flex items-center w-fit hover:animate-pulse" href="#hero">
           <img 
-            src={logo} 
+          src={logo} 
             alt="CoolGuyz Logo" 
             className="w-[120px] h-[40px] object-contain rounded-lg"
           />
         </a>
 
-        {/* Hamburger Menu Only - No Header Navigation */}
-        <div className="relative">
-          <Button
-            className="bg-black hover:bg-gray-800 text-white rounded-xl"
-            px="px-3"
-            onClick={toggleNavigation}
+        <div className="flex items-center gap-4">
+          {/* Animated Subscribe Button */}
+          <Link 
+            to="/subscribe"
+            className={`relative px-4 py-2 rounded-lg font-medium text-white 
+              bg-gradient-to-r from-orange-400 to-orange-600
+              transition-all duration-300
+              ${isHovered ? 'shadow-lg scale-105' : 'shadow-md'}
+              overflow-hidden group
+            `}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
-            <MenuSvg openNavigation={openNavigation} color="white" />
-          </Button>
+            <span className="relative z-10">Subscribe</span>
+            {/* Animated background effect */}
+            <span className={`absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-700 
+              opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg
+              ${isHovered ? 'animate-pulse' : ''}`}
+            />
+          </Link>
 
-          {/* Compact Dropdown Menu */}
-          <div
-            className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-orange-100 ring-1 ring-black ring-opacity-5 transition-all duration-200 ${
-              openNavigation 
-                ? "opacity-100 translate-y-0 visible" 
-                : "opacity-0 -translate-y-2 invisible"
-            }`}
-          >
-            <div className="py-1">
-              {filteredNavigation.map((item) => (
-                <Link
-                  key={item.id}
-                  to={item.url}
-                  onClick={() => {
-                    if (item.url.startsWith('#')) {
-                      handleClick();
-                    } else {
-                      setOpenNavigation(false);
-                      enablePageScroll();
-                    }
-                  }}
-                  className={`block px-4 py-2 text-sm uppercase font-medium ${
-                    item.url === pathname.pathname || (item.url === '/' && pathname.pathname === '/')
-                      ? "bg-orange-200 text-black font-bold"
-                      : "text-gray-700 hover:bg-orange-50"
-                  }`}
-                >
-                  {item.title}
-                </Link>
-              ))}
+          {/* Hamburger Menu */}
+          <div className="relative">
+            <Button
+              className="bg-black hover:bg-gray-800 text-white rounded-xl"
+              px="px-3"
+              onClick={toggleNavigation}
+            >
+              <MenuSvg openNavigation={openNavigation} color="white" />
+            </Button>
+
+            {/* Compact Dropdown Menu */}
+            <div
+              className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-orange-100 ring-1 ring-black ring-opacity-5 transition-all duration-200 ${
+                openNavigation 
+                  ? "opacity-100 translate-y-0 visible" 
+                  : "opacity-0 -translate-y-2 invisible"
+              }`}
+            >
+              <div className="py-1">
+                {filteredNavigation.map((item) => (
+                  <Link
+                    key={item.id}
+                    to={item.url}
+                    onClick={() => {
+                      if (item.url.startsWith('#')) {
+                        handleClick();
+                      } else {
+                        setOpenNavigation(false);
+                        enablePageScroll();
+                      }
+                    }}
+                    className={`block px-4 py-2 text-sm uppercase font-medium ${
+                      item.url === pathname.pathname || (item.url === '/' && pathname.pathname === '/')
+                        ? "bg-orange-200 text-black font-bold"
+                        : "text-gray-700 hover:bg-orange-50"
+                    }`}
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>
