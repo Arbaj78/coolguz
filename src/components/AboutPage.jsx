@@ -212,11 +212,11 @@ const AboutPage = () => {
       </section>
 
       {/* Section 2: Stats with counter animation */}
-      <section className="py-20 px-4 bg-gray-50">
+      <section className="py-20 px-4 bg-black">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center p-8 bg-white rounded-xl shadow-lg transform hover:scale-105 hover:shadow-2xl transition-all duration-300 hover:rotate-1 group">
+              <div key={index} className="text-center p-8 bg-orange-200 rounded-xl shadow-lg transform hover:scale-105 hover:shadow-2xl transition-all duration-300 hover:rotate-1 group">
                 <div className="flex justify-center mb-4 group-hover:animate-bounce">
                   {stat.icon}
                 </div>
