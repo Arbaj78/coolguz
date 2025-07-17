@@ -1,16 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import basant from '../assets/basantJi.jpg';
 
 const SubscribePage = () => {
-  const handleSubmit = (e) => {
+  const [status, setStatus] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const emailInput = e.target.email;
-    if (emailInput.validity.valid) {
-      alert('Thank you for subscribing with ' + emailInput.value.trim() + '!');
-      emailInput.value = '';
-    } else {
-      alert('Please enter a valid email address.');
+    const email = emailInput.value.trim();
+
+    if (!emailInput.validity.valid) {
+      setStatus('❌ Please enter a valid email address.');
       emailInput.focus();
+      return;
+    }
+
+    setLoading(true);
+    setStatus('');
+
+    try {
+      const response = await fetch("https://n8n.srv871973.hstgr.cloud/webhook/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email })
+      });
+
+      if (response.ok) {
+        setStatus(`✅ Thank you for subscribing with ${email}!`);
+        emailInput.value = '';
+      } else {
+        setStatus('❌ Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting subscription:', error);
+      setStatus('❌ Network error. Please try again later.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -29,7 +57,7 @@ const SubscribePage = () => {
             className="w-40 h-40 object-cover bg-[#ff6600] block"
             src={basant}
             alt="basant"
-                      />
+          />
         </div>
         
         <h1 className="font-bold text-[1.6rem] mt-4 mb-1 text-[#000000dd]">How to AI</h1>
@@ -57,10 +85,17 @@ const SubscribePage = () => {
           <button 
             type="submit"
             className="bg-[#ff6600] text-white border-none font-bold px-4 cursor-pointer text-base transition-all duration-300 hover:bg-[#e65c00] focus:bg-[#e65c00] whitespace-nowrap shrink-0"
+            disabled={loading}
           >
-            Subscribe
+            {loading ? 'Subscribing...' : 'Subscribe'}
           </button>
         </form>
+
+        {status && (
+          <p className={`text-sm mt-2 ${status.startsWith('✅') ? 'text-green-600' : 'text-red-600'}`}>
+            {status}
+          </p>
+        )}
       </main>
     </div>
   );
