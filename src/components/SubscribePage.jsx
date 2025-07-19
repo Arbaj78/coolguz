@@ -61,8 +61,8 @@ const SubscribePage = () => {
           />
         </div>
 
-        <h1 className="font-bold text-[1.6rem] mt-4 mb-1 text-[#000000dd]">How to AI</h1>
-        <p className="font-normal text-base text-[#444444cc] my-0 mb-1">Master 'How to AI' with English, not code.</p>
+        <h1 className="font-bold text-[1.6rem] mt-4 mb-1 text-[#000000dd]">The AI Playbook</h1>
+        <p className="font-normal text-base text-[#444444cc] my-0 mb-1">Master AI. Stay ahead. Build what’s next</p>
         <p className="text-sm text-[#444444bb] my-0 mb-6 w-full">
           By <strong className="font-bold text-black">Basant Choudhary</strong> · Over 10,000 subscribers
         </p>
