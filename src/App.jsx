@@ -10,7 +10,8 @@ import Hero from "./components/Hero";
 import Roadmap from "./components/Roadmap";
 import Testimonil from "./components/Testimonil";
 import LinkedinAgent from './components/LinkedinAgent';
-import BlogPage from './components/BlogPage';
+import BlogPosts from './components/BlogPosts';
+import SinglePost from './components/SinglePost';
 import AboutPage from './components/AboutPage';
 import SubscribePage from './components/SubscribePage';
 
@@ -32,7 +33,9 @@ const App = () => {
           } />
 
           <Route path="/subscribe" element={<SubscribePage />} />
-          <Route path="/blog" element={<BlogPage />} /> {/* `BlogSection` is still rendered on the /blog route */}
+          
+           <Route path="/blog" element={<BlogPosts />} /> 
+           <Route path="/blog/:slug" element={<SinglePost />} />
            <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
            <Route path="/linkedin-agent" element={<LinkedinAgent />} />

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import basant from '../assets/basantJi.jpg'; // इमेज इम्पोर्ट जैसा था वैसा ही रखा गया है
+import { useNavigate } from 'react-router-dom'; // <-- ✅ Step 1
+import basant from '../assets/basantJi.jpg';
 
 const SubscribePage = () => {
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); // <-- ✅ Step 2
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +33,11 @@ const SubscribePage = () => {
       if (response.ok) {
         setStatus(`✅ Thank you for subscribing with ${email}!`);
         emailInput.value = '';
+
+        // ✅ Redirect to blog page after short delay (1.5 seconds)
+        setTimeout(() => {
+          navigate('/blog'); // change '/blog' if your route is different
+        }, 1500);
       } else {
         setStatus('❌ Something went wrong. Please try again.');
       }
@@ -44,19 +51,14 @@ const SubscribePage = () => {
 
   return (
     <div className="min-h-screen bg-white font-sans text-[#000000cc] grid place-items-center p-12 px-4">
-      <main
-        // मुख्य कंटेनर की अधिकतम चौड़ाई बढ़ाई गई है
-        className="container max-w-[450px] w-full text-center"
-        role="main"
-        aria-label="Subscribe to How to AI newsletter"
-      >
+      <main className="container max-w-[450px] w-full text-center" role="main">
         <div
           className="outline outline-3 outline-[#000000dd] inline-block rounded-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-[#ff660055] hover:scale-105"
           aria-hidden="true"
         >
           <img
             className="w-40 h-40 object-cover bg-[#ff6600] block"
-            src={basant} // इमेज सोर्स जैसा था वैसा ही रखा गया है
+            src={basant}
             alt="basant"
           />
         </div>
@@ -77,8 +79,6 @@ const SubscribePage = () => {
             type="email"
             id="email"
             name="email"
-            // इनपुट की न्यूनतम चौड़ाई बढ़ाई गई है ताकि टेक्स्ट पूरी तरह दिखे
-            // ईमेल फ़ॉन्ट का आकार 'text-base' से 'text-sm' में बदला गया है
             className="flex-grow w-full py-2.5 px-4 text-sm border-none outline-offset-2 text-[#e3d7d7] focus:outline focus:outline-3 focus:outline-[#ff6600] min-w-[200px]"
             aria-label="Email address"
             placeholder="Type your email..."
