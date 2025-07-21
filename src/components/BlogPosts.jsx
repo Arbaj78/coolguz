@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { client } from "../client";
 import { FaSearch } from "react-icons/fa";
+import { urlFor } from "../imageUrlBuilder"; // ✅ Import image builder
 
 const BlogPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -15,6 +16,7 @@ const BlogPosts = () => {
         publishedAt,
         mainImage {
           asset-> {
+            _id,
             url
           },
           alt
@@ -55,9 +57,9 @@ const BlogPosts = () => {
               to={`/blog/${post.slug.current}`}
               className="block bg-white border-2 border-black rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
             >
-              {post.mainImage?.asset?.url && (
+              {post.mainImage && (
                 <img
-                  src={post.mainImage.asset.url}
+                  src={urlFor(post.mainImage).width(600).height(400).url()}
                   alt={post.mainImage.alt || post.title}
                   className="w-full h-60 object-cover"
                 />

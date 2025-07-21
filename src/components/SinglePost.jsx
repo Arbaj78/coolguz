@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { client } from '../client';
-import BlockContent from '@sanity/block-content-to-react';
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { client } from "../client";
+import BlockContent from "@sanity/block-content-to-react";
+import { urlFor } from "../imageUrlBuilder"; // ✅ Import image builder
 
 const SinglePost = () => {
   const [singlePost, setSinglePost] = useState(null);
@@ -14,8 +15,8 @@ const SinglePost = () => {
         `*[slug.current == "${slug}"]{
           title,
           body,
-          mainImage{
-            asset->{
+          mainImage {
+            asset-> {
               _id,
               url
             },
@@ -59,11 +60,11 @@ const SinglePost = () => {
         {singlePost.title}
       </h1>
 
-      {/* Image */}
-      {singlePost.mainImage?.asset?.url && (
+      {/* Main Image */}
+      {singlePost.mainImage && (
         <img
-          src={singlePost.mainImage.asset.url}
-          alt={singlePost.mainImage.alt || 'Blog cover'}
+          src={urlFor(singlePost.mainImage).width(1200).url()}
+          alt={singlePost.mainImage.alt || "Blog cover"}
           className="w-full max-h-[500px] object-cover rounded-lg mb-8 shadow-md"
         />
       )}
@@ -74,6 +75,17 @@ const SinglePost = () => {
           blocks={singlePost.body}
           projectId="buvouatw"
           dataset="production"
+          serializers={{
+            types: {
+              image: ({ node }) => (
+                <img
+                  src={urlFor(node).width(800).url()}
+                  alt={node.alt || "Blog Image"}
+                  className="my-6 rounded shadow-lg"
+                />
+              ),
+            },
+          }}
         />
       </div>
 
