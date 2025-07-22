@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "start-all": "pm2 start backend-webhook/server.js --name backend-webhook -f --watch --env production",
     "frontend-dev": "npm run dev",
-      "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@portabletext/react": "^3.2.1",
