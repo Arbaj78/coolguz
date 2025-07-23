@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Send, Phone, Twitter, Facebook, Instagram, Linkedin, ArrowUp, Zap, Star, Globe, HelpCircle, Shield, FileText, Code, Settings, BookOpen, Heart, Briefcase, PenTool } from 'lucide-react';
-import logo from "../assets/logocool.png";
+import logo from "../assets/logo-white.svg";
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -122,7 +122,7 @@ const Footer = () => {
                         <img 
                            src={logo} 
                           alt="Logo"  
-                          className="w-[150px] h-[50px] object-contain rounded-lg" // Adjusted logo size
+                          className="w-[100px] h-[50px] object-contain rounded-lg" // Adjusted logo size
                         />
                       </a>
             </div>
@@ -144,14 +144,14 @@ const Footer = () => {
               </a>
               
               <a 
-                href="https://coolguyz.ai" 
+                href="https://fatcamel.ai" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center space-x-3 group"
               >
                 <Globe className="w-5 h-5 text-orange-400 transform transition-all duration-300 group-hover:scale-110" />
                 <span className="text-gray-300 group-hover:text-white transition-colors duration-300">
-                  coolguyz.ai
+                  fatcamel.ai
                 </span>
               </a>
             </div>
@@ -256,7 +256,7 @@ const Footer = () => {
         {/* Bottom Footer */}
         <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between">
           <p className="text-gray-400 text-sm flex items-center gap-1">
-            © {new Date().getFullYear()} coolguyz. All rights reserved.
+            © {new Date().getFullYear()} fatcamel. All rights reserved.
           </p>
           
           <div className="flex items-center space-x-6 mt-4 md:mt-0">

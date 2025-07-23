@@ -24,7 +24,7 @@ const Faq = () => {
   const getIconForQuestion = (question) => {
     const lowerQuestion = question.toLowerCase();
     
-    if (lowerQuestion.includes('why') || lowerQuestion.includes('coolguyz')) return Rocket;
+    if (lowerQuestion.includes('why') || lowerQuestion.includes('fatcamel')) return Rocket;
     if (lowerQuestion.includes('charge') || lowerQuestion.includes('price')) return DollarSign;
     if (lowerQuestion.includes('process') || lowerQuestion.includes('work')) return Workflow;
     if (lowerQuestion.includes('tool') || lowerQuestion.includes('integrat')) return Link;
@@ -41,7 +41,7 @@ const Faq = () => {
   const faqs = [
     {
       id: 1,
-      question: "Why Coolguyz for AI?",
+      question: "Why fatcamel for AI?",
       answer: "We don't just build agents. We deliver real business outcomes, fast."
     },
     {

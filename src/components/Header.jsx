@@ -3,23 +3,37 @@ import { disablePageScroll, enablePageScroll } from "scroll-lock";
 import { navigation } from "../constants";
 import Button from "./Button";
 import MenuSvg from "../assets/svg/MenuSvg";
-import { HamburgerMenu } from "./design/Header";
-import { useState, useEffect } from "react";
-import logo from "../assets/logocool.png"; // ✅ imported logo correctly
-
+import { useState, useEffect, useRef } from "react";
+import logo from "../assets/logo-dark.svg";
 
 const Header = () => {
   const pathname = useLocation();
   const [openNavigation, setOpenNavigation] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [visible, setVisible] = useState(true); // 👈 for show/hide header
+
+  const lastScrollY = useRef(0); // 👈 store last scroll position
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      const currentScrollY = window.scrollY;
+
+      // Header background
+      setScrolled(currentScrollY > 10);
+
+      // Show/hide on scroll direction
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        setVisible(false); // scrolling down → hide
+      } else {
+        setVisible(true); // scrolling up → show
+      }
+
+      lastScrollY.current = currentScrollY;
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleNavigation = () => {
@@ -38,49 +52,47 @@ const Header = () => {
     setOpenNavigation(false);
   };
 
-  const filteredNavigation = navigation.filter(item => 
-    ['home', 'About', 'blog', 'contact'].includes(item.id)
+  const filteredNavigation = navigation.filter((item) =>
+    ["home", "About", "blog", "contact"].includes(item.id)
   );
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 rounded-b-2xl ${
-        scrolled 
-          ? 'bg-white/95 shadow-md border-b border-orange-100' 
-          : 'bg-gradient-to-b from-white to-white/90'
-      }`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 transform
+        ${scrolled ? "bg-white/95 shadow-md border-b border-orange-100" : "bg-gradient-to-b from-white to-white/90"}
+        ${visible ? "translate-y-0" : "-translate-y-full"}
+        rounded-b-2xl`}
+      style={{ paddingTop: "0", paddingBottom: "0" }}
     >
-      <div className="flex items-center justify-between px-5 lg:px-7.5 xl:px-10 max-lg:py-4">
+      <div className="flex items-center justify-between px-2 lg:px-4 xl:px-6 py-0 h-20">
         <a className="flex items-center w-fit hover:animate-pulse" href="#hero">
-          <img 
-          src={logo} 
-            alt="CoolGuyz Logo" 
-            className="w-[120px] h-[40px] object-contain rounded-lg"
+          <img
+            src={logo}
+            alt="fatcamel Logo"
+            className="w-[100px] h-[50px] object-contain rounded-lg"
           />
         </a>
 
         <div className="flex items-center gap-4">
-          {/* Animated Subscribe Button */}
-          <Link 
+          <Link
             to="/subscribe"
             className={`relative px-4 py-2 rounded-lg font-medium text-white 
               bg-gradient-to-r from-orange-400 to-orange-600
               transition-all duration-300
-              ${isHovered ? 'shadow-lg scale-105' : 'shadow-md'}
+              ${isHovered ? "shadow-lg scale-105" : "shadow-md"}
               overflow-hidden group
             `}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
             <span className="relative z-10">Subscribe</span>
-            {/* Animated background effect */}
-            <span className={`absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-700 
+            <span
+              className={`absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-700 
               opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg
-              ${isHovered ? 'animate-pulse' : ''}`}
+              ${isHovered ? "animate-pulse" : ""}`}
             />
           </Link>
 
-          {/* Hamburger Menu */}
           <div className="relative">
             <Button
               className="bg-black hover:bg-gray-800 text-white rounded-xl"
@@ -90,11 +102,10 @@ const Header = () => {
               <MenuSvg openNavigation={openNavigation} color="white" />
             </Button>
 
-            {/* Compact Dropdown Menu */}
             <div
               className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-orange-100 ring-1 ring-black ring-opacity-5 transition-all duration-200 ${
-                openNavigation 
-                  ? "opacity-100 translate-y-0 visible" 
+                openNavigation
+                  ? "opacity-100 translate-y-0 visible"
                   : "opacity-0 -translate-y-2 invisible"
               }`}
             >
@@ -104,7 +115,7 @@ const Header = () => {
                     key={item.id}
                     to={item.url}
                     onClick={() => {
-                      if (item.url.startsWith('#')) {
+                      if (item.url.startsWith("#")) {
                         handleClick();
                       } else {
                         setOpenNavigation(false);
@@ -112,7 +123,8 @@ const Header = () => {
                       }
                     }}
                     className={`block px-4 py-2 text-sm uppercase font-medium ${
-                      item.url === pathname.pathname || (item.url === '/' && pathname.pathname === '/')
+                      item.url === pathname.pathname ||
+                      (item.url === "/" && pathname.pathname === "/")
                         ? "bg-orange-200 text-black font-bold"
                         : "text-gray-700 hover:bg-orange-50"
                     }`}
@@ -128,8 +140,12 @@ const Header = () => {
 
       <style jsx>{`
         @keyframes pulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.05); }
+          0%, 100% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.05);
+          }
         }
         .animate-pulse {
           animation: pulse 2s infinite;
