@@ -1,31 +1,37 @@
-name: Generate a build and push to another branch
+name: Build and Deploy to GitHub Pages
 permissions:
   contents: write
 
 on:
   push:
     branches:
-      - main # Trigger on pushes to main branch
+      - main  # Trigger on push to main branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build and Push
+    name: Build and Push to gh-pages
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
+      - name: Build Vite project
         run: npm run build
 
-      - name: Push build folder to build branch
+      - name: Deploy to gh-pages branch
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: self
-          BRANCH: build
-          FOLDER: dist # ⚠️ Vite builds into `dist` folder
+          BRANCH: gh-pages       # 🔁 Deploy to gh-pages instead of build
+          FOLDER: dist           # ⚠️ Vite build output folder
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Build: ({sha}) {msg}"
+          MESSAGE: "Deploy: ({sha}) {msg}"
