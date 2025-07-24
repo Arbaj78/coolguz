@@ -118,7 +118,7 @@ const Footer = () => {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center gap-3">
-               <a className="flex items-center w-fit xl:mr-8 hover:animate-pulse" href="#hero">
+               <a className="flex items-center w-fit xl:mr-8 hover:animate-pulse">
                         <img 
                            src={logo} 
                           alt="Logo"  

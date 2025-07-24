@@ -3,7 +3,7 @@ import { ArrowRight, Calendar, Bot, Cog, Users, Lightbulb, Zap, UserCheck } from
 import trip1 from '../assets/trip1.jpeg';
 import trip2 from '../assets/trip2.jpeg';
 import trip3 from '../assets/trip3.jpeg';
-
+import ceo from '../assets/basantJi.jpg';
 const AboutPage = () => {
   const [showDetails, setShowDetails] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -115,69 +115,7 @@ const AboutPage = () => {
     "Innovation-driven mindset"
   ];
 
-  if (!showDetails) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 flex items-center justify-center px-4 relative overflow-hidden">
-        {/* Floating background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-20 w-72 h-72 bg-orange-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-          <div className="absolute top-40 right-20 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
-          <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2000"></div>
-        </div>
-
-        <div className={`text-center max-w-4xl mx-auto relative z-10 transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-          {/* Logo with 3D effect */}
-          <div className="mb-8">
-            <div className="w-20 h-20 mx-auto bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg flex items-center justify-center mb-6 transform transition-all duration-300 hover:scale-110 hover:rotate-3 shadow-2xl hover:shadow-orange-500/50 animate-bounce">
-              <Bot className="w-10 h-10 text-white" />
-            </div>
-          </div>
-
-          {/* Main Heading with text gradient */}
-          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent mb-6 animate-fade-in-up">
-            Welcome to AI Innovations
-          </h1>
-
-          {/* Subtitle with staggered animation */}
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto animate-fade-in-up delay-300">
-            Building the future with AI agents, automations, and digital employees
-          </p>
-
-          {/* CTA Button with 3D effect */}
-          <button
-            onClick={handleLearnAboutUs}
-            className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-lg transition-all duration-300 text-lg transform hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/50 animate-fade-in-up delay-500"
-          >
-            <Lightbulb className="w-5 h-5 mr-2 group-hover:animate-pulse" />
-            Learn About Us
-            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-          </button>
-        </div>
-
-        <style jsx>{`
-          @keyframes fade-in-up {
-            from {
-              opacity: 0;
-              transform: translateY(30px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-          .animate-fade-in-up {
-            animation: fade-in-up 0.6s ease-out forwards;
-          }
-          .delay-300 {
-            animation-delay: 0.3s;
-          }
-          .delay-500 {
-            animation-delay: 0.5s;
-          }
-        `}</style>
-      </div>
-    );
-  }
+  
 
   return (
     <div className="min-h-screen bg-white">
@@ -205,7 +143,7 @@ const AboutPage = () => {
           </p>
           
           <button className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/50">
-            <ArrowRight className="w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform duration-300" />
+            
             Discover Our Story
           </button>
         </div>
@@ -229,36 +167,70 @@ const AboutPage = () => {
       </section>
 
       {/* Section 3: Leadership with 3D cards */}
-      <section className="py-20 px-4 bg-gradient-to-br from-black via-gray-900 to-gray-800 relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-40 left-10 w-72 h-72 bg-orange-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"></div>
-          <div className="absolute bottom-40 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse delay-1000"></div>
-        </div>
+      {/* Section 3: Leadership with 3D cards */}
+<section className="py-20 px-4 bg-gradient-to-br from-black via-gray-900 to-gray-800 relative overflow-hidden">
+  <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute top-40 left-10 w-72 h-72 bg-orange-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"></div>
+    <div className="absolute bottom-40 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse delay-1000"></div>
+  </div>
 
-        <div className="max-w-6xl mx-auto text-center relative z-10">
-          <h2 className="text-5xl font-bold text-white mb-4">
-            Meet Our <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Leadership</span>
-          </h2>
-          <p className="text-xl text-gray-300 mb-16">
-            Visionary leaders driving the future of AI-powered business solutions
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-            {[0, 1].map((index) => (
-              <div key={index} className="text-center group">
-                <div className="w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-orange-500 to-orange-600 transform transition-all duration-500 hover:scale-110 hover:rotate-3 shadow-2xl hover:shadow-orange-500/50 perspective-1000">
-                  <div className="w-full h-full flex items-center justify-center transform transition-transform duration-500 group-hover:rotateY-180">
-                    <Users className="w-32 h-32 text-white opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                </div>
-                <div className="inline-block px-6 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-medium mb-4 transform hover:scale-105 transition-transform duration-300">
-                  {index === 0 ? 'Founder & CEO' : 'Co-Founder & CTO'}
-                </div>
-              </div>
-            ))}
+  <div className="max-w-6xl mx-auto text-center relative z-10">
+    <h2 className="text-5xl font-bold text-white mb-4">
+      Meet Our <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Leadership</span>
+    </h2>
+    <p className="text-xl text-gray-300 mb-16">
+      Visionary leaders driving the future of AI-powered business solutions
+    </p>
+    
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+      {/* Founder & CEO */}
+      <div className="text-center group">
+        <div className="w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-orange-500 to-orange-600 transform transition-all duration-500 hover:scale-110 hover:rotate-3 shadow-2xl hover:shadow-orange-500/50 perspective-1000">
+          <div className="w-full h-full flex items-center justify-center transform transition-transform duration-500 group-hover:rotateY-180">
+            <img 
+              src={ceo} 
+              alt="Founder & CEO" 
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
-      </section>
+        <h3 className="text-2xl font-bold text-white mb-2">Basant Singh</h3>
+        <div className="inline-block px-6 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-medium mb-4 transform hover:scale-105 transition-transform duration-300">
+          Founder & CEO
+        </div>
+        <p className="text-gray-300">Visionary leader with 8+ years of experience in AI and business strategy</p>
+      </div>
+
+      {/* Co-Founder & CTO */}
+      <div className="text-center group">
+        <div className="w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-purple-500 to-purple-600 transform transition-all duration-500 hover:scale-110 hover:rotate-3 shadow-2xl hover:shadow-purple-500/50 perspective-1000">
+          <div className="w-full h-full flex items-center justify-center transform transition-transform duration-500 group-hover:rotateY-180">
+            <Users className="w-32 h-32 text-white opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+          </div>
+        </div>
+        <h3 className="text-2xl font-bold text-white mb-2">Rahul Krishna</h3>
+        <div className="inline-block px-6 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-full font-medium mb-4 transform hover:scale-105 transition-transform duration-300">
+          Co-Founder & CTO
+        </div>
+        <p className="text-gray-300">Technology expert specializing in AI infrastructure and scalable systems</p>
+      </div>
+
+      {/* US Partner */}
+      <div className="text-center group">
+        <div className="w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-500 to-blue-600 transform transition-all duration-500 hover:scale-110 hover:rotate-3 shadow-2xl hover:shadow-blue-500/50 perspective-1000">
+          <div className="w-full h-full flex items-center justify-center transform transition-transform duration-500 group-hover:rotateY-180">
+            <Users className="w-32 h-32 text-white opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+          </div>
+        </div>
+        <h3 className="text-2xl font-bold text-white mb-2"></h3>
+        <div className="inline-block px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full font-medium mb-4 transform hover:scale-105 transition-transform duration-300">
+          US Partner
+        </div>
+        <p className="text-gray-300">Driving North American operations and strategic partnerships</p>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Section 4: Core Values with floating animation */}
       <section className="py-20 px-4 bg-gray-50">

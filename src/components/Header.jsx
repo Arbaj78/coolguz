@@ -65,7 +65,7 @@ const Header = () => {
       style={{ paddingTop: "0", paddingBottom: "0" }}
     >
       <div className="flex items-center justify-between px-2 lg:px-4 xl:px-6 py-0 h-20">
-        <a className="flex items-center w-fit hover:animate-pulse" href="#hero">
+        <a className="flex items-center w-fit hover:animate-pulse" >
           <img
             src={logo}
             alt="fatcamel Logo"
@@ -138,7 +138,7 @@ const Header = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes pulse {
           0%, 100% {
             transform: scale(1);
