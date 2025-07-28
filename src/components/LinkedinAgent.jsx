@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import logo from '../assets/logo-dark.svg';
 
 const LinkedinAgent = () => {
   const [formData, setFormData] = useState({ name: '', email: '' });
@@ -132,7 +133,7 @@ const LinkedinAgent = () => {
     <div className="min-h-screen bg-[#ffb477] flex flex-col items-center justify-center p-4">
       <div className="mb-8">
         <img
-          src="https://coolguyz.ai/assets/logocool-utCwHBj5.png"
+          src={logo}
           alt="CoolGuyz Logo"
           className="w-44 mx-auto"
         />

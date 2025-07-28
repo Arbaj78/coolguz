@@ -4,6 +4,7 @@ import trip1 from '../assets/trip1.jpeg';
 import trip2 from '../assets/trip2.jpeg';
 import trip3 from '../assets/trip3.jpeg';
 import ceo from '../assets/basantJi.jpg';
+import cfo from '../assets/rahulKrishna.jpeg'
 const AboutPage = () => {
   const [showDetails, setShowDetails] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -167,7 +168,7 @@ const AboutPage = () => {
       </section>
 
       {/* Section 3: Leadership with 3D cards */}
-      {/* Section 3: Leadership with 3D cards */}
+{/* Section 3: Leadership with 3D cards */}
 <section className="py-20 px-4 bg-gradient-to-br from-black via-gray-900 to-gray-800 relative overflow-hidden">
   <div className="absolute inset-0 overflow-hidden">
     <div className="absolute top-40 left-10 w-72 h-72 bg-orange-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"></div>
@@ -205,7 +206,11 @@ const AboutPage = () => {
       <div className="text-center group">
         <div className="w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-purple-500 to-purple-600 transform transition-all duration-500 hover:scale-110 hover:rotate-3 shadow-2xl hover:shadow-purple-500/50 perspective-1000">
           <div className="w-full h-full flex items-center justify-center transform transition-transform duration-500 group-hover:rotateY-180">
-            <Users className="w-32 h-32 text-white opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+            <img 
+              src={cfo} 
+              alt="Co-Founder & CTO" 
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
         <h3 className="text-2xl font-bold text-white mb-2">Rahul Krishna</h3>

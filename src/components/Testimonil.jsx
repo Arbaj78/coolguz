@@ -16,6 +16,8 @@ const Testimonial = () => {
     const handlePlayButtonClick = (index) => {
       const video = videos[index];
       
+      video.muted = false; // Always unmute when play button is clicked
+
       if (video.paused) {
         video.play();
         playButtons[index].style.opacity = '0';
@@ -37,11 +39,23 @@ const Testimonial = () => {
         const btn = videoContainer.querySelector('.play-btn');
         
         if (entry.isIntersecting) {
-          video.play();
-          btn.style.opacity = '0';
+          if (video.paused) {
+            try {
+              video.play();
+              btn.style.opacity = '0';
+            } catch (error) {
+              if (error.name === 'AbortError') {
+                // console.log('Video play aborted, likely due to rapid pause/play:', error);
+              } else {
+                console.error('Error attempting to play video:', error);
+              }
+            }
+          }
         } else {
-          video.pause();
-          btn.style.opacity = '0.9';
+          if (!video.paused) {
+            video.pause();
+            btn.style.opacity = '0.9';
+          }
         }
       });
     }, { threshold: 0.8 });
