@@ -5,6 +5,7 @@ import trip2 from '../assets/trip2.jpeg';
 import trip3 from '../assets/trip3.jpeg';
 import ceo from '../assets/basantJi.jpg';
 import cfo from '../assets/rahulKrishna.jpeg'
+import usp from '../assets/usPartner.jpeg';
 const AboutPage = () => {
   const [showDetails, setShowDetails] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -224,10 +225,14 @@ const AboutPage = () => {
       <div className="text-center group">
         <div className="w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-500 to-blue-600 transform transition-all duration-500 hover:scale-110 hover:rotate-3 shadow-2xl hover:shadow-blue-500/50 perspective-1000">
           <div className="w-full h-full flex items-center justify-center transform transition-transform duration-500 group-hover:rotateY-180">
-            <Users className="w-32 h-32 text-white opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+            <img 
+              src={usp} 
+              alt="US Partner" 
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
-        <h3 className="text-2xl font-bold text-white mb-2"></h3>
+        <h3 className="text-2xl font-bold text-white mb-2">William King</h3>
         <div className="inline-block px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full font-medium mb-4 transform hover:scale-105 transition-transform duration-300">
           US Partner
         </div>
