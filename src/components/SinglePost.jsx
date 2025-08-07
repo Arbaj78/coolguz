@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { client } from "../client";
 import BlockContent from "@sanity/block-content-to-react";
 import { urlFor } from "../imageUrlBuilder";
+import { Calendar } from "lucide-react";
 
 const SinglePost = () => {
   const [singlePost, setSinglePost] = useState(null);
@@ -15,6 +16,7 @@ const SinglePost = () => {
         `*[slug.current == "${slug}"]{
           title,
           body,
+          publishedAt,
           mainImage {
             asset-> {
               _id,
@@ -22,10 +24,10 @@ const SinglePost = () => {
             },
             alt
           }
-        }`
+        }[0]`
       )
       .then((data) => {
-        setSinglePost(data[0]);
+        setSinglePost(data);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -33,6 +35,14 @@ const SinglePost = () => {
         setIsLoading(false);
       });
   }, [slug]);
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
 
   if (isLoading) {
     return (
@@ -80,10 +90,11 @@ const SinglePost = () => {
               src={urlFor(singlePost.mainImage).width(1920).url()}
               alt={singlePost.mainImage.alt || "Blog cover"}
               className="w-full h-full object-cover"
+              loading="eager"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
             
-            {/* Back Button Overlay */}
+            {/* Back Button */}
             <div className="absolute top-6 left-6 z-10">
               <Link
                 to="/blog"
@@ -98,12 +109,19 @@ const SinglePost = () => {
           </div>
         )}
         
-        {/* Title Overlay */}
+        {/* Title Section */}
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
               {singlePost.title}
             </h1>
+            {/* Date only - Author removed */}
+            {singlePost.publishedAt && (
+              <div className="flex items-center text-white/90">
+                <Calendar size={20} className="mr-2" />
+                <span>{formatDate(singlePost.publishedAt)}</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -113,85 +131,35 @@ const SinglePost = () => {
         <div className="max-w-4xl mx-auto px-6 md:px-8">
           <article className="bg-white rounded-2xl shadow-2xl overflow-hidden">
             <div className="p-8 md:p-12 lg:p-16">
-              {/* Article Meta */}
-              <div className="flex items-center space-x-4 mb-8 pb-6 border-b border-gray-100">
-                <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                <span className="text-sm font-medium text-gray-500 uppercase tracking-wider">Article</span>
-              </div>
-
-              {/* Article Content */}
               <div className="article-content text-gray-700 leading-relaxed space-y-6">
                 <BlockContent
                   blocks={singlePost.body}
-                  projectId="buvouatw"
-                  dataset="production"
+                  projectId={client.config().projectId}
+                  dataset={client.config().dataset}
                   serializers={{
                     types: {
                       image: ({ node }) => (
-                        <div className="my-8 rounded-xl overflow-hidden shadow-lg">
+                        <figure className="my-8 rounded-xl overflow-hidden shadow-lg">
                           <img
                             src={urlFor(node).width(800).url()}
                             alt={node.alt || "Blog Image"}
                             className="w-full h-auto"
                           />
-                        </div>
+                          {node.caption && (
+                            <figcaption className="text-center text-sm text-gray-500 mt-2">
+                              {node.caption}
+                            </figcaption>
+                          )}
+                        </figure>
                       ),
                     },
                   }}
                 />
               </div>
-              
-              <style dangerouslySetInnerHTML={{
-                __html: `
-                  .article-content p {
-                    margin-bottom: 1.5rem;
-                    font-size: 1.125rem;
-                    line-height: 1.7;
-                    color: #374151;
-                  }
-                  .article-content h1, .article-content h2, .article-content h3, .article-content h4 {
-                    color: #1f2937;
-                    font-weight: bold;
-                    margin-top: 2rem;
-                    margin-bottom: 1rem;
-                  }
-                  .article-content h1 { font-size: 2rem; }
-                  .article-content h2 { font-size: 1.5rem; }
-                  .article-content h3 { font-size: 1.25rem; }
-                  .article-content h4 { font-size: 1.125rem; }
-                  .article-content blockquote {
-                    border-left: 4px solid #2563eb;
-                    background: #eff6ff;
-                    padding: 1rem 1.5rem;
-                    margin: 2rem 0;
-                    border-radius: 0 0.5rem 0.5rem 0;
-                    font-style: italic;
-                  }
-                  .article-content ul, .article-content ol {
-                    margin: 1.5rem 0;
-                    padding-left: 2rem;
-                  }
-                  .article-content li {
-                    margin-bottom: 0.5rem;
-                    line-height: 1.6;
-                  }
-                  .article-content a {
-                    color: #2563eb;
-                    text-decoration: underline;
-                  }
-                  .article-content a:hover {
-                    color: #1d4ed8;
-                  }
-                  .article-content strong {
-                    font-weight: 600;
-                    color: #1f2937;
-                  }
-                `
-              }} />
             </div>
           </article>
 
-          {/* Bottom Navigation */}
+          {/* Back to Blog Button */}
           <div className="mt-12 mb-16 text-center">
             <Link
               to="/blog"
@@ -205,6 +173,52 @@ const SinglePost = () => {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        .article-content p {
+          margin-bottom: 1.5rem;
+          font-size: 1.125rem;
+          line-height: 1.7;
+          color: #374151;
+        }
+        .article-content h1, .article-content h2, .article-content h3, .article-content h4 {
+          color: #1f2937;
+          font-weight: bold;
+          margin-top: 2rem;
+          margin-bottom: 1rem;
+        }
+        .article-content h1 { font-size: 2rem; }
+        .article-content h2 { font-size: 1.5rem; }
+        .article-content h3 { font-size: 1.25rem; }
+        .article-content h4 { font-size: 1.125rem; }
+        .article-content blockquote {
+          border-left: 4px solid #2563eb;
+          background: #eff6ff;
+          padding: 1rem 1.5rem;
+          margin: 2rem 0;
+          border-radius: 0 0.5rem 0.5rem 0;
+          font-style: italic;
+        }
+        .article-content ul, .article-content ol {
+          margin: 1.5rem 0;
+          padding-left: 2rem;
+        }
+        .article-content li {
+          margin-bottom: 0.5rem;
+          line-height: 1.6;
+        }
+        .article-content a {
+          color: #2563eb;
+          text-decoration: underline;
+        }
+        .article-content a:hover {
+          color: #1d4ed8;
+        }
+        .article-content strong {
+          font-weight: 600;
+          color: #1f2937;
+        }
+      `}</style>
     </div>
   );
 };
