@@ -40,7 +40,7 @@ const Hero = () => {
   }, [charIndex, isDeleting, textIndex]);
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-white">
+    <div id="hero" className="min-h-screen relative overflow-hidden bg-white">
       {/* Dot Grid Pattern Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-dot-pattern opacity-100"></div>

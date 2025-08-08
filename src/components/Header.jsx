@@ -1,14 +1,11 @@
 import { useLocation, Link } from "react-router-dom";
-import { disablePageScroll, enablePageScroll } from "scroll-lock";
 import { navigation } from "../constants";
-import Button from "./Button";
-import MenuSvg from "../assets/svg/MenuSvg";
 import { useState, useEffect, useRef } from "react";
 import logo from "../assets/logo-dark.svg";
 
 const Header = () => {
   const pathname = useLocation();
-  const [openNavigation, setOpenNavigation] = useState(false);
+
   const [scrolled, setScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [visible, setVisible] = useState(true); // 👈 for show/hide header
@@ -36,24 +33,10 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const toggleNavigation = () => {
-    if (openNavigation) {
-      setOpenNavigation(false);
-      enablePageScroll();
-    } else {
-      setOpenNavigation(true);
-      disablePageScroll();
-    }
-  };
 
-  const handleClick = () => {
-    if (!openNavigation) return;
-    enablePageScroll();
-    setOpenNavigation(false);
-  };
 
   const filteredNavigation = navigation.filter((item) =>
-    ["home", "About", "blog", "contact"].includes(item.id)
+    ["About", "blog", "contact"].includes(item.id)
   );
 
   return (
@@ -65,15 +48,32 @@ const Header = () => {
       style={{ paddingTop: "0", paddingBottom: "0" }}
     >
       <div className="flex items-center justify-between px-2 lg:px-4 xl:px-6 py-0 h-20">
-        <a className="flex items-center w-fit hover:animate-pulse" >
+        <Link to="/" className="flex items-center w-fit hover:animate-pulse">
           <img
             src={logo}
             alt="fatcamel Logo"
             className="w-[100px] h-[50px] object-contain rounded-lg"
           />
-        </a>
+        </Link>
 
-        <div className="flex items-center gap-4">
+        <nav className="hidden md:flex flex-grow justify-center space-x-4">
+          {filteredNavigation.map((item) => (
+            <Link
+              key={item.id}
+              to={item.url}
+              className={`relative px-3 py-2 text-sm font-medium uppercase text-gray-700 transition-all duration-300
+                ${item.url === pathname.pathname || (item.url === "/" && pathname.pathname === "/")
+                  ? "text-black font-bold after:scale-x-100" // Active state
+                  : "hover:text-black after:scale-x-0 hover:after:scale-x-100"}
+                after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-black after:transition-all after:duration-300 after:origin-bottom-left after:shadow-md
+              `}
+            >
+              {item.title}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center">
           <Link
             to="/subscribe"
             className={`relative px-4 py-2 rounded-lg font-medium text-white 
@@ -92,49 +92,6 @@ const Header = () => {
               ${isHovered ? "animate-pulse" : ""}`}
             />
           </Link>
-
-          <div className="relative">
-            <Button
-              className="bg-black hover:bg-gray-800 text-white rounded-xl"
-              px="px-3"
-              onClick={toggleNavigation}
-            >
-              <MenuSvg openNavigation={openNavigation} color="white" />
-            </Button>
-
-            <div
-              className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-orange-100 ring-1 ring-black ring-opacity-5 transition-all duration-200 ${
-                openNavigation
-                  ? "opacity-100 translate-y-0 visible"
-                  : "opacity-0 -translate-y-2 invisible"
-              }`}
-            >
-              <div className="py-1">
-                {filteredNavigation.map((item) => (
-                  <Link
-                    key={item.id}
-                    to={item.url}
-                    onClick={() => {
-                      if (item.url.startsWith("#")) {
-                        handleClick();
-                      } else {
-                        setOpenNavigation(false);
-                        enablePageScroll();
-                      }
-                    }}
-                    className={`block px-4 py-2 text-sm uppercase font-medium ${
-                      item.url === pathname.pathname ||
-                      (item.url === "/" && pathname.pathname === "/")
-                        ? "bg-orange-200 text-black font-bold"
-                        : "text-gray-700 hover:bg-orange-50"
-                    }`}
-                  >
-                    {item.title}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 

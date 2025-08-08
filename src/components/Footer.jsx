@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Mail, Send, Phone, Twitter, Facebook, Instagram, Linkedin, ArrowUp, Zap, Star, Globe, HelpCircle, Shield, FileText, Code, Settings, BookOpen, Heart, Briefcase, PenTool } from 'lucide-react';
 import logo from "../assets/logo-white.svg";
 
@@ -48,10 +49,10 @@ const Footer = () => {
       title: "Company",
       icon: <Briefcase className="w-5 h-5" />,
       links: [
-        { name: "About", icon: <Briefcase className="w-4 h-4" /> },
-        { name: "Blog", icon: <PenTool className="w-4 h-4" /> },
+        { name: "About", icon: <Briefcase className="w-4 h-4" />, href: "/about" },
+        { name: "Blog", icon: <PenTool className="w-4 h-4" />, href: "/blog" },
         { name: "Careers", icon: <Briefcase className="w-4 h-4" /> },
-        { name: "Contact", icon: <Mail className="w-4 h-4" /> }
+        { name: "Contact", icon: <Mail className="w-4 h-4" />, href: "/contact" }
       ]
     },
     {
@@ -118,13 +119,13 @@ const Footer = () => {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center gap-3">
-               <a className="flex items-center w-fit xl:mr-8 hover:animate-pulse">
+               <div className="flex items-center w-fit xl:mr-8">
                         <img 
                            src={logo} 
                           alt="Logo"  
                           className="w-[100px] h-[50px] object-contain rounded-lg" // Adjusted logo size
                         />
-                      </a>
+                      </div>
             </div>
             
             <p className="text-gray-300 text-lg leading-relaxed">
@@ -193,15 +194,15 @@ const Footer = () => {
               <ul className="space-y-3">
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
-                    <a 
-                      href="#" 
+                    <Link 
+                      to={link.href || "#"} 
                       className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center gap-2 group p-2 rounded-lg hover:bg-gray-800/30"
                     >
                       <span className="text-orange-400 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
                         {link.icon}
                       </span>
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

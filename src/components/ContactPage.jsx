@@ -240,7 +240,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-700">Email</h4>
-                    <p className="text-gray-600 hover:text-orange-600 transition-colors cursor-pointer">Teamcoolguyz@gmail.com</p>
+                    <p className="text-gray-600 hover:text-orange-600 transition-colors cursor-pointer">fatcamelteam@gmail.com</p>
                     <p className="text-gray-600 hover:text-orange-600 transition-colors cursor-pointer">Basant.choudharynz@gmail.com</p>
                   </div>
                 </div>
