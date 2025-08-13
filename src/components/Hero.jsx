@@ -94,14 +94,7 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Badge */}
-          <div className={`mb-8 transition-all duration-2000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="inline-flex items-center px-6 py-3 rounded-full bg-teal-50 backdrop-blur-sm border border-teal-200 shadow-lg animate-badge-glow">
-              <Bot className="w-5 h-5 text-teal-600 mr-3 animate-pulse" />
-              <span className="text-sm font-medium text-black">AI Agents & Workflow Automation</span>
-              <div className="ml-3 w-2 h-2 bg-teal-500 rounded-full animate-pulse"></div>
-            </div>
-          </div>
+         
 
           {/* Main Heading */}
           <div className={`mb-8 transition-all duration-1500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>

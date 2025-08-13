@@ -36,7 +36,7 @@ const Header = () => {
 
 
   const filteredNavigation = navigation.filter((item) =>
-    ["About", "blog", "contact"].includes(item.id)
+    ["About", "blog", "contact","industry"].includes(item.id)
   );
 
   return (
