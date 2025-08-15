@@ -2,28 +2,49 @@ import { useLocation, Link } from "react-router-dom";
 import { navigation } from "../constants";
 import { useState, useEffect, useRef } from "react";
 import logo from "../assets/logo-dark.svg";
+import ProductMegaDropdown from "./ProductMegaDropdown";
+import contentimg from "../assets/contentflow-hero.png";
 
 const Header = () => {
   const pathname = useLocation();
-
   const [scrolled, setScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [visible, setVisible] = useState(true); // 👈 for show/hide header
+  const [visible, setVisible] = useState(true);
+  const [showProducts, setShowProducts] = useState(false);
+  const lastScrollY = useRef(0);
+  const dropdownRef = useRef(null);
 
-  const lastScrollY = useRef(0); // 👈 store last scroll position
+  const toggleProducts = () => {
+    setShowProducts((prev) => !prev);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        // Check if the click was on the products button
+        const productsButton = document.querySelector('[data-products-button]');
+        if (!productsButton || !productsButton.contains(event.target)) {
+          setShowProducts(false);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
-      // Header background
       setScrolled(currentScrollY > 10);
 
-      // Show/hide on scroll direction
       if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        setVisible(false); // scrolling down → hide
+        setVisible(false);
       } else {
-        setVisible(true); // scrolling up → show
+        setVisible(true);
       }
 
       lastScrollY.current = currentScrollY;
@@ -33,10 +54,8 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
-
   const filteredNavigation = navigation.filter((item) =>
-    ["About", "blog", "contact","industry"].includes(item.id)
+    ["About", "blog", "contact", "products"].includes(item.id)
   );
 
   return (
@@ -57,20 +76,36 @@ const Header = () => {
         </Link>
 
         <nav className="hidden md:flex flex-grow justify-center space-x-4">
-          {filteredNavigation.map((item) => (
-            <Link
-              key={item.id}
-              to={item.url}
-              className={`relative px-3 py-2 text-sm font-medium uppercase text-gray-700 transition-all duration-300
-                ${item.url === pathname.pathname || (item.url === "/" && pathname.pathname === "/")
-                  ? "text-black font-bold after:scale-x-100" // Active state
-                  : "hover:text-black after:scale-x-0 hover:after:scale-x-100"}
-                after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-black after:transition-all after:duration-300 after:origin-bottom-left after:shadow-md
-              `}
-            >
-              {item.title}
-            </Link>
-          ))}
+          {filteredNavigation.map((item) =>
+            item.id === "products" ? (
+              <button
+                key={item.id}
+                data-products-button
+                onClick={toggleProducts}
+                className={`relative px-3 py-2 text-sm font-medium uppercase transition-all duration-300
+                  ${showProducts ? "text-black font-bold" : "text-gray-700 hover:text-black"}
+                  after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-black after:transition-all after:duration-300
+                  ${showProducts ? "after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100"}
+                  after:origin-bottom-left after:shadow-md
+                `}
+              >
+                {item.title}
+              </button>
+            ) : (
+              <Link
+                key={item.id}
+                to={item.url}
+                className={`relative px-3 py-2 text-sm font-medium uppercase text-gray-700 transition-all duration-300
+                  ${item.url === pathname.pathname || (item.url === "/" && pathname.pathname === "/")
+                    ? "text-black font-bold after:scale-x-100"
+                    : "hover:text-black after:scale-x-0 hover:after:scale-x-100"}
+                  after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-black after:transition-all after:duration-300 after:origin-bottom-left after:shadow-md
+                `}
+              >
+                {item.title}
+              </Link>
+            )
+          )}
         </nav>
 
         <div className="flex items-center">
@@ -94,6 +129,13 @@ const Header = () => {
           </Link>
         </div>
       </div>
+
+      {/* Products Dropdown */}
+      {showProducts && (
+        <div ref={dropdownRef}>
+          <ProductMegaDropdown onClose={() => setShowProducts(false)} />
+        </div>
+      )}
 
       <style>{`
         @keyframes pulse {

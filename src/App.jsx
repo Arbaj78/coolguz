@@ -15,6 +15,7 @@ import SinglePost from './components/SinglePost';
 import AboutPage from './components/AboutPage';
 import SubscribePage from './components/SubscribePage';
 import Industry from './components/Industry';
+import ContentFlow from './components/ContentFlow';
 
 const App = () => {
   return (
@@ -42,6 +43,7 @@ const App = () => {
            <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
            <Route path="/linkedin-agent" element={<LinkedinAgent />} />
+            <Route path="/content-flow" element={<ContentFlow />} />
         </Routes>
         <Footer />
       </div>
