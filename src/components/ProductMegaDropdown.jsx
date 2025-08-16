@@ -1,6 +1,7 @@
 // components/ProductMegaDropdown.jsx
 import { Link } from "react-router-dom";
 import contentimg from "../assets/contentflow-hero.png";
+import linkbuddy from "../assets/linkbuddy.jpg";
 
 const products = [
   {
@@ -10,6 +11,14 @@ const products = [
     logo: contentimg, // Using the imported image
     link: "/content-flow",
   },
+   {
+    id: 2,
+    name: "LinkBuddy",
+    description: "AI agent that grows your LinkedIn network",
+    logo: linkbuddy, // Using the imported image
+    link: "/linkbuddy",
+  },
+
   // Add other products here if needed
 ];
 

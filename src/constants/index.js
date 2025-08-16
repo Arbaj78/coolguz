@@ -12,6 +12,8 @@ export const navigation = [
   { id: 'testimonials', title: 'Testimonials', url: '#testimonials' },
   { id: 'faq', title: 'FAQ', url: '#faq' },
   { id: 'contact', title: 'Contact', url: '/contact' },
+  { id: 'contentflow', title: 'Content Flow', url: '/content-flow' },
+  { id: 'linkedbuddy', title: 'LinkedBuddy', url: '/linkedbuddy' },
   { id: '3', title: 'New account', url: '/signup', onlyMobile: true },
   { id: '4', title: 'Sign in', url: '/login', onlyMobile: true },
 ];
