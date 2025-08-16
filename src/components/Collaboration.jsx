@@ -15,42 +15,45 @@ const Section = ({ children }) => <section>{children}</section>;
 
 const Collaboration = () => {
   const services = [
-    {
-      title: "Notion Integration",
-      description: "Sync your Notion workspace with AI-powered automation",
-      icon: BookText,
-      color: "text-blue-500"
+
+        {
+      title: "Social Media",
+      description: "Automated posting, engagement and analytics",
+      icon: Share2,
+      color: "text-pink-500"
     },
-    {
+     {
+      title: "Chatbots",
+      description: "24/7 intelligent conversational AI for your business",
+      icon: MessageSquare,
+      color: "text-orange-500"
+    },
+     {
+      title: "Voice Assistants",
+      description: "Natural voice interactions for customer support",
+      icon: Mic2,
+      color: "text-green-500"
+    },
+      {
+      title: "Email Management",
+      description: "AI-powered email sorting, responses and follow-ups",
+      icon: Mail,
+      color: "text-red-500"
+    },
+        {
       title: "CRM Automation",
       description: "Enhance your CRM with intelligent workflows and insights",
       icon: Contact2,
       color: "text-purple-500"
     },
     {
-      title: "Email Management",
-      description: "AI-powered email sorting, responses and follow-ups",
-      icon: Mail,
-      color: "text-red-500"
+      
+      title: "Notion Integration",
+      description: "Sync your Notion workspace with AI-powered automation",
+      icon: BookText,
+      color: "text-blue-500"
     },
-    {
-      title: "Voice Assistants",
-      description: "Natural voice interactions for customer support",
-      icon: Mic2,
-      color: "text-green-500"
-    },
-    {
-      title: "Chatbots",
-      description: "24/7 intelligent conversational AI for your business",
-      icon: MessageSquare,
-      color: "text-orange-500"
-    },
-    {
-      title: "Social Media",
-      description: "Automated posting, engagement and analytics",
-      icon: Share2,
-      color: "text-pink-500"
-    }
+
   ];
 
   // CSS styles for animations

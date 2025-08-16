@@ -3,7 +3,7 @@ import { navigation } from "../constants";
 import { useState, useEffect, useRef } from "react";
 import logo from "../assets/logo-dark.svg";
 import ProductMegaDropdown from "./ProductMegaDropdown";
-import contentimg from "../assets/contentflow-hero.png";
+import { FiMenu, FiX } from "react-icons/fi";
 
 const Header = () => {
   const pathname = useLocation();
@@ -11,21 +11,35 @@ const Header = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [visible, setVisible] = useState(true);
   const [showProducts, setShowProducts] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
   const dropdownRef = useRef(null);
+  const mobileMenuRef = useRef(null);
 
   const toggleProducts = () => {
     setShowProducts((prev) => !prev);
   };
 
-  // Close dropdown when clicking outside
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen((prev) => !prev);
+  };
+
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // For products dropdown
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        // Check if the click was on the products button
         const productsButton = document.querySelector('[data-products-button]');
         if (!productsButton || !productsButton.contains(event.target)) {
           setShowProducts(false);
+        }
+      }
+      
+      // For mobile menu
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+        const mobileMenuButton = document.querySelector('[data-mobile-menu-button]');
+        if (!mobileMenuButton || !mobileMenuButton.contains(event.target)) {
+          setMobileMenuOpen(false);
         }
       }
     };
@@ -43,6 +57,7 @@ const Header = () => {
 
       if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
         setVisible(false);
+        setMobileMenuOpen(false); // Close mobile menu on scroll down
       } else {
         setVisible(true);
       }
@@ -75,6 +90,7 @@ const Header = () => {
           />
         </Link>
 
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex flex-grow justify-center space-x-4">
           {filteredNavigation.map((item) =>
             item.id === "products" ? (
@@ -108,10 +124,10 @@ const Header = () => {
           )}
         </nav>
 
-        <div className="flex items-center">
+        <div className="flex items-center space-x-4">
           <Link
             to="/subscribe"
-            className={`relative px-4 py-2 rounded-lg font-medium text-white 
+            className={`hidden sm:flex relative px-4 py-2 rounded-lg font-medium text-white 
               bg-gradient-to-r from-orange-400 to-orange-600
               transition-all duration-300
               ${isHovered ? "shadow-lg scale-105" : "shadow-md"}
@@ -127,6 +143,19 @@ const Header = () => {
               ${isHovered ? "animate-pulse" : ""}`}
             />
           </Link>
+
+          {/* Mobile Menu Button */}
+          <button
+            data-mobile-menu-button
+            onClick={toggleMobileMenu}
+            className="md:hidden p-2 rounded-md text-gray-700 hover:text-black focus:outline-none"
+          >
+            {mobileMenuOpen ? (
+              <FiX className="w-6 h-6" />
+            ) : (
+              <FiMenu className="w-6 h-6" />
+            )}
+          </button>
         </div>
       </div>
 
@@ -134,6 +163,63 @@ const Header = () => {
       {showProducts && (
         <div ref={dropdownRef}>
           <ProductMegaDropdown onClose={() => setShowProducts(false)} />
+        </div>
+      )}
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div 
+          ref={mobileMenuRef}
+          className="md:hidden bg-white/95 shadow-lg border-t border-gray-200"
+        >
+          <div className="px-4 py-2 flex flex-col space-y-2">
+            {filteredNavigation.map((item) =>
+              item.id === "products" ? (
+                <button
+                  key={item.id}
+                  onClick={toggleProducts}
+                  className={`px-3 py-3 text-left font-medium uppercase transition-all duration-300
+                    ${showProducts ? "text-black font-bold" : "text-gray-700"}
+                    border-b border-gray-100
+                  `}
+                >
+                  {item.title}
+                </button>
+              ) : (
+                <Link
+                  key={item.id}
+                  to={item.url}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-3 py-3 font-medium uppercase text-gray-700 transition-all duration-300
+                    ${item.url === pathname.pathname || (item.url === "/" && pathname.pathname === "/")
+                      ? "text-black font-bold" : ""}
+                    border-b border-gray-100
+                  `}
+                >
+                  {item.title}
+                </Link>
+              )
+            )}
+            <Link
+              to="/subscribe"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-3 mt-2 rounded-lg font-medium text-white bg-gradient-to-r from-orange-400 to-orange-600 text-center"
+            >
+              Subscribe
+            </Link>
+          </div>
+          {/* Mobile Products Dropdown */}
+          {showProducts && (
+            <div className="px-4 py-2 bg-gray-50">
+              <ProductMegaDropdown 
+                onClose={() => {
+                  setShowProducts(false);
+                  setMobileMenuOpen(false);
+                }} 
+                mobileVersion
+              />
+            </div>
+          )}
         </div>
       )}
 
