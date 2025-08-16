@@ -112,14 +112,7 @@ export default function ContentFlowPage() {
               Fully automated blog and social media management platform. From research to publishing, our AI agents
               handle your entire content lifecycle while you focus on strategy.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-                Start Free Trial
-              </button>
-              <button className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-xl font-semibold hover:border-blue-600 hover:text-blue-600 transition-all duration-300">
-                Watch Demo
-              </button>
-            </div>
+           
           </div>
         </div>
       </div>
