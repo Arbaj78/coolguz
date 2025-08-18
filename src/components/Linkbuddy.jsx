@@ -25,6 +25,24 @@ const AnimatedCounter = ({ end, duration = 2000, suffix = "" }) => {
 
 const WorkflowTree = () => {
   const [activeNode, setActiveNode] = useState(0);
+  const [screenSize, setScreenSize] = useState('desktop');
+  
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 480) {
+        setScreenSize('mobile');
+      } else if (width < 768) {
+        setScreenSize('tablet');
+      } else {
+        setScreenSize('desktop');
+      }
+    };
+    
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,38 +51,104 @@ const WorkflowTree = () => {
     return () => clearInterval(interval);
   }, []);
   
+  // Enhanced responsive node positions
   const nodes = [
-    { id: 0, title: "AI Training", icon: Brain, x: 50, y: 10, color: "from-purple-500 to-pink-500" },
-    { id: 1, title: "Comment Monitoring", icon: Eye, x: 20, y: 30, color: "from-blue-500 to-cyan-500" },
-    { id: 2, title: "Reply Generation", icon: Bot, x: 80, y: 30, color: "from-green-500 to-emerald-500" },
-    { id: 3, title: "Review & Edit", icon: Edit3, x: 20, y: 60, color: "from-orange-500 to-red-500" },
-    { id: 4, title: "Send Messages", icon: Send, x: 80, y: 60, color: "from-indigo-500 to-purple-500" },
-    { id: 5, title: "Network Growth", icon: TrendingUp, x: 50, y: 85, color: "from-teal-500 to-blue-500" }
+    { 
+      id: 0, 
+      title: "AI Training", 
+      icon: Brain, 
+      desktop: { x: 50, y: 15 },
+      tablet: { x: 50, y: 12 },
+      mobile: { x: 50, y: 8 },
+      color: "from-purple-500 to-pink-500" 
+    },
+    { 
+      id: 1, 
+      title: "Comment Monitoring", 
+      icon: Eye, 
+      desktop: { x: 25, y: 35 },
+      tablet: { x: 20, y: 32 },
+      mobile: { x: 15, y: 28 },
+      color: "from-blue-500 to-cyan-500" 
+    },
+    { 
+      id: 2, 
+      title: "Reply Generation", 
+      icon: Bot, 
+      desktop: { x: 75, y: 35 },
+      tablet: { x: 80, y: 32 },
+      mobile: { x: 85, y: 28 },
+      color: "from-green-500 to-emerald-500" 
+    },
+    { 
+      id: 3, 
+      title: "Review & Edit", 
+      icon: Edit3, 
+      desktop: { x: 25, y: 65 },
+      tablet: { x: 20, y: 62 },
+      mobile: { x: 15, y: 58 },
+      color: "from-orange-500 to-red-500" 
+    },
+    { 
+      id: 4, 
+      title: "Send Messages", 
+      icon: Send, 
+      desktop: { x: 75, y: 65 },
+      tablet: { x: 80, y: 62 },
+      mobile: { x: 85, y: 58 },
+      color: "from-indigo-500 to-purple-500" 
+    },
+    { 
+      id: 5, 
+      title: "Network Growth", 
+      icon: TrendingUp, 
+      desktop: { x: 50, y: 88 },
+      tablet: { x: 50, y: 88 },
+      mobile: { x: 50, y: 88 },
+      color: "from-teal-500 to-blue-500" 
+    }
   ];
   
   const connections = [
     [0, 1], [0, 2], [1, 3], [2, 4], [3, 5], [4, 5]
   ];
   
+  // Get dimensions based on screen size
+  const getDimensions = () => {
+    switch (screenSize) {
+      case 'mobile':
+        return { width: 'w-full', height: 'h-80', containerHeight: 'min-h-80', maxWidth: 'max-w-lg' };
+      case 'tablet':
+        return { width: 'w-full', height: 'h-96', containerHeight: 'min-h-96', maxWidth: 'max-w-3xl' };
+      default:
+        return { width: 'w-full', height: 'h-[28rem] lg:h-[32rem] xl:h-[36rem]', containerHeight: 'min-h-[28rem] lg:min-h-[32rem] xl:min-h-[36rem]', maxWidth: 'max-w-6xl' };
+    }
+  };
+  
+  const { width, height, containerHeight, maxWidth } = getDimensions();
+  
   return (
-    <div className="relative w-full h-96 bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl overflow-hidden">
+    <div className={`relative ${width} ${height} ${containerHeight} bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl lg:rounded-3xl overflow-hidden mx-auto ${maxWidth} shadow-lg hover:shadow-xl transition-all duration-500`}>
       <svg className="absolute inset-0 w-full h-full">
         {connections.map(([from, to], index) => {
           const fromNode = nodes[from];
           const toNode = nodes[to];
+          const fromPos = fromNode[screenSize];
+          const toPos = toNode[screenSize];
+          
           return (
             <line
               key={index}
-              x1={`${fromNode.x}%`}
-              y1={`${fromNode.y}%`}
-              x2={`${toNode.x}%`}
-              y2={`${toNode.y}%`}
+              x1={`${fromPos.x}%`}
+              y1={`${fromPos.y}%`}
+              x2={`${toPos.x}%`}
+              y2={`${toPos.y}%`}
               stroke="url(#gradient)"
-              strokeWidth="2"
+              strokeWidth={screenSize === 'mobile' ? "2" : screenSize === 'tablet' ? "2.5" : "3.5"}
               className={`transition-all duration-1000 ${
-                activeNode === from || activeNode === to ? 'opacity-100' : 'opacity-30'
+                activeNode === from || activeNode === to ? 'opacity-100' : 'opacity-40'
               }`}
-              strokeDasharray="5,5"
+              strokeDasharray={screenSize === 'mobile' ? "4,4" : screenSize === 'tablet' ? "6,6" : "8,8"}
             />
           );
         })}
@@ -76,29 +160,70 @@ const WorkflowTree = () => {
         </defs>
       </svg>
       
-      {nodes.map((node, index) => {
+      {nodes.map((node) => {
         const Icon = node.icon;
-        const isActive = activeNode === index;
+        const isActive = activeNode === node.id;
+        const position = node[screenSize];
+        
+        // Dynamic sizing based on screen
+        const getNodeSize = () => {
+          switch (screenSize) {
+            case 'mobile':
+              return 'w-12 h-12';
+            case 'tablet':
+              return 'w-16 h-16';
+            default:
+              return 'w-18 h-18 lg:w-22 lg:h-22 xl:w-24 xl:h-24';
+          }
+        };
+        
+        const getIconSize = () => {
+          switch (screenSize) {
+            case 'mobile':
+              return 'w-5 h-5';
+            case 'tablet':
+              return 'w-7 h-7';
+            default:
+              return 'w-8 h-8 lg:w-10 lg:h-10 xl:w-11 xl:h-11';
+          }
+        };
+        
+        const getTextSize = () => {
+          switch (screenSize) {
+            case 'mobile':
+              return 'text-[10px]';
+            case 'tablet':
+              return 'text-xs';
+            default:
+              return 'text-sm lg:text-base xl:text-lg';
+          }
+        };
+        
         return (
           <div
             key={node.id}
             className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ${
               isActive ? 'scale-110 z-20' : 'scale-100 z-10'
             }`}
-            style={{ left: `${node.x}%`, top: `${node.y}%` }}
+            style={{ 
+              left: `${position.x}%`, 
+              top: `${position.y}%` 
+            }}
           >
-            <div className={`relative w-16 h-16 rounded-full bg-gradient-to-r ${node.color} flex items-center justify-center shadow-lg ${
-              isActive ? 'shadow-2xl animate-pulse' : ''
+            <div className={`relative ${getNodeSize()} rounded-full bg-gradient-to-r ${node.color} flex items-center justify-center shadow-lg ${
+              isActive ? 'shadow-xl animate-pulse' : ''
             }`}>
-              <Icon className="w-8 h-8 text-white" />
+              <Icon className={`${getIconSize()} text-white`} />
               {isActive && (
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-white/20 to-transparent animate-spin" />
               )}
             </div>
-            <div className={`mt-2 text-center transition-all duration-500 ${
-              isActive ? 'opacity-100 transform translate-y-0' : 'opacity-70 transform translate-y-2'
+            <div className={`mt-2 lg:mt-3 xl:mt-4 text-center transition-all duration-500 ${
+              isActive ? 'opacity-100 transform translate-y-0' : 'opacity-70 transform translate-y-1'
             }`}>
-              <p className="text-sm font-semibold text-gray-700">{node.title}</p>
+              <p className={`${getTextSize()} font-semibold text-gray-700 leading-tight px-1 max-w-24 lg:max-w-28 xl:max-w-32`}>
+                {node.title}
+              </p>
             </div>
           </div>
         );
@@ -134,26 +259,26 @@ const FeatureCard = ({ icon: Icon, title, description, delay = 0 }) => {
 
 const ProblemSolutionCard = ({ type, items, icon: Icon }) => {
   return (
-    <div className={`relative overflow-hidden rounded-2xl p-8 ${
+    <div className={`relative overflow-hidden rounded-2xl p-6 sm:p-8 ${
       type === 'problem' 
         ? 'bg-gradient-to-br from-red-50 to-orange-50 border border-red-100' 
         : 'bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100'
     }`}>
       <div className="absolute top-4 right-4">
-        <Icon className={`w-8 h-8 ${type === 'problem' ? 'text-red-400' : 'text-green-400'}`} />
+        <Icon className={`w-6 h-6 sm:w-8 sm:h-8 ${type === 'problem' ? 'text-red-400' : 'text-green-400'}`} />
       </div>
-      <h3 className={`text-2xl font-bold mb-6 ${
+      <h3 className={`text-xl sm:text-2xl font-bold mb-4 sm:mb-6 ${
         type === 'problem' ? 'text-red-700' : 'text-green-700'
       }`}>
         {type === 'problem' ? 'The Problem' : 'The Solution'}
       </h3>
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {items.map((item, index) => (
-          <div key={index} className="flex items-start space-x-3 group">
-            <div className={`w-2 h-2 rounded-full mt-2 ${
+          <div key={index} className="flex items-start space-x-2 sm:space-x-3 group">
+            <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full mt-1.5 sm:mt-2 ${
               type === 'problem' ? 'bg-red-400' : 'bg-green-400'
             } group-hover:scale-150 transition-transform duration-300`} />
-            <p className="text-gray-700 leading-relaxed group-hover:text-gray-900 transition-colors duration-300">{item}</p>
+            <p className="text-sm sm:text-base text-gray-700 leading-relaxed group-hover:text-gray-900 transition-colors duration-300">{item}</p>
           </div>
         ))}
       </div>
@@ -196,55 +321,57 @@ export default function LinkBuddyProductPage() {
       <div className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-100/20 to-purple-100/20 opacity-50" />
         
-        <div className="relative max-w-7xl mx-auto px-6 py-20">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center space-x-2 bg-blue-100 px-4 py-2 rounded-full mb-6 animate-bounce">
-              <Linkedin className="w-5 h-5 text-blue-600" />
-              <span className="text-blue-600 font-semibold">LinkedIn Engagement Agent</span>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-flex items-center space-x-2 bg-blue-100 px-3 py-1 sm:px-4 sm:py-2 rounded-full mb-4 sm:mb-6 animate-bounce">
+              <Linkedin className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+              <span className="text-sm sm:text-base text-blue-600 font-semibold">LinkedIn Engagement Agent</span>
             </div>
             
-            <h1 className="text-6xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
               Meet <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">LinkBuddy</span>
             </h1>
             
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-6 sm:mb-8 px-4 sm:px-0">
               A smart AI-powered agent designed to help you engage meaningfully with your audience and grow your LinkedIn network. The agent learns your personal style and ensures all interactions reflect your tone, values, and goals.
             </p>
             
-            <div className="flex flex-wrap justify-center gap-8 text-center mb-12">
-              <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="text-3xl font-bold text-blue-600 mb-2">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-center mb-8 sm:mb-12">
+              <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div className="text-2xl sm:text-3xl font-bold text-blue-600 mb-1 sm:mb-2">
                   <AnimatedCounter end={95} suffix="%" />
                 </div>
-                <p className="text-gray-600">Time Saved</p>
+                <p className="text-sm sm:text-base text-gray-600">Time Saved</p>
               </div>
-              <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="text-3xl font-bold text-purple-600 mb-2">
+              <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div className="text-2xl sm:text-3xl font-bold text-purple-600 mb-1 sm:mb-2">
                   <AnimatedCounter end={300} suffix="%" />
                 </div>
-                <p className="text-gray-600">Engagement Boost</p>
+                <p className="text-sm sm:text-base text-gray-600">Engagement Boost</p>
               </div>
-              <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="text-3xl font-bold text-green-600 mb-2">
+              <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div className="text-2xl sm:text-3xl font-bold text-green-600 mb-1 sm:mb-2">
                   <AnimatedCounter end={500} suffix="+" />
                 </div>
-                <p className="text-gray-600">New Connections</p>
+                <p className="text-sm sm:text-base text-gray-600">New Connections</p>
               </div>
             </div>
           </div>
           
-          <div className="mb-20">
-            <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+          <div className="mb-12 sm:mb-20">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-8 sm:mb-12">
               How LinkBuddy Works
             </h2>
-            <WorkflowTree />
+            <div className="w-full max-w-5xl mx-auto px-4 sm:px-6">
+              <WorkflowTree />
+            </div>
           </div>
         </div>
       </div>
       
-      <div className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12">
+      <div className="py-16 sm:py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-12">
             <ProblemSolutionCard 
               type="problem" 
               items={problems}
@@ -259,16 +386,16 @@ export default function LinkBuddyProductPage() {
         </div>
       </div>
       
-      <div className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Agent Training</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+      <div className="py-16 sm:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Agent Training</h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
               Before the agent starts, it is trained specifically for you
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
             <FeatureCard
               icon={Brain}
               title="Personalization"
@@ -285,34 +412,34 @@ export default function LinkBuddyProductPage() {
         </div>
       </div>
       
-      <div className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Powerful Modules</h2>
-            <p className="text-xl text-gray-600">Two comprehensive modules to supercharge your LinkedIn presence</p>
+      <div className="py-16 sm:py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Powerful Modules</h2>
+            <p className="text-lg sm:text-xl text-gray-600">Two comprehensive modules to supercharge your LinkedIn presence</p>
           </div>
           
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-6 sm:gap-8">
             {modules.map((module, index) => (
               <div 
                 key={index}
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group cursor-pointer"
+                className="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group cursor-pointer"
                 onMouseEnter={() => setCurrentModule(index)}
               >
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
                     {module.title}
                   </h3>
-                  <ArrowRight className="w-6 h-6 text-gray-400 group-hover:text-blue-600 group-hover:translate-x-2 transition-all duration-300" />
+                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 group-hover:text-blue-600 group-hover:translate-x-2 transition-all duration-300" />
                 </div>
                 
-                <p className="text-gray-600 mb-6 leading-relaxed">{module.description}</p>
+                <p className="text-gray-600 mb-4 sm:mb-6 leading-relaxed">{module.description}</p>
                 
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   {module.features.map((feature, fIndex) => (
-                    <div key={fIndex} className="flex items-center space-x-3 group-hover:translate-x-2 transition-transform duration-300" style={{transitionDelay: `${fIndex * 100}ms`}}>
-                      <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full group-hover:scale-150 transition-transform duration-300" />
-                      <span className="text-gray-700">{feature}</span>
+                    <div key={fIndex} className="flex items-center space-x-2 sm:space-x-3 group-hover:translate-x-2 transition-transform duration-300" style={{transitionDelay: `${fIndex * 100}ms`}}>
+                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full group-hover:scale-150 transition-transform duration-300" />
+                      <span className="text-sm sm:text-base text-gray-700">{feature}</span>
                     </div>
                   ))}
                 </div>
@@ -322,14 +449,14 @@ export default function LinkBuddyProductPage() {
         </div>
       </div>
       
-      <div className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Key Features</h2>
-            <p className="text-xl text-gray-600">Everything you need to dominate LinkedIn engagement</p>
+      <div className="py-16 sm:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Key Features</h2>
+            <p className="text-lg sm:text-xl text-gray-600">Everything you need to dominate LinkedIn engagement</p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             <FeatureCard
               icon={Eye}
               title="Smart Monitoring"
@@ -357,9 +484,6 @@ export default function LinkBuddyProductPage() {
           </div>
         </div>
       </div>
-      
-      
-      </div>
-    
+    </div>
   );
 }
