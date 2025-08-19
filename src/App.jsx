@@ -17,6 +17,8 @@ import SubscribePage from './components/SubscribePage';
 import Industry from './components/Industry';
 import ContentFlow from './components/ContentFlow';
 import Linkbuddy from  './components/Linkbuddy';
+import Realtor from './components/Realtor';
+import HrAgent from './components/HrAgent';
 
 const App = () => {
   return (
@@ -46,6 +48,9 @@ const App = () => {
           <Route path="/linkedin-agent" element={<LinkedinAgent />} />
           <Route path="/content-flow" element={<ContentFlow />} />
           <Route path="/linkbuddy" element={<Linkbuddy />} />
+          <Route path="/realtor" element={<Realtor />} />
+          <Route path="/HrAgent" element={<HrAgent />} />
+
 
         </Routes>
         <Footer />

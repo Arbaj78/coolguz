@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import contentimg from "../assets/contentflow-hero.png";
 import linkbuddy from "../assets/linkbuddy.jpg";
-
+import realtor from "../assets/RealState.jpg";
+import hragent from "../assets/HrAgent.jpg";
 const ProductMegaDropdown = ({ onClose, mobileVersion }) => {
   const products = [
     {
@@ -17,6 +18,20 @@ const ProductMegaDropdown = ({ onClose, mobileVersion }) => {
       description: "AI agent that grows your LinkedIn network",
       logo: linkbuddy,
       link: "/linkbuddy",
+    },
+     {
+      id: 3,
+      name: "Realtor Voice AI",
+      description: "AI voice assistant for real estate handling client calls so you can close more deals.",
+      logo: realtor,
+      link: "/realtor",
+    },
+    {
+      id: 4,
+      name: "HR Voice AI",
+      description: "AI hiring assistant—from screening to interviews, we simplify recruitment.",
+      logo: hragent,
+      link: "/hragent",
     },
   ];
 
