@@ -19,6 +19,7 @@ import ContentFlow from './components/ContentFlow';
 import Linkbuddy from  './components/Linkbuddy';
 import Realtor from './components/Realtor';
 import HrAgent from './components/HrAgent';
+import OutReach from './components/OutReach';
 
 const App = () => {
   return (
@@ -50,6 +51,7 @@ const App = () => {
           <Route path="/linkbuddy" element={<Linkbuddy />} />
           <Route path="/realtor" element={<Realtor />} />
           <Route path="/HrAgent" element={<HrAgent />} />
+          <Route path="/OutReachAi" element={<OutReach />} />
 
 
         </Routes>

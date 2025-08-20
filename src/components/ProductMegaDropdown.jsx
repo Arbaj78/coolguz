@@ -3,6 +3,8 @@ import contentimg from "../assets/contentflow-hero.png";
 import linkbuddy from "../assets/linkbuddy.jpg";
 import realtor from "../assets/RealState.jpg";
 import hragent from "../assets/HrAgent.jpg";
+import outreach from "../assets/outreach.png"
+
 const ProductMegaDropdown = ({ onClose, mobileVersion }) => {
   const products = [
     {
@@ -32,6 +34,13 @@ const ProductMegaDropdown = ({ onClose, mobileVersion }) => {
       description: "AI hiring assistant—from screening to interviews, we simplify recruitment.",
       logo: hragent,
       link: "/hragent",
+    },
+      {
+      id: 5,
+      name: "Outreach Voice AI",
+      description: "Your AI sales agent that pitches, books, and follows up — keeping your pipeline always warm.",
+      logo: outreach ,
+      link: "/OutReachAi",
     },
   ];
 

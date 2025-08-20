@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import testimonialVideo from "../assets/testimonial-video1.mp4";
-
+import testimonialVideo2 from "../assets/testimonial-video2.mp4";
 
 const Testimonial = () => {
   const videoRefs = useRef([]);
@@ -15,20 +15,29 @@ const Testimonial = () => {
 
     const handlePlayButtonClick = (index) => {
       const video = videos[index];
+      if (!video) return;
       
       video.muted = false; // Always unmute when play button is clicked
 
       if (video.paused) {
-        video.play();
-        playButtons[index].style.opacity = '0';
+        video.play().catch(error => {
+          console.error("Error playing video:", error);
+        });
+        if (playButtons[index]) {
+          playButtons[index].style.opacity = '0';
+        }
       } else {
         video.pause();
-        playButtons[index].style.opacity = '0.9';
+        if (playButtons[index]) {
+          playButtons[index].style.opacity = '0.9';
+        }
       }
     };
 
     playButtons.forEach((btn, index) => {
-      btn.addEventListener('click', () => handlePlayButtonClick(index));
+      if (btn) {
+        btn.addEventListener('click', () => handlePlayButtonClick(index));
+      }
     });
 
     // Auto-play videos when in viewport
@@ -38,17 +47,21 @@ const Testimonial = () => {
         const video = videoContainer.querySelector('video');
         const btn = videoContainer.querySelector('.play-btn');
         
+        if (!video || !btn) return;
+        
         if (entry.isIntersecting) {
           if (video.paused) {
             try {
-              video.play();
+              video.play().catch(error => {
+                if (error.name === 'AbortError') {
+                  // console.log('Video play aborted, likely due to rapid pause/play:', error);
+                } else {
+                  console.error('Error attempting to play video:', error);
+                }
+              });
               btn.style.opacity = '0';
             } catch (error) {
-              if (error.name === 'AbortError') {
-                // console.log('Video play aborted, likely due to rapid pause/play:', error);
-              } else {
-                console.error('Error attempting to play video:', error);
-              }
+              console.error('Error attempting to play video:', error);
             }
           }
         } else {
@@ -70,32 +83,40 @@ const Testimonial = () => {
     const dots = dotRefs.current;
 
     const updateActiveDot = () => {
+      if (!container || !container.firstChild) return;
+      
       const scrollPosition = container.scrollLeft;
-      const cardWidth = container.firstChild?.offsetWidth || 0;
+      const cardWidth = container.firstChild.offsetWidth;
       const activeIndex = Math.round(scrollPosition / cardWidth);
       
       dots.forEach((dot, index) => {
-        if (index === activeIndex) {
-          dot.classList.add('bg-orange-600', 'scale-125');
-          dot.classList.remove('bg-gray-700');
-        } else {
-          dot.classList.remove('bg-orange-600', 'scale-125');
-          dot.classList.add('bg-gray-700');
+        if (dot) {
+          if (index === activeIndex) {
+            dot.classList.add('bg-orange-600', 'scale-125');
+            dot.classList.remove('bg-gray-700');
+          } else {
+            dot.classList.remove('bg-orange-600', 'scale-125');
+            dot.classList.add('bg-gray-700');
+          }
         }
       });
     };
 
-    container.addEventListener('scroll', updateActiveDot);
+    if (container) {
+      container.addEventListener('scroll', updateActiveDot);
+    }
 
     // Click on dot to scroll to corresponding card
     dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        const cardWidth = container.firstChild?.offsetWidth || 0;
-        container.scrollTo({
-          left: cardWidth * index,
-          behavior: 'smooth'
+      if (dot && container) {
+        dot.addEventListener('click', () => {
+          const cardWidth = container.firstChild?.offsetWidth || 0;
+          container.scrollTo({
+            left: cardWidth * index,
+            behavior: 'smooth'
+          });
         });
-      });
+      }
     });
 
     return () => {
@@ -107,7 +128,9 @@ const Testimonial = () => {
       videoContainers.forEach(container => {
         observer.unobserve(container);
       });
-      container.removeEventListener('scroll', updateActiveDot);
+      if (container) {
+        container.removeEventListener('scroll', updateActiveDot);
+      }
     };
   }, []);
 
@@ -119,10 +142,10 @@ const Testimonial = () => {
       videoSrc: testimonialVideo
     },
     {
-      name: "Michael Chen",
-      role: "Marketing Director, Global Brands",
+      name: "Foram Brown",
+      role: "ex-Rolls-Royce, Bombardier",
       quote: "The results we achieved exceeded all our expectations. Highly recommended!",
-      videoSrc: "https://placehold.co/800x450/111/FF8C00?text=Image+Placeholder+2"
+      videoSrc: testimonialVideo2  // Using the imported video
     },
     {
       name: "Emma Rodriguez",
@@ -160,9 +183,9 @@ const Testimonial = () => {
               <div className="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-orange-500/20 transition-all duration-300 hover:-translate-y-2 h-full flex flex-col">
                 <div 
                   className="video-container w-full h-64 relative overflow-hidden"
-                  ref={el => videoRefs.current[index] = el?.querySelector('video')}
                 >
                   <video 
+                    ref={el => videoRefs.current[index] = el}
                     poster={`https://placehold.co/800x450/111/FF8C00?text=${encodeURIComponent(testimonial.name)}`}
                     muted 
                     loop
