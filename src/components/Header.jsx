@@ -3,6 +3,7 @@ import { navigation } from "../constants";
 import { useState, useEffect, useRef } from "react";
 import logo from "../assets/logo-dark.svg";
 import ProductMegaDropdown from "./ProductMegaDropdown";
+import IndustryMegaDropdown from "./IndustryMegaDropdown";
 import { FiMenu, FiX } from "react-icons/fi";
 
 const Header = () => {
@@ -11,17 +12,27 @@ const Header = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [visible, setVisible] = useState(true);
   const [showProducts, setShowProducts] = useState(false);
+  const [showIndustries, setShowIndustries] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
   const dropdownRef = useRef(null);
+  const industryDropdownRef = useRef(null);
   const mobileMenuRef = useRef(null);
 
   const toggleProducts = () => {
     setShowProducts((prev) => !prev);
+    setShowIndustries(false);
+  };
+
+  const toggleIndustries = () => {
+    setShowIndustries((prev) => !prev);
+    setShowProducts(false);
   };
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev);
+    setShowProducts(false);
+    setShowIndustries(false);
   };
 
   useEffect(() => {
@@ -30,6 +41,13 @@ const Header = () => {
         const productsButton = document.querySelector('[data-products-button]');
         if (!productsButton || !productsButton.contains(event.target)) {
           setShowProducts(false);
+        }
+      }
+
+      if (industryDropdownRef.current && !industryDropdownRef.current.contains(event.target)) {
+        const industriesButton = document.querySelector('[data-industries-button]');
+        if (!industriesButton || !industriesButton.contains(event.target)) {
+          setShowIndustries(false);
         }
       }
       
@@ -53,6 +71,8 @@ const Header = () => {
       if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
         setVisible(false);
         setMobileMenuOpen(false);
+        setShowProducts(false);
+        setShowIndustries(false);
       } else {
         setVisible(true);
       }
@@ -108,6 +128,21 @@ const Header = () => {
               </Link>
             )
           )}
+
+          {/* Industry Dropdown */}
+          <div className="relative">
+            <button
+              data-industries-button
+              onClick={toggleIndustries}
+              className={`relative px-3 py-2 text-sm font-medium uppercase transition-all duration-300
+                ${showIndustries ? "text-black font-bold" : "text-gray-700 hover:text-black"}
+                after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-black after:transition-all after:duration-300
+                ${showIndustries ? "after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100"}
+                after:origin-bottom-left after:shadow-md`}
+            >
+              Industries
+            </button>
+          </div>
         </nav>
 
         <div className="flex items-center space-x-4">
@@ -144,6 +179,12 @@ const Header = () => {
         </div>
       )}
 
+      {showIndustries && (
+        <div ref={industryDropdownRef} className="absolute left-0 right-0 flex justify-center">
+          <IndustryMegaDropdown onClose={() => setShowIndustries(false)} />
+        </div>
+      )}
+
       {mobileMenuOpen && (
         <div ref={mobileMenuRef} className="md:hidden bg-white/95 shadow-lg border-t border-gray-200">
           <div className="px-4 py-2 flex flex-col space-y-2">
@@ -171,6 +212,17 @@ const Header = () => {
                 </Link>
               )
             )}
+
+            {/* Mobile Industry Toggle */}
+            <button
+              onClick={toggleIndustries}
+              className={`px-3 py-3 text-left font-medium uppercase transition-all duration-300
+                ${showIndustries ? "text-black font-bold" : "text-gray-700"}
+                border-b border-gray-100`}
+            >
+              Industries
+            </button>
+
             <Link
               to="/subscribe"
               onClick={() => setMobileMenuOpen(false)}
@@ -185,6 +237,18 @@ const Header = () => {
               <ProductMegaDropdown 
                 onClose={() => {
                   setShowProducts(false);
+                  setMobileMenuOpen(false);
+                }} 
+                mobileVersion
+              />
+            </div>
+          )}
+
+          {showIndustries && (
+            <div className="px-4 py-2 bg-gray-50">
+              <IndustryMegaDropdown 
+                onClose={() => {
+                  setShowIndustries(false);
                   setMobileMenuOpen(false);
                 }} 
                 mobileVersion

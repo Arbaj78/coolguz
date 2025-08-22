@@ -20,6 +20,14 @@ import Linkbuddy from  './components/Linkbuddy';
 import Realtor from './components/Realtor';
 import HrAgent from './components/HrAgent';
 import OutReach from './components/OutReach';
+import Banking_financial_services from "./components/industries_content/Banking_financial_services"; 
+import Communication_media_entertainment from "./components/industries_content/Communication_media_entertainment";
+import HealthCare from "./components/industries_content/HealthCare";
+import Manufacturing from "./components/industries_content/Manufacturing";
+import OilGas from "./components/industries_content/OilGas";
+import Power_utilities_engergies from "./components/industries_content/Power_utilities_engergies";
+import Renuable from "./components/industries_content/Renuable";
+import Retail_consumer from "./components/industries_content/Retail_consumer";
 
 const App = () => {
   return (
@@ -52,7 +60,14 @@ const App = () => {
           <Route path="/realtor" element={<Realtor />} />
           <Route path="/HrAgent" element={<HrAgent />} />
           <Route path="/OutReachAi" element={<OutReach />} />
-
+          <Route path="/BFS" element={<Banking_financial_services />} />
+          <Route path="/CME" element={<Communication_media_entertainment />} />
+          <Route path="/HealthCare" element={<HealthCare />} />
+          <Route path="/Manufacturing" element={<Manufacturing />} />
+          <Route path="/Oil_and_gas" element={<OilGas />} />
+          <Route path="/PUE" element={<Power_utilities_engergies />} />
+          <Route path="/Renuable_energy" element={<Renuable />} />
+          <Route path="/RetailConsumer" element={<Retail_consumer />} />
 
         </Routes>
         <Footer />
