@@ -3,7 +3,7 @@ import contentimg from "../assets/contentflow-hero.png";
 import linkbuddy from "../assets/linkbuddy.jpg";
 import realtor from "../assets/RealState.jpg";
 import hragent from "../assets/HrAgent.jpg";
-import outreach from "../assets/outreach.png"
+import outreach from "../assets/outreach.png";
 
 const ProductMegaDropdown = ({ onClose, mobileVersion }) => {
   const products = [
@@ -21,25 +21,28 @@ const ProductMegaDropdown = ({ onClose, mobileVersion }) => {
       logo: linkbuddy,
       link: "/linkbuddy",
     },
-     {
+    {
       id: 3,
       name: "Realtor Voice AI",
-      description: "AI voice assistant for real estate handling client calls so you can close more deals.",
+      description:
+        "AI voice assistant for real estate handling client calls so you can close more deals.",
       logo: realtor,
       link: "/realtor",
     },
     {
       id: 4,
       name: "HR Voice AI",
-      description: "AI hiring assistant—from screening to interviews, we simplify recruitment.",
+      description:
+        "AI hiring assistant—from screening to interviews, we simplify recruitment.",
       logo: hragent,
       link: "/hragent",
     },
-      {
+    {
       id: 5,
       name: "Outreach Voice AI",
-      description: "Your AI sales agent that pitches, books, and follows up — keeping your pipeline always warm.",
-      logo: outreach ,
+      description:
+        "Your AI sales agent that pitches, books, and follows up — keeping your pipeline always warm.",
+      logo: outreach,
       link: "/OutReachAi",
     },
   ];
@@ -52,13 +55,15 @@ const ProductMegaDropdown = ({ onClose, mobileVersion }) => {
     <div
       className={`
         bg-white shadow-lg border border-gray-200 rounded-lg
-        ${mobileVersion ? "w-full mt-1" : "mt-2 w-screen max-w-6xl"}
+        ${mobileVersion ? "w-full mt-1 max-h-[60vh] overflow-y-auto" : "mt-2 w-screen max-w-6xl max-h-[70vh] overflow-y-auto"}
         overflow-hidden
       `}
     >
       {/* Header */}
-      <div className="p-4 border-b border-gray-100">
-        <h3 className="text-lg font-semibold uppercase text-gray-800">PRODUCTS</h3>
+      <div className="p-4 border-b border-gray-100 sticky top-0 bg-white z-10">
+        <h3 className="text-lg font-semibold uppercase text-gray-800">
+          PRODUCTS
+        </h3>
       </div>
 
       {/* Product Grid */}
@@ -69,12 +74,7 @@ const ProductMegaDropdown = ({ onClose, mobileVersion }) => {
               key={product.id}
               to={product.link}
               onClick={handleProductClick}
-              className="
-                group flex items-start space-x-4
-                p-3 border border-gray-200 rounded-lg
-                hover:shadow-md transition-all
-                hover:border-orange-300
-              "
+              className="group flex items-start space-x-4 p-3 border border-gray-200 rounded-lg hover:shadow-md transition-all hover:border-orange-300"
             >
               <img
                 src={product.logo}
@@ -94,7 +94,7 @@ const ProductMegaDropdown = ({ onClose, mobileVersion }) => {
         </div>
       </div>
 
-      {/* Footer Actions (Optional) */}
+      {/* Footer Actions */}
       <div className="p-4 border-t border-gray-100 flex justify-end space-x-3">
         <button
           onClick={onClose}

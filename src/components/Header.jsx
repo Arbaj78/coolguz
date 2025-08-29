@@ -35,6 +35,7 @@ const Header = () => {
     setShowIndustries(false);
   };
 
+  // Close menus when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -50,7 +51,7 @@ const Header = () => {
           setShowIndustries(false);
         }
       }
-      
+
       if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
         const mobileMenuButton = document.querySelector('[data-mobile-menu-button]');
         if (!mobileMenuButton || !mobileMenuButton.contains(event.target)) {
@@ -59,20 +60,25 @@ const Header = () => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Handle header hide/show on scroll
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setScrolled(currentScrollY > 10);
 
-      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+      // Only hide if dropdowns are NOT open
+      if (
+        !showProducts &&
+        !showIndustries &&
+        currentScrollY > lastScrollY.current &&
+        currentScrollY > 100
+      ) {
         setVisible(false);
         setMobileMenuOpen(false);
-        setShowProducts(false);
-        setShowIndustries(false);
       } else {
         setVisible(true);
       }
@@ -82,7 +88,7 @@ const Header = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [showProducts, showIndustries]);
 
   const filteredNavigation = navigation.filter((item) =>
     ["About", "blog", "contact", "products"].includes(item.id)
@@ -100,6 +106,7 @@ const Header = () => {
           <img src={logo} alt="Logo" className="w-[100px] h-[50px] object-contain rounded-lg" />
         </Link>
 
+        {/* Desktop Nav */}
         <nav className="hidden md:flex flex-grow justify-center space-x-4">
           {filteredNavigation.map((item) =>
             item.id === "products" ? (
@@ -129,7 +136,7 @@ const Header = () => {
             )
           )}
 
-          {/* Industry Dropdown */}
+          {/* Industry Dropdown Button */}
           <div className="relative">
             <button
               data-industries-button
@@ -145,6 +152,7 @@ const Header = () => {
           </div>
         </nav>
 
+        {/* Right Side */}
         <div className="flex items-center space-x-4">
           <Link
             to="/subscribe"
@@ -173,18 +181,26 @@ const Header = () => {
         </div>
       </div>
 
+      {/* Desktop Dropdowns with Scroll */}
       {showProducts && (
-        <div ref={dropdownRef} className="absolute left-0 right-0 flex justify-center">
+        <div
+          ref={dropdownRef}
+          className="absolute left-0 right-0 flex justify-center max-h-[70vh] overflow-y-auto bg-white shadow-lg z-50"
+        >
           <ProductMegaDropdown onClose={() => setShowProducts(false)} />
         </div>
       )}
 
       {showIndustries && (
-        <div ref={industryDropdownRef} className="absolute left-0 right-0 flex justify-center">
+        <div
+          ref={industryDropdownRef}
+          className="absolute left-0 right-0 flex justify-center max-h-[70vh] overflow-y-auto bg-white shadow-lg z-50"
+        >
           <IndustryMegaDropdown onClose={() => setShowIndustries(false)} />
         </div>
       )}
 
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div ref={mobileMenuRef} className="md:hidden bg-white/95 shadow-lg border-t border-gray-200">
           <div className="px-4 py-2 flex flex-col space-y-2">
@@ -231,26 +247,25 @@ const Header = () => {
               Subscribe
             </Link>
           </div>
-          
+
+          {/* Mobile Dropdowns with Scroll */}
           {showProducts && (
-            <div className="px-4 py-2 bg-gray-50">
-              <ProductMegaDropdown 
+            <div className="px-4 py-2 bg-gray-50 max-h-[60vh] overflow-y-auto">
+              <ProductMegaDropdown
                 onClose={() => {
                   setShowProducts(false);
-                  setMobileMenuOpen(false);
-                }} 
+                }}
                 mobileVersion
               />
             </div>
           )}
 
           {showIndustries && (
-            <div className="px-4 py-2 bg-gray-50">
-              <IndustryMegaDropdown 
+            <div className="px-4 py-2 bg-gray-50 max-h-[60vh] overflow-y-auto">
+              <IndustryMegaDropdown
                 onClose={() => {
                   setShowIndustries(false);
-                  setMobileMenuOpen(false);
-                }} 
+                }}
                 mobileVersion
               />
             </div>
