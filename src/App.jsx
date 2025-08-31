@@ -28,7 +28,7 @@ import OilGas from "./components/industries_content/OilGas";
 import Power_utilities_engergies from "./components/industries_content/Power_utilities_engergies";
 import Renuable from "./components/industries_content/Renuable";
 import Retail_consumer from "./components/industries_content/Retail_consumer";
-
+import Review from './components/Review';
 const App = () => {
   return (
     <div>
@@ -42,6 +42,7 @@ const App = () => {
               <CompanyLogos/>
               <Roadmap/>
               <Testimonil/>
+              <Review/>
               <Faq/>
             </>
           } />

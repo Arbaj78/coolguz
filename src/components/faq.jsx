@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { 
   ChevronDown,
   Brain,
-  Zap,
   Sparkles,
-  MessageCircle,
   Rocket,
   Settings,
   Link,
@@ -13,29 +11,28 @@ import {
   Workflow,
   Headphones,
   BarChart2,
-  Lock
+  Lock,
+  Mail
 } from 'lucide-react';
 import Section from './Section';
 
 const Faq = () => {
-  const [openItems, setOpenItems] = useState(new Set());
+  const [openId, setOpenId] = useState(null);
 
   // Function to determine icon based on question content
   const getIconForQuestion = (question) => {
-    const lowerQuestion = question.toLowerCase();
-    
-    if (lowerQuestion.includes('why') || lowerQuestion.includes('fatcamel')) return Rocket;
-    if (lowerQuestion.includes('charge') || lowerQuestion.includes('price')) return DollarSign;
-    if (lowerQuestion.includes('process') || lowerQuestion.includes('work')) return Workflow;
-    if (lowerQuestion.includes('tool') || lowerQuestion.includes('integrat')) return Link;
-    if (lowerQuestion.includes('support') || lowerQuestion.includes('help')) return Headphones;
-    if (lowerQuestion.includes('different') || lowerQuestion.includes('unique')) return Sparkles;
-    if (lowerQuestion.includes('secure') || lowerQuestion.includes('safe')) return Shield;
-    if (lowerQuestion.includes('result') || lowerQuestion.includes('outcome')) return BarChart2;
-    if (lowerQuestion.includes('technology') || lowerQuestion.includes('ai')) return Brain;
-    if (lowerQuestion.includes('data') || lowerQuestion.includes('privacy')) return Lock;
-    
-    return Settings; // Default icon
+    const lower = question.toLowerCase();
+    if (lower.includes('why') || lower.includes('fatcamel')) return Rocket;
+    if (lower.includes('charge') || lower.includes('price')) return DollarSign;
+    if (lower.includes('process') || lower.includes('work')) return Workflow;
+    if (lower.includes('tool') || lower.includes('integrat')) return Link;
+    if (lower.includes('support') || lower.includes('help')) return Headphones;
+    if (lower.includes('different') || lower.includes('unique')) return Sparkles;
+    if (lower.includes('secure') || lower.includes('safe')) return Shield;
+    if (lower.includes('result') || lower.includes('outcome')) return BarChart2;
+    if (lower.includes('technology') || lower.includes('ai')) return Brain;
+    if (lower.includes('data') || lower.includes('privacy')) return Lock;
+    return Settings;
   };
 
   const faqs = [
@@ -70,26 +67,17 @@ const Faq = () => {
   }));
 
   const toggleItem = (id) => {
-    const newOpenItems = new Set(openItems);
-    if (newOpenItems.has(id)) {
-      newOpenItems.delete(id);
-    } else {
-      newOpenItems.add(id);
-    }
-    setOpenItems(newOpenItems);
+    setOpenId(openId === id ? null : id);
   };
 
   return (
     <Section customPaddings="py-0">
       <div className="bg-black relative overflow-hidden">
-        {/* Glow background bubbles */}
+        {/* Background glow */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-orange-600/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-amber-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-orange-600/5 rounded-full blur-3xl animate-pulse delay-2000"></div>
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
-
-        {/* Grid background lines */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
 
         <div className="relative z-10 container mx-auto px-6">
@@ -97,54 +85,59 @@ const Faq = () => {
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-white via-orange-200 to-amber-200 bg-clip-text text-transparent mb-4 tracking-tight">
               Frequently Asked
-              <span className="block bg-clip-text text-transparent">
-                Questions
-              </span>
+              <span className="block">Questions</span>
             </h2>
-
             <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
               Get instant answers about our AI solutions and how we drive business results
             </p>
           </div>
 
           {/* FAQ List */}
-          <div className="max-w-4xl mx-auto space-y-4">
+          <div className="max-w-4xl mx-auto space-y-5">
             {faqs.map((faq) => {
               const IconComponent = faq.icon;
-              const isOpen = openItems.has(faq.id);
+              const isOpen = openId === faq.id;
 
               return (
                 <div
                   key={faq.id}
-                  className="group relative bg-gray-900/80 backdrop-blur-sm border border-gray-800 rounded-xl overflow-hidden transition-all duration-500 hover:border-orange-500/50 hover:shadow-lg hover:shadow-orange-500/10"
+                  className={`group relative rounded-2xl border transition-all duration-500 overflow-hidden ${
+                    isOpen 
+                      ? "border-orange-500/50 bg-gradient-to-br from-gray-900/90 to-black shadow-lg shadow-orange-500/10" 
+                      : "border-gray-800 bg-gray-900/50"
+                  }`}
                 >
                   <button
                     onClick={() => toggleItem(faq.id)}
-                    className="w-full p-6 text-left focus:outline-none"
+                    className="w-full px-6 py-5 flex items-center justify-between focus:outline-none"
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
-                        <div className={`p-3 rounded-lg ${isOpen ? 'bg-orange-500/10' : 'bg-gray-800'}`}>
-                          <IconComponent className={`w-5 h-5 ${isOpen ? 'text-orange-400' : 'text-gray-400'}`} />
-                        </div>
-                        <h3 className="text-lg font-medium text-white">
-                          {faq.question}
-                        </h3>
+                    <div className="flex items-center gap-4">
+                      <div className={`p-3 rounded-lg transition-all duration-500 ${
+                        isOpen ? "bg-orange-500/10 scale-110" : "bg-gray-800"
+                      }`}>
+                        <IconComponent className={`w-6 h-6 transition-colors duration-500 ${
+                          isOpen ? "text-orange-400" : "text-gray-400"
+                        }`} />
                       </div>
-                      <ChevronDown
-                        className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-orange-400' : ''}`}
-                      />
+                      <h3 className="text-lg md:text-xl font-medium text-white text-left">
+                        {faq.question}
+                      </h3>
                     </div>
+                    <ChevronDown
+                      className={`w-6 h-6 text-gray-400 transition-transform duration-300 ${
+                        isOpen ? "rotate-180 text-orange-400" : ""
+                      }`}
+                    />
                   </button>
 
                   <div
-                    className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+                    className={`grid transition-all duration-500 ease-in-out ${
+                      isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                    }`}
                   >
-                    <div className="px-6 pb-6">
+                    <div className="overflow-hidden px-6 pb-6">
                       <div className="pl-14">
-                        <p className="text-gray-300 leading-relaxed">
-                          {faq.answer}
-                        </p>
+                        <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
                       </div>
                     </div>
                   </div>
@@ -153,13 +146,8 @@ const Faq = () => {
             })}
           </div>
 
-          {/* Contact Prompt */}
-          <div className="text-center mt-16">
-            <button className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-600/20 to-amber-600/20 border border-orange-500/30 rounded-full text-orange-200 hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/10">
-              <Sparkles className="w-5 h-5 mr-2" />
-              <span className="font-medium">Still have questions? Contact our AI experts</span>
-            </button>
-          </div>
+          {/* Contact CTA */}
+         
         </div>
       </div>
     </Section>
