@@ -55,9 +55,7 @@ export default function TrustedPlatforms() {
     };
   }, []);
 
-  const handleLogoClick = (rating) => {
-    alert(`Average rating on this platform: ${rating}`);
-  };
+
 
   const handleImageError = (e, fallback) => {
     e.target.src = fallback;
