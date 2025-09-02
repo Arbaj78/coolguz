@@ -4,7 +4,7 @@ import goodfirms from '../assets/goodfirms-seeklogo.png';
 import google from '../assets/google.png';
 import trustpilot from '../assets/trustpilot.webp';
 import upwork from '../assets/upwork-seeklogo.png';
-
+import G2 from '../assets/gtwo.png';
 export default function TrustedPlatforms() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -29,6 +29,18 @@ export default function TrustedPlatforms() {
       rating: '4.8★',
       logo: trustpilot,
     },
+    {
+      name: 'Upwork',
+      rating: '4.9★',
+      logo: upwork,
+    },
+    
+    {
+      name: 'G2',
+      rating: '4.8★',
+      logo: G2,
+    },
+    
   ];
 
   useEffect(() => {
