@@ -130,9 +130,9 @@ const Footer = () => {
             © {new Date().getFullYear()} fatcamel. All rights reserved.
           </p>
           <div className="flex items-center space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm">Terms</a>
-            <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm">Privacy</a>
-            <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm">Cookies</a>
+            <a href="" className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm">Terms</a>
+            <a href="" className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm">Privacy</a>
+            <a href="" className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm">Cookies</a>
           </div>
         </div>
       </div>

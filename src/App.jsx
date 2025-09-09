@@ -29,12 +29,13 @@ import Power_utilities_engergies from "./components/industries_content/Power_uti
 import Renuable from "./components/industries_content/Renuable";
 import Retail_consumer from "./components/industries_content/Retail_consumer";
 import Review from './components/Review';
+
 const App = () => {
   return (
     <div>
       <div className="pt-[3.75rem] lg:pt-[4.25rem] overflow-hidden">
         <Header />
-        <Routes>
+        <Routes >
           <Route path="/" element={
             <>
               <Hero />
@@ -47,13 +48,16 @@ const App = () => {
             </>
           } />
 
-          <Route path="/subscribe" element={<SubscribePage />} />
-          
-           <Route path="/blog" element={<BlogPosts />} /> 
-           <Route path="/blog/:slug" element={<SinglePost />} />
-           <Route path="/industry" element={<Industry />} />
+          {/* Added routes for navigation items that were previously hash links */}
+          <Route path="/roadmap" element={<Roadmap />} />
+          <Route path="/testimonials" element={<Testimonil />} />
+          <Route path="/faq" element={<Faq />} />
 
-           <Route path="/about" element={<AboutPage />} />
+          <Route path="/subscribe" element={<SubscribePage />} />
+          <Route path="/blog" element={<BlogPosts />} /> 
+          <Route path="/blog/:slug" element={<SinglePost />} />
+          <Route path="/industry" element={<Industry />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/linkedin-agent" element={<LinkedinAgent />} />
           <Route path="/content-flow" element={<ContentFlow />} />
@@ -69,7 +73,6 @@ const App = () => {
           <Route path="/PUE" element={<Power_utilities_engergies />} />
           <Route path="/Renuable_energy" element={<Renuable />} />
           <Route path="/RetailConsumer" element={<Retail_consumer />} />
-
         </Routes>
         <Footer />
       </div>

@@ -174,7 +174,7 @@ const SinglePost = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style >{`
         .article-content p {
           margin-bottom: 1.5rem;
           font-size: 1.125rem;

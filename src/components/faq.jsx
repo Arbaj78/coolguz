@@ -83,7 +83,7 @@ const Faq = () => {
         <div className="relative z-10 container mx-auto px-6">
           {/* Header */}
           <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-white via-orange-200 to-amber-200 bg-clip-text text-transparent mb-4 tracking-tight">
+            <h2 className="py-10 text-5xl md:text-6xl font-bold bg-gradient-to-r from-white via-orange-200 to-amber-200 bg-clip-text text-transparent mb-4 tracking-tight">
               Frequently Asked
               <span className="block">Questions</span>
             </h2>
