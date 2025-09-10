@@ -1,12 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
 import ButtonGradient from "./assets/svg/ButtonGradient";
-import Collaboration from "./components/Collaboration";
-import CompanyLogos from "./components/CompanyLogos";
-import ContactPage from "./components/ContactPage";
-import Faq from "./components/faq";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import Hero from "./components/Hero";
+
+
+import HomePage from './components/HomePage'; 
+
+
+import ContactPage from "./components/ContactPage";
+import Faq from "./components/faq";
 import Roadmap from "./components/Roadmap";
 import Testimonil from "./components/Testimonil";
 import LinkedinAgent from './components/LinkedinAgent';
@@ -28,31 +30,19 @@ import OilGas from "./components/industries_content/OilGas";
 import Power_utilities_engergies from "./components/industries_content/Power_utilities_engergies";
 import Renuable from "./components/industries_content/Renuable";
 import Retail_consumer from "./components/industries_content/Retail_consumer";
-import Review from './components/Review';
 
 const App = () => {
   return (
     <div>
       <div className="pt-[3.75rem] lg:pt-[4.25rem] overflow-hidden">
         <Header />
-        <Routes >
-          <Route path="/" element={
-            <>
-              <Hero />
-              <Collaboration />
-              <CompanyLogos/>
-              <Roadmap/>
-              <Testimonil/>
-              <Review/>
-              <Faq/>
-            </>
-          } />
+        <Routes>
+      
+          <Route path="/" element={<HomePage />} />
 
-          {/* Added routes for navigation items that were previously hash links */}
           <Route path="/roadmap" element={<Roadmap />} />
           <Route path="/testimonials" element={<Testimonil />} />
           <Route path="/faq" element={<Faq />} />
-
           <Route path="/subscribe" element={<SubscribePage />} />
           <Route path="/blog" element={<BlogPosts />} /> 
           <Route path="/blog/:slug" element={<SinglePost />} />

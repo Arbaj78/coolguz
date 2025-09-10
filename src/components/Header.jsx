@@ -6,6 +6,7 @@ import ProductMegaDropdown from "./ProductMegaDropdown";
 import IndustryMegaDropdown from "./IndustryMegaDropdown";
 import { FiMenu, FiX } from "react-icons/fi";
 
+
 const Header = () => {
   const pathname = useLocation();
   const [scrolled, setScrolled] = useState(false);
@@ -103,7 +104,7 @@ const Header = () => {
     >
       <div className="flex items-center justify-between px-2 lg:px-4 xl:px-6 py-0 h-20">
         <Link to="/" className="flex items-center w-fit hover:animate-pulse">
-          <img src={logo} alt="Logo" className="w-[100px] h-[50px] object-contain rounded-lg" />
+          <img src={logo} alt="fatcamel AI agent services" className="w-[100px] h-[50px] object-contain rounded-lg" />
         </Link>
 
         {/* Desktop Nav */}

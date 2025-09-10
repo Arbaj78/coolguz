@@ -152,7 +152,7 @@ const Roadmap = () => {
             <div className="max-w-5xl mx-auto relative z-10">
               <header className="text-center mb-12 pt-12">
                 
-                <h1 className="text-3xl font-bold text-white mb-4">How It Works</h1>
+                <h3 className="text-3xl font-bold text-white mb-4">How It Works</h3>
                 <p className="text-base text-gray-300 max-w-2xl mx-auto leading-relaxed">
                   Our signature process is designed to deliver maximum value, fast.
                 </p>

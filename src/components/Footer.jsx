@@ -30,7 +30,7 @@ const Footer = () => {
   const socialIcons = [
     { Icon: Twitter, color: "hover:bg-blue-400", name: "Twitter", link: "https://x.com/vasantaddy" },
     { Icon: Instagram, color: "hover:bg-pink-500", name: "Instagram", link: "https://www.instagram.com/the_boring_ai_guy/" },
-    { Icon: Linkedin, color: "hover:bg-blue-700", name: "LinkedIn", link: "https://www.linkedin.com/in/basant-choudhary/" }
+    { Icon: Linkedin, color: "hover:bg-blue-700", name: "LinkedIn", link: "https://www.linkedin.com/company/fatcamelai/" }
   ];
 
   return (
@@ -53,7 +53,7 @@ const Footer = () => {
             <div className="flex items-center gap-3 mb-4">
               <img 
                 src={logo} 
-                alt="Logo"  
+                alt="fatcamel AI agent services"  
                 className="w-[100px] h-[50px] object-contain rounded-lg"
               />
             </div>
