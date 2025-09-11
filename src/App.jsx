@@ -30,7 +30,12 @@ import OilGas from "./components/industries_content/OilGas";
 import Power_utilities_engergies from "./components/industries_content/Power_utilities_engergies";
 import Renuable from "./components/industries_content/Renuable";
 import Retail_consumer from "./components/industries_content/Retail_consumer";
-
+import SocialMediaService from "./components/services/SocialMediaService";
+import ChatBotsService from "./components/services/ChetBotsService";
+import VoiceAssitent from "./components/services/VoiceAssitent";
+import EmailManagement from './components/services/EmailService';
+import CRMAutomation from './components/services/CRMService';
+import NotionService from './components/services/NotionService';
 const App = () => {
   return (
     <div>
@@ -63,6 +68,13 @@ const App = () => {
           <Route path="/PUE" element={<Power_utilities_engergies />} />
           <Route path="/Renuable_energy" element={<Renuable />} />
           <Route path="/RetailConsumer" element={<Retail_consumer />} />
+          <Route path="/SocialMediaService" element={<SocialMediaService />} />
+          <Route path="/ChatBotsService" element={<ChatBotsService />} />
+          <Route path="/VoiceAssitentService" element={<VoiceAssitent />} />
+          <Route path="/EmailManagementService" element={<EmailManagement />} />
+          <Route path="/CRMAutomationService" element={<CRMAutomation />} />
+          <Route path="/NotionIntegarationService" element={<NotionService />} />
+
         </Routes>
         <Footer />
       </div>

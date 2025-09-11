@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Twitter, Instagram, Linkedin, Globe, Briefcase, PenTool, ArrowUp } from 'lucide-react';
+import { Mail, Twitter, Instagram, Linkedin, Globe, Briefcase, Server, ArrowUp } from 'lucide-react';
 import logo from "../assets/logo-white.svg";
 
 const Footer = () => {
@@ -15,17 +15,27 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const footerSections = [
-    {
-      title: "Company",
-      links: [
-        { name: "About", href: "/about" },
-        { name: "Blog", href: "/blog" },
-        // { name: "Careers", href: "/careers" },
-        { name: "Contact", href: "/contact" }
-      ]
-    }
-  ];
+  const servicesSection = {
+    title: "Services",
+    links: [
+      { name: "Social Media", href: "/SocialMediaService" },
+      { name: "Chatbots", href: "/ChatBotsService" },
+      { name: "Voice Assistants", href: "/VoiceAssitentService" },
+      { name: "Email Management", href: "/EmailManagementService" },
+      { name: "CRM Automation", href: "/CRMAutomationService" },
+      { name: "Notion Integration", href: "/NotionIntegarationService" }
+    ]
+  };
+
+  const companySection = {
+    title: "Company",
+    links: [
+      { name: "About", href: "/about" },
+      { name: "Blog", href: "/blog" },
+      // { name: "Careers", href: "/careers" },
+      { name: "Contact", href: "/contact" }
+    ]
+  };
 
   const socialIcons = [
     { Icon: Twitter, color: "hover:bg-blue-400", name: "Twitter", link: "https://x.com/vasantaddy" },
@@ -46,10 +56,11 @@ const Footer = () => {
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
       }`}>
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        {/* Using a 12-column grid for better control */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
           
-          {/* Brand Info */}
-          <div className="md:col-span-2 space-y-6">
+          {/* Brand Info (takes 4 columns on md screens) */}
+          <div className="md:col-span-4 space-y-6">
             <div className="flex items-center gap-3 mb-4">
               <img 
                 src={logo} 
@@ -83,14 +94,37 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Company Links */}
-          <div className="space-y-6">
+          {/* Services Links (takes 2 columns on md screens) */}
+          <div className="md:col-span-2 space-y-6">
+            <h3 className="text-xl font-bold text-white flex items-center gap-2">
+              <Server className="w-5 h-5 text-orange-400" />
+              {servicesSection.title}
+            </h3>
+            {/* Reduced space-y to 2 for tighter packing */}
+            <ul className="space-y-2">
+              {servicesSection.links.map((link, index) => (
+                <li key={index}>
+                  <Link 
+                    to={link.href} 
+                    className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center gap-2 group p-1 rounded-lg hover:bg-gray-800/30"
+                  >
+                    <span className="w-1.5 h-1.5 bg-orange-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company Links (takes 2 columns on md screens) */}
+          <div className="md:col-span-2 space-y-6">
             <h3 className="text-xl font-bold text-white flex items-center gap-2">
               <Briefcase className="w-5 h-5 text-orange-400" />
-              Company
+              {companySection.title}
             </h3>
+            {/* Kept space-y-3 here or you can change to 2 */}
             <ul className="space-y-3">
-              {footerSections[0].links.map((link, index) => (
+              {companySection.links.map((link, index) => (
                 <li key={index}>
                   <Link 
                     to={link.href} 
@@ -104,8 +138,8 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Social Media */}
-          <div className="space-y-6">
+          {/* Social Media (takes 4 columns on md screens to fill the row) */}
+          <div className="md:col-span-4 space-y-6">
             <h3 className="text-xl font-bold text-white">Connect With Us</h3>
             <p className="text-gray-300">Follow us on social media for updates and news.</p>
             <div className="flex space-x-3">
@@ -130,9 +164,9 @@ const Footer = () => {
             © {new Date().getFullYear()} fatcamel. All rights reserved.
           </p>
           <div className="flex items-center space-x-6 mt-4 md:mt-0">
-            <a href="" className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm">Terms</a>
-            <a href="" className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm">Privacy</a>
-            <a href="" className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm">Cookies</a>
+            <a href="/terms" className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm">Terms</a>
+            <a href="/privacy" className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm">Privacy</a>
+            <a href="/cookies" className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm">Cookies</a>
           </div>
         </div>
       </div>

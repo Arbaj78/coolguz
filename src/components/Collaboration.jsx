@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // स्टेप 1: Link को इम्पोर्ट करें
 import { 
   BookText, 
   Contact2, 
@@ -14,46 +15,50 @@ import {
 const Section = ({ children }) => <section>{children}</section>;
 
 const Collaboration = () => {
+  // स्टेप 2: हर सर्विस में 'href' प्रॉपर्टी जोड़ें
   const services = [
-
-        {
+    {
       title: "Social Media",
       description: "Automated posting, engagement and analytics",
       icon: Share2,
-      color: "text-pink-500"
+      color: "text-pink-500",
+      href: "/SocialMediaService"
     },
-     {
+    {
       title: "Chatbots",
       description: "24/7 intelligent conversational AI for your business",
       icon: MessageSquare,
-      color: "text-orange-500"
+      color: "text-orange-500",
+      href: "/ChatBotsService"
     },
-     {
+    {
       title: "Voice Assistants",
       description: "Natural voice interactions for customer support",
       icon: Mic2,
-      color: "text-green-500"
+      color: "text-green-500",
+      href: "/VoiceAssitentService"
     },
-      {
+    {
       title: "Email Management",
       description: "AI-powered email sorting, responses and follow-ups",
       icon: Mail,
-      color: "text-red-500"
+      color: "text-red-500",
+      href: "/EmailManagementService"
     },
-        {
+    {
       title: "CRM Automation",
       description: "Enhance your CRM with intelligent workflows and insights",
       icon: Contact2,
-      color: "text-purple-500"
+      color: "text-purple-500",
+      href: "/CRMAutomationService"
     },
     {
-      
       title: "Notion Integration",
       description: "Sync your Notion workspace with AI-powered automation",
       icon: BookText,
-      color: "text-blue-500"
+      color: "text-blue-500",
+      href: "/NotionIntegarationService"
     },
-
   ];
 
   // CSS styles for animations
@@ -121,22 +126,24 @@ const Collaboration = () => {
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <div 
-                  key={index}
-                  className="group bg-white border border-blue-200 rounded-lg p-5 hover:border-orange-500 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/20"
-                >
-                  <div className="flex items-center mb-3">
-                    <div className={`w-10 h-10 ${service.color} bg-blue-50 rounded-md flex items-center justify-center p-2 mr-3 group-hover:bg-gradient-to-r group-hover:from-orange-500/10 group-hover:to-amber-500/10 transition-all`}>
-                      <Icon className="w-5 h-5" />
+                // स्टेप 3: कार्ड को <Link> से रैप करें
+                <Link to={service.href} key={index}>
+                  <div 
+                    className="group bg-white border border-blue-200 rounded-lg p-5 hover:border-orange-500 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/20 h-full"
+                  >
+                    <div className="flex items-center mb-3">
+                      <div className={`w-10 h-10 ${service.color} bg-blue-50 rounded-md flex items-center justify-center p-2 mr-3 group-hover:bg-gradient-to-r group-hover:from-orange-500/10 group-hover:to-amber-500/10 transition-all`}>
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <h3 className="text-base md:text-lg font-semibold text-gray-800 group-hover:text-orange-600 transition-colors">
+                        {service.title}
+                      </h3>
                     </div>
-                    <h3 className="text-base md:text-lg font-semibold text-gray-800 group-hover:text-orange-600 transition-colors">
-                      {service.title}
-                    </h3>
+                    <p className="text-gray-600 text-xs md:text-sm ml-13 group-hover:text-gray-700 transition-colors">
+                      {service.description}
+                    </p>
                   </div>
-                  <p className="text-gray-600 text-xs md:text-sm ml-13 group-hover:text-gray-700 transition-colors">
-                    {service.description}
-                  </p>
-                </div>
+                </Link>
               );
             })}
           </div>
