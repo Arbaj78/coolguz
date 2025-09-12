@@ -91,6 +91,7 @@
     <priority>0.6</priority>
   </url>
 
+  <!-- Blog posts -->
   <url>
     <loc>https://www.fatcamel.ai/blog/8-best-free-ai-tools-for-startups-and-entrepreneurs</loc>
     <priority>0.9</priority>
@@ -114,6 +115,47 @@
   <url>
     <loc>https://www.fatcamel.ai/blog/top-7-ai-tools-every-business-should-try-in-2025</loc>
     <priority>0.9</priority>
+  </url>
+
+  <!-- Service pages (alternate naming) -->
+  <url>
+    <loc>https://www.fatcamel.ai/Chat-Bots-Service</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.fatcamel.ai/CRM-Automation-Service</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.fatcamel.ai/Email-Management-Service</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.fatcamel.ai/Notion-Integaration-Service</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.fatcamel.ai/Out-Reach-Ai</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.fatcamel.ai/Retail-Consumer</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.fatcamel.ai/Social-Media-Service</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.fatcamel.ai/Voice-Assitent-Service</loc>
+    <priority>0.7</priority>
   </url>
 
 </urlset>
