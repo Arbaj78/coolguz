@@ -43,7 +43,7 @@ const ProductMegaDropdown = ({ onClose, mobileVersion }) => {
       description:
         "Your AI sales agent that pitches, books, and follows up — keeping your pipeline always warm.",
       logo: outreach,
-      link: "/OutReachAi",
+      link: "/Out-Reach-Ai",
     },
   ];
 

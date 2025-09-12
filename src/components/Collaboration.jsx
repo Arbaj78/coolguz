@@ -22,42 +22,42 @@ const Collaboration = () => {
       description: "Automated posting, engagement and analytics",
       icon: Share2,
       color: "text-pink-500",
-      href: "/SocialMediaService"
+      href: "/Social-Media-Service"
     },
     {
       title: "Chatbots",
       description: "24/7 intelligent conversational AI for your business",
       icon: MessageSquare,
       color: "text-orange-500",
-      href: "/ChatBotsService"
+      href: "/Chat-Bots-Service"
     },
     {
       title: "Voice Assistants",
       description: "Natural voice interactions for customer support",
       icon: Mic2,
       color: "text-green-500",
-      href: "/VoiceAssitentService"
+      href: "/Voice-Assitent-Service"
     },
     {
       title: "Email Management",
       description: "AI-powered email sorting, responses and follow-ups",
       icon: Mail,
       color: "text-red-500",
-      href: "/EmailManagementService"
+      href: "/Email-Management-Service"
     },
     {
       title: "CRM Automation",
       description: "Enhance your CRM with intelligent workflows and insights",
       icon: Contact2,
       color: "text-purple-500",
-      href: "/CRMAutomationService"
+      href: "/CRM-Automation-Service"
     },
     {
       title: "Notion Integration",
       description: "Sync your Notion workspace with AI-powered automation",
       icon: BookText,
       color: "text-blue-500",
-      href: "/NotionIntegarationService"
+      href: "/Notion-Integaration-Service"
     },
   ];
 

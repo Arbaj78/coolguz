@@ -18,12 +18,12 @@ const Footer = () => {
   const servicesSection = {
     title: "Services",
     links: [
-      { name: "Social Media", href: "/SocialMediaService" },
-      { name: "Chatbots", href: "/ChatBotsService" },
-      { name: "Voice Assistants", href: "/VoiceAssitentService" },
-      { name: "Email Management", href: "/EmailManagementService" },
-      { name: "CRM Automation", href: "/CRMAutomationService" },
-      { name: "Notion Integration", href: "/NotionIntegarationService" }
+      { name: "Social Media", href: "/Social-Media-Service" },
+      { name: "Chatbots", href: "/Chat-Bots-Service" },
+      { name: "Voice Assistants", href: "/Voice-Assitent-Service" },
+      { name: "Email Management", href: "/Email-Management-Service" },
+      { name: "CRM Automation", href: "/CRM-Automation-Service" },
+      { name: "Notion Integration", href: "/Notion-Integaration-Service" }
     ]
   };
 
