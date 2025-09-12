@@ -57,9 +57,9 @@ const App = () => {
           <Route path="/linkedin-agent" element={<LinkedinAgent />} />
           <Route path="/content-flow" element={<ContentFlow />} />
           <Route path="/linkbuddy" element={<Linkbuddy />} />
-          <Route path="/realtor" element={<Realtor />} />
+          <Route path="/Retail-Consumer" element={<Realtor />} />
           <Route path="/HrAgent" element={<HrAgent />} />
-          <Route path="/OutReachAi" element={<OutReach />} />
+          <Route path="/Out-Reach-Ai" element={<OutReach />} />
           <Route path="/BFS" element={<Banking_financial_services />} />
           <Route path="/CME" element={<Communication_media_entertainment />} />
           <Route path="/HealthCare" element={<HealthCare />} />
@@ -68,12 +68,12 @@ const App = () => {
           <Route path="/PUE" element={<Power_utilities_engergies />} />
           <Route path="/Renuable_energy" element={<Renuable />} />
           <Route path="/RetailConsumer" element={<Retail_consumer />} />
-          <Route path="/SocialMediaService" element={<SocialMediaService />} />
-          <Route path="/ChatBotsService" element={<ChatBotsService />} />
-          <Route path="/VoiceAssitentService" element={<VoiceAssitent />} />
-          <Route path="/EmailManagementService" element={<EmailManagement />} />
-          <Route path="/CRMAutomationService" element={<CRMAutomation />} />
-          <Route path="/NotionIntegarationService" element={<NotionService />} />
+          <Route path="/Social-Media-Service" element={<SocialMediaService />} />
+          <Route path="/Chat-Bots-Service" element={<ChatBotsService />} />
+          <Route path="/Voice-Assitent-Service" element={<VoiceAssitent />} />
+          <Route path="/Email-Management-Service" element={<EmailManagement />} />
+          <Route path="/CRM-Automation-Service" element={<CRMAutomation />} />
+          <Route path="/Notion-Integaration-Service" element={<NotionService />} />
 
         </Routes>
         <Footer />
