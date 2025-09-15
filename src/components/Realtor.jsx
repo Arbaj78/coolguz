@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, CheckCircle, XCircle, Calendar, MessageCircle, Clock, Users, TrendingUp, Star, ArrowRight, Zap, Shield, Headphones } from 'lucide-react';
+import { Helmet } from "react-helmet-async";
 
 const RealtorVoiceAI = () => {
   const [isVisible, setIsVisible] = useState({});
@@ -69,6 +70,12 @@ const RealtorVoiceAI = () => {
 
   return (
     <div className="min-h-screen bg-white">
+
+        <Helmet>
+        <title>Realtor AI | FatCamel</title>
+        <link rel="canonical" href="https://www.fatcamel.ai/realtor" />
+      </Helmet>
+
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-indigo-600/5"></div>

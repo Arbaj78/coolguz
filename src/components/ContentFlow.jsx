@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Zap, Target, Globe, BarChart3, Sparkles, Users, Clock, TrendingUp, Image as ImageIcon, Share2 } from "lucide-react"
 import contentimg from "../assets/contentflow-hero.png"
+import { Helmet } from "react-helmet-async";
 
 export default function ContentFlowPage() {
   const [activeStep, setActiveStep] = useState(0)
@@ -70,6 +71,12 @@ export default function ContentFlowPage() {
 
   return (
     <div className="min-h-screen bg-white">
+
+        <Helmet>
+        <title>Content Flow | FatCamel</title>
+        <link rel="canonical" href="https://www.fatcamel.ai/content-flow" />
+      </Helmet>
+
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50" />

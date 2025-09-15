@@ -3,7 +3,7 @@ import { Phone, Clock, Users, CheckCircle, XCircle, ArrowRight, Zap, Target, Tre
 
 import outreach from "../assets/outreach.png"
 
-
+import { Helmet } from "react-helmet-async";
 export default function OutreachAILanding() {
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -54,6 +54,15 @@ export default function OutreachAILanding() {
 
   return (
     <div className="min-h-screen bg-white">
+
+        <Helmet>
+        <title>Outreach AI Service | FatCamel</title>
+        <link rel="canonical" href="https://www.fatcamel.ai/outreach-ai" />
+        <meta
+          name="description"
+          content="Boost your outreach with FatCamel’s AI-powered outreach solutions. Automate lead generation, emails, and client engagement effortlessly."
+        />
+      </Helmet>
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50"></div>

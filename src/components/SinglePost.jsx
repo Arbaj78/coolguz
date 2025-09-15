@@ -4,6 +4,7 @@ import { client } from "../client";
 import BlockContent from "@sanity/block-content-to-react";
 import { urlFor } from "../imageUrlBuilder";
 import { Calendar } from "lucide-react";
+import { Helmet } from "react-helmet-async"; // ✅ SEO ke liye add kiya
 
 const SinglePost = () => {
   const [singlePost, setSinglePost] = useState(null);
@@ -17,6 +18,7 @@ const SinglePost = () => {
           title,
           body,
           publishedAt,
+          "slug": slug.current,
           mainImage {
             asset-> {
               _id,
@@ -37,10 +39,10 @@ const SinglePost = () => {
   }, [slug]);
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
@@ -49,7 +51,9 @@ const SinglePost = () => {
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <h1 className="text-2xl font-medium text-gray-700">Loading your article...</h1>
+          <h1 className="text-2xl font-medium text-gray-700">
+            Loading your article...
+          </h1>
         </div>
       </div>
     );
@@ -60,18 +64,42 @@ const SinglePost = () => {
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto px-6">
           <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            <svg
+              className="w-12 h-12 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">Article Not Found</h1>
-          <p className="text-gray-600 mb-8">The article you're looking for doesn't exist or has been moved.</p>
-          <Link 
-            to="/blog" 
+          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+            Article Not Found
+          </h1>
+          <p className="text-gray-600 mb-8">
+            The article you're looking for doesn't exist or has been moved.
+          </p>
+          <Link
+            to="/blog"
             className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-lg hover:shadow-xl"
           >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              />
             </svg>
             Return to Blog
           </Link>
@@ -80,8 +108,43 @@ const SinglePost = () => {
     );
   }
 
+  // ✅ Canonical URL generate
+  const canonicalUrl = `https://www.fatcamel.ai/blog/${singlePost.slug}`;
+  const ogImage =
+    singlePost.mainImage?.asset?.url ||
+    "https://www.fatcamel.ai/default-og-image.jpg";
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
+      {/* ✅ SEO Helmet */}
+      <Helmet>
+        <title>{singlePost.title} | FatCamel</title>
+        <meta
+          name="description"
+          content={singlePost.body[0]?.children?.[0]?.text || singlePost.title}
+        />
+        <link rel="canonical" href={canonicalUrl} />
+
+        {/* Open Graph Tags */}
+        <meta property="og:title" content={singlePost.title} />
+        <meta
+          property="og:description"
+          content={singlePost.body[0]?.children?.[0]?.text || singlePost.title}
+        />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={ogImage} />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={singlePost.title} />
+        <meta
+          name="twitter:description"
+          content={singlePost.body[0]?.children?.[0]?.text || singlePost.title}
+        />
+        <meta name="twitter:image" content={ogImage} />
+      </Helmet>
+
       {/* Hero Section */}
       <div className="relative">
         {singlePost.mainImage && (
@@ -93,29 +156,38 @@ const SinglePost = () => {
               loading="eager"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-            
+
             {/* Back Button */}
             <div className="absolute top-6 left-6 z-10">
               <Link
                 to="/blog"
                 className="inline-flex items-center px-4 py-2 bg-white/90 backdrop-blur-sm text-gray-800 font-medium rounded-full hover:bg-white transition-all duration-200 shadow-lg hover:shadow-xl"
               >
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                <svg
+                  className="w-4 h-4 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  />
                 </svg>
                 Back
               </Link>
             </div>
           </div>
         )}
-        
+
         {/* Title Section */}
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
               {singlePost.title}
             </h1>
-            {/* Date only - Author removed */}
             {singlePost.publishedAt && (
               <div className="flex items-center text-white/90">
                 <Calendar size={20} className="mr-2" />
@@ -165,8 +237,18 @@ const SinglePost = () => {
               to="/blog"
               className="inline-flex items-center px-8 py-4 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group"
             >
-              <svg className="w-5 h-5 mr-3 group-hover:-translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              <svg
+                className="w-5 h-5 mr-3 group-hover:-translate-x-1 transition-transform duration-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                />
               </svg>
               Explore More Articles
             </Link>
@@ -174,7 +256,9 @@ const SinglePost = () => {
         </div>
       </div>
 
-      <style >{`
+      {/* Article Content Styles */}
+      <style>
+        {`
         .article-content p {
           margin-bottom: 1.5rem;
           font-size: 1.125rem;
@@ -218,7 +302,8 @@ const SinglePost = () => {
           font-weight: 600;
           color: #1f2937;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 };

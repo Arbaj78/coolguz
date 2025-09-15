@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronRight, Zap, Shield, Settings, Users, Lock, FileCheck, BookOpen, Play, Download } from 'lucide-react';
-
+import { Helmet } from "react-helmet-async";
 const PowerUtilitiesPage = () => {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -84,6 +84,14 @@ const PowerUtilitiesPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
+        <Helmet>
+        <title>PUE | FatCamel</title>
+        <link rel="canonical" href="https://www.fatcamel.ai/pue" />
+        <meta
+          name="description"
+          content="Discover FatCamel’s PUE solutions for optimizing business efficiency and productivity with AI-driven automation tools."
+        />
+      </Helmet>
       {/* Navigation Breadcrumb */}
       <div className="bg-gray-50 py-3">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

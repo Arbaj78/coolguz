@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Activity, Brain, Microscope, Stethoscope, Pill, Users, Monitor, Shield, CheckCircle, ArrowRight, Play } from 'lucide-react';
+import { Helmet } from "react-helmet-async";
 
 const HealthcarePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -101,6 +102,15 @@ const HealthcarePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+       <Helmet>
+        <title>Healthcare Industry | FatCamel</title>
+        <link rel="canonical" href="https://www.fatcamel.ai/healthcare" />
+        <meta
+          name="description"
+          content="Discover how FatCamel’s AI solutions revolutionize the healthcare industry with smarter workflows, automation, and improved patient experiences."
+        />
+      </Helmet>
+      
       {/* Navigation Breadcrumb */}
       <div className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">

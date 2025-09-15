@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Play, CheckCircle, TrendingUp, Shield, Database, Users, Globe, Zap, BarChart3, Target, Leaf, FileText, AlertTriangle } from 'lucide-react';
+import { Helmet } from "react-helmet-async";
 
 const OilGasIndustryPage = () => {
   const [currentChallenge, setCurrentChallenge] = useState(0);
@@ -111,6 +112,15 @@ const OilGasIndustryPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>Oil & Gas Industry | FatCamel</title>
+        <link rel="canonical" href="https://www.fatcamel.ai/oil-and-gas" />
+        <meta
+          name="description"
+          content="Unlock efficiency with FatCamel’s AI-powered automation for the Oil & Gas industry. Optimize operations and drive innovation."
+        />
+      </Helmet>
+
       {/* Navigation Breadcrumb */}
       <div className="bg-gray-50 py-4">
         <div className="container mx-auto px-6">

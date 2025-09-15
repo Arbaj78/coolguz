@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // <-- ✅ Step 1
 import basant from '../assets/basantJi.jpg';
+import { Helmet } from "react-helmet-async";
 
 const SubscribePage = () => {
   const [status, setStatus] = useState('');
@@ -51,6 +52,16 @@ const SubscribePage = () => {
 
   return (
     <div className="min-h-screen bg-white font-sans text-[#000000cc] grid place-items-center p-12 px-4">
+
+        <Helmet>
+        <title>Subscribe | FatCamel</title>
+        <link rel="canonical" href="https://www.fatcamel.ai/subscribe" />
+        <meta
+          name="description"
+          content="Subscribe to FatCamel blog updates and never miss the latest news, insights, and tips on AI and automation."
+        />
+      </Helmet>
+
       <main className="container max-w-[450px] w-full text-center" role="main">
         <div
           className="outline outline-3 outline-[#000000dd] inline-block rounded-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-[#ff660055] hover:scale-105"

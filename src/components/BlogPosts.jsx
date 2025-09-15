@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { client } from "../client";
 import { Search, Calendar, ArrowRight } from "lucide-react";
 import { urlFor } from "../imageUrlBuilder";
+import { Helmet } from "react-helmet-async";
 
 const BlogPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -73,6 +74,12 @@ const BlogPosts = () => {
 
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
+
+      <Helmet>
+        <title>Our Blog | FatCamel</title>
+        <link rel="canonical" href="https://www.fatcamel.ai/blog" />
+      </Helmet>
+
       {/* Animated Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-10 left-5 w-32 h-32 bg-orange-100 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-blob"></div>

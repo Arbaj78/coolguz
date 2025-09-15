@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ChevronRight, Play, Users, Zap, Target, Award, ArrowRight } from 'lucide-react';
+import { Helmet } from "react-helmet-async";
 
 const CMEPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -60,6 +61,16 @@ const CMEPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white overflow-hidden">
+
+       <Helmet>
+        <title>CME Industry | FatCamel</title>
+        <link rel="canonical" href="https://www.fatcamel.ai/cme" />
+        <meta
+          name="description"
+          content="FatCamel delivers automation and AI-driven solutions for Communication, Media, and Entertainment industries to scale content and engagement."
+        />
+      </Helmet>
+
       {/* Navigation Breadcrumb */}
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center text-gray-400 text-sm">

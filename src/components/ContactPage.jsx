@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Clock, Phone } from 'lucide-react';
+import { Helmet } from "react-helmet-async"
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -94,6 +95,12 @@ const ContactPage = () => {
 
   return (
     <div className="relative overflow-hidden min-h-screen">
+
+        <Helmet>
+        <title>Contact Us | FatCamel</title>
+        <link rel="canonical" href="https://www.fatcamel.ai/contact" />
+      </Helmet>
+
       <style dangerouslySetInnerHTML={{ __html: animationStyles }} />
       
       {/* Collaboration-inspired background */}

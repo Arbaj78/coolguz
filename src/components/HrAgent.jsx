@@ -16,6 +16,7 @@ import {
   Shield,
   DollarSign
 } from 'lucide-react';
+import { Helmet } from "react-helmet-async";
 
 const HRVoiceAIPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -96,6 +97,15 @@ const HRVoiceAIPage = () => {
 
   return (
     <div className="min-h-screen bg-white text-gray-900 overflow-hidden">
+
+        <Helmet>
+        <title>HR Agent | FatCamel</title>
+        <link rel="canonical" href="https://www.fatcamel.ai/hragent" />
+        <meta
+          name="description"
+          content="Automate HR processes with FatCamel’s AI-powered HR Agent. Streamline recruitment, employee management, and communication efficiently."
+        />
+      </Helmet>
       {/* Hero Section */}
       <div className={`relative px-6 py-20 text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 -z-10"></div>

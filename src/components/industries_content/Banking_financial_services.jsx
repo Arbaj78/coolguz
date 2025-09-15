@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, TrendingUp, Shield, Cloud, Leaf, Lock, CreditCard, Smartphone, DollarSign, BarChart3, Users, FileCheck, Cog, ArrowUpRight, CheckCircle } from 'lucide-react';
-
+import { Helmet } from "react-helmet-async";
 const BFSIPage = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [isVisible, setIsVisible] = useState({});
@@ -108,6 +108,16 @@ const BFSIPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+
+       <Helmet>
+        <title>BFS Industry | FatCamel</title>
+        <link rel="canonical" href="https://www.fatcamel.ai/bfs" />
+        <meta
+          name="description"
+          content="Explore AI-powered automation for Banking and Financial Services (BFS) with FatCamel. Boost efficiency, compliance, and customer experience."
+        />
+      </Helmet>
+      
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">

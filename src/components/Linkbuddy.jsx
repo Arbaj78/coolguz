@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, Users, MessageCircle, Target, Zap, Brain, CheckCircle, ArrowRight, Linkedin, Bot, Eye, Edit3, Send, TrendingUp } from 'lucide-react';
+import { Helmet } from "react-helmet-async";
 
 const AnimatedCounter = ({ end, duration = 2000, suffix = "" }) => {
   const [count, setCount] = useState(0);
@@ -129,6 +130,12 @@ const WorkflowTree = () => {
   
   return (
     <div className={`relative ${width} ${height} ${containerHeight} bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl lg:rounded-3xl overflow-hidden mx-auto ${maxWidth} shadow-lg hover:shadow-xl transition-all duration-500`}>
+
+      <Helmet>
+        <title>LinkBuddy | FatCamel</title>
+        <link rel="canonical" href="https://www.fatcamel.ai/linkbuddy" />
+      </Helmet>
+      
       <svg className="absolute inset-0 w-full h-full">
         {connections.map(([from, to], index) => {
           const fromNode = nodes[from];
