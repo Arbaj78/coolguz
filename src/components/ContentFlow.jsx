@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
+// Import Link for navigation
+import { Link } from "react-router-dom"
 import { Zap, Target, Globe, BarChart3, Sparkles, Users, Clock, TrendingUp, Image as ImageIcon, Share2 } from "lucide-react"
 import contentimg from "../assets/contentflow-hero.png"
 import { Helmet } from "react-helmet-async";
@@ -71,8 +73,7 @@ export default function ContentFlowPage() {
 
   return (
     <div className="min-h-screen bg-white">
-
-        <Helmet>
+      <Helmet>
         <title>Content Flow | FatCamel</title>
         <link rel="canonical" href="https://www.fatcamel.ai/content-flow" />
       </Helmet>
@@ -93,7 +94,9 @@ export default function ContentFlowPage() {
           </div>
 
           <div
-            className={`text-center transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+            className={`text-center transition-all duration-1000 ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`}
           >
             <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
               ContentFlow
@@ -138,80 +141,72 @@ export default function ContentFlowPage() {
       </div>
 
       {/* Animated Workflow Tree */}
-<div className="bg-gradient-to-br from-gray-50 to-blue-50 py-20">
-  <div className="max-w-7xl mx-auto px-6">
-    <div className="text-center mb-16">
-      <h2 className="text-4xl font-bold text-gray-900 mb-4">Automated Workflow</h2>
-      <p className="text-xl text-gray-600">Watch how our AI agents transform your content strategy</p>
-    </div>
-
-    {/* Tree Structure */}
-    <div className="relative">
-      {/* Central Trunk - Hidden on mobile */}
-      <div className="hidden md:block absolute left-1/2 top-0 w-1 h-full bg-gradient-to-b from-blue-600 to-purple-600 transform -translate-x-1/2 rounded-full" />
-
-      {/* Workflow Steps */}
-      <div className="space-y-16">
-        {workflowSteps.map((step, index) => (
-          <div
-            key={step.id}
-            className={`relative flex items-center ${index % 2 === 0 ? "justify-start md:justify-start" : "justify-start md:justify-end"}`}
-          >
-            {/* Branch Line - Hidden on mobile */}
-            <div
-              className={`hidden md:block absolute top-1/2 w-20 h-0.5 bg-gradient-to-r ${step.color} ${
-                index % 2 === 0 ? "left-1/2 ml-2" : "right-1/2 mr-2"
-              }`}
-            />
-
-            {/* Step Card */}
-            <div
-              className={`w-full md:w-80 transition-all duration-700 ${
-                activeStep === index ? "scale-105 shadow-xl" : "scale-100 shadow-lg hover:shadow-xl"
-              } ${index % 2 === 0 ? "md:ml-24" : "md:mr-24"}`}
-            >
-              <div className="bg-white rounded-2xl p-6 border border-gray-200">
-                <div className="flex items-center gap-4 mb-4">
-                  <div
-                    className={`w-12 h-12 rounded-xl bg-gradient-to-r ${step.color} flex items-center justify-center text-white`}
-                  >
-                    {step.icon}
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm text-gray-500 font-medium">Step {step.id}</div>
-                    <h3 className="text-lg font-bold text-gray-900">{step.title}</h3>
-                  </div>
-                </div>
-                <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
-
-                {/* Progress Indicator */}
-                <div className="mt-4 flex items-center gap-2">
-                  <div className="flex-1 bg-gray-200 rounded-full h-2">
-                    <div
-                      className={`h-2 rounded-full bg-gradient-to-r ${step.color} transition-all duration-1000 ${
-                        activeStep >= index ? "w-full" : "w-0"
-                      }`}
-                    />
-                  </div>
-                  {activeStep === index && (
-                    <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 animate-pulse" />
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Central Node - Hidden on mobile */}
-            <div
-              className={`hidden md:block absolute left-1/2 top-1/2 w-4 h-4 rounded-full transform -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ${
-                activeStep >= index ? `bg-gradient-to-r ${step.color} scale-125` : "bg-gray-300 scale-100"
-              }`}
-            />
+      <div className="bg-gradient-to-br from-gray-50 to-blue-50 py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Automated Workflow</h2>
+            <p className="text-xl text-gray-600">Watch how our AI agents transform your content strategy</p>
           </div>
-        ))}
+          <div className="relative">
+            <div className="hidden md:block absolute left-1/2 top-0 w-1 h-full bg-gradient-to-b from-blue-600 to-purple-600 transform -translate-x-1/2 rounded-full" />
+            <div className="space-y-16">
+              {workflowSteps.map((step, index) => (
+                <div
+                  key={step.id}
+                  className={`relative flex items-center ${
+                    index % 2 === 0 ? "justify-start md:justify-start" : "justify-start md:justify-end"
+                  }`}
+                >
+                  <div
+                    className={`hidden md:block absolute top-1/2 w-20 h-0.5 bg-gradient-to-r ${step.color} ${
+                      index % 2 === 0 ? "left-1/2 ml-2" : "right-1/2 mr-2"
+                    }`}
+                  />
+                  <div
+                    className={`w-full md:w-80 transition-all duration-700 ${
+                      activeStep === index ? "scale-105 shadow-xl" : "scale-100 shadow-lg hover:shadow-xl"
+                    } ${index % 2 === 0 ? "md:ml-24" : "md:mr-24"}`}
+                  >
+                    <div className="bg-white rounded-2xl p-6 border border-gray-200">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div
+                          className={`w-12 h-12 rounded-xl bg-gradient-to-r ${step.color} flex items-center justify-center text-white`}
+                        >
+                          {step.icon}
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-sm text-gray-500 font-medium">Step {step.id}</div>
+                          <h3 className="text-lg font-bold text-gray-900">{step.title}</h3>
+                        </div>
+                      </div>
+                      <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
+                      <div className="mt-4 flex items-center gap-2">
+                        <div className="flex-1 bg-gray-200 rounded-full h-2">
+                          <div
+                            className={`h-2 rounded-full bg-gradient-to-r ${step.color} transition-all duration-1000 ${
+                              activeStep >= index ? "w-full" : "w-0"
+                            }`}
+                          />
+                        </div>
+                        {activeStep === index && (
+                          <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 animate-pulse" />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className={`hidden md:block absolute left-1/2 top-1/2 w-4 h-4 rounded-full transform -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ${
+                      activeStep >= index
+                        ? `bg-gradient-to-r ${step.color} scale-125`
+                        : "bg-gray-300 scale-100"
+                    }`}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
       {/* Key Benefits */}
       <div className="max-w-7xl mx-auto px-6 py-20">
@@ -219,7 +214,6 @@ export default function ContentFlowPage() {
           <h2 className="text-4xl font-bold text-gray-900 mb-4">Key Benefits</h2>
           <p className="text-xl text-gray-600">Transform your content strategy with intelligent automation</p>
         </div>
-
         <div className="grid md:grid-cols-3 gap-8">
           {[
             {
@@ -274,6 +268,30 @@ export default function ContentFlowPage() {
           ))}
         </div>
       </div>
+
+      {/* <<< CTA SECTION ADDED HERE >>> */}
+      <div className="bg-gradient-to-r from-orange-600 to-purple-600">
+        <div className="max-w-4xl mx-auto text-center py-20 px-6">
+          <h2 className="text-4xl font-bold text-white mb-4">
+            Ready to Automate Your Content?
+          </h2>
+          <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
+            Stop wasting time on manual tasks. Let our AI agents handle your entire content lifecycle and start seeing results today.
+          </p>
+          <div className="flex justify-center items-center gap-4">
+            <Link
+              to="/contact"
+              className="inline-flex items-center bg-white text-blue-600 font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition-all duration-300"
+            >
+              Schedule a Demo
+              <Sparkles className="w-4 h-4 ml-2" />
+            </Link>
+           
+          </div>
+        </div>
+      </div>
+      {/* <<< END OF CTA SECTION >>> */}
+
     </div>
   )
 }

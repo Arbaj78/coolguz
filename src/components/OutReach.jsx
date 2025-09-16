@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // STEP 1: Link ko import karein
 import { Phone, Clock, Users, CheckCircle, XCircle, ArrowRight, Zap, Target, TrendingUp, Database } from 'lucide-react';
-
-import outreach from "../assets/outreach.png"
-
+import outreach from "../assets/outreach.png";
 import { Helmet } from "react-helmet-async";
+
 export default function OutreachAILanding() {
+  // ... (Aapka baki ka component code waisa hi rahega)
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -54,8 +55,7 @@ export default function OutreachAILanding() {
 
   return (
     <div className="min-h-screen bg-white">
-
-        <Helmet>
+      <Helmet>
         <title>Outreach AI Service | FatCamel</title>
         <link rel="canonical" href="https://www.fatcamel.ai/outreach-ai" />
         <meta
@@ -67,17 +67,15 @@ export default function OutreachAILanding() {
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-             <div className="text-center mb-12">
-                        <img
-                          src={outreach}
-                          alt="ContentFlow AI Platform"
-                          width={800}
-                          height={400}
-                          className="mx-auto rounded-2xl shadow-2xl"
-                          priority
-                        />
-                      </div>
-            
+          <div className="text-center mb-12">
+            <img
+              src={outreach}
+              alt="Outreach AI Platform"
+              width={800}
+              height={400}
+              className="mx-auto rounded-2xl shadow-2xl"
+            />
+          </div>
           <div className={`text-center transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 text-sm font-medium mb-8 animate-pulse">
               <Phone className="w-4 h-4 mr-2" />
@@ -90,12 +88,12 @@ export default function OutreachAILanding() {
               Turn every lead into a live conversation. Our AI outreach agent pitches your service, 
               books meetings in real-time, and handles follow-ups automatically — so your pipeline never runs cold.
             </p>
-          
           </div>
         </div>
       </div>
 
-      {/* Problem Section */}
+      {/* ... (Problem, Solution, Workflow sections ka code yahan aayega) ... */}
+            {/* Problem Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">The Problem</h2>
@@ -179,6 +177,7 @@ export default function OutreachAILanding() {
         </div>
       </div>
 
+
       {/* Benefits Section */}
       <div className="bg-gradient-to-br from-orange-700 via-purple-900 to-orange-900 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -200,7 +199,29 @@ export default function OutreachAILanding() {
         </div>
       </div>
 
-      
+      {/* <<< CTA SECTION ADDED HERE >>> */}
+      <div className="bg-gradient-to-br from-orange-700 via-purple-900 to-orange-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Never Let a Hot Lead Go Cold Again.
+          </h2>
+          <p className="text-lg text-purple-200 max-w-3xl mx-auto mb-10">
+            Let our AI agent handle the entire outreach funnel—from first call to confirmed meeting. Fill your calendar with qualified appointments, not maybes.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              to="/contact"
+              className="group inline-flex items-center justify-center w-full sm:w-auto bg-gradient-to-r from-orange-500 to-purple-500 text-white font-bold px-8 py-4 rounded-lg shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105"
+            >
+              <Phone className="w-5 h-5 mr-3 group-hover:animate-shake" />
+              Book a Demo
+            </Link>
+         
+          </div>
+        </div>
+      </div>
+      {/* <<< END OF CTA SECTION >>> */}
+
     </div>
   );
 }

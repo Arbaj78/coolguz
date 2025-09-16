@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // स्टेप 1: Link को इम्पोर्ट करें
+import { Link } from 'react-router-dom';
 import { 
   BookText, 
   Contact2, 
@@ -15,7 +15,6 @@ import {
 const Section = ({ children }) => <section>{children}</section>;
 
 const Collaboration = () => {
-  // स्टेप 2: हर सर्विस में 'href' प्रॉपर्टी जोड़ें
   const services = [
     {
       title: "Social Media",
@@ -61,7 +60,6 @@ const Collaboration = () => {
     },
   ];
 
-  // CSS styles for animations
   const animationStyles = `
     @keyframes dotMove {
       0% { background-position: 0px 0px; }
@@ -126,7 +124,6 @@ const Collaboration = () => {
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                // स्टेप 3: कार्ड को <Link> से रैप करें
                 <Link to={service.href} key={index}>
                   <div 
                     className="group bg-white border border-blue-200 rounded-lg p-5 hover:border-orange-500 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/20 h-full"
@@ -148,12 +145,17 @@ const Collaboration = () => {
             })}
           </div>
 
+          {/* <<< YAHAN BADLAV KIYA GAYA HAI >>> */}
           <div className="mt-12 text-center">
-            <button className="inline-flex items-center bg-gradient-to-r from-orange-500 to-amber-500 text-white px-6 py-2.5 rounded-lg font-medium hover:shadow-lg hover:shadow-orange-500/20 transition-all group">
-              <span className="text-sm md:text-base">See All Integrations</span>
-              <Sparkles className="w-3.5 h-3.5 ml-1.5 group-hover:animate-pulse" />
-            </button>
+            <Link to="/contact">
+              <button className="inline-flex items-center bg-gradient-to-r from-orange-500 to-amber-500 text-white px-6 py-2.5 rounded-lg font-medium hover:shadow-lg hover:shadow-orange-500/20 transition-all group">
+                <span className="text-sm md:text-base">Apply in 2 minutes...</span>
+                <Sparkles className="w-3.5 h-3.5 ml-1.5 group-hover:animate-pulse" />
+              </button>
+            </Link>
           </div>
+          {/* <<< BADLAV YAHAN KHATM HUA >>> */}
+
         </div>
       </div>
     </Section>

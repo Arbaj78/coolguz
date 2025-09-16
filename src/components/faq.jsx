@@ -15,7 +15,7 @@ import {
   Mail
 } from 'lucide-react';
 import Section from './Section';
-import { Helmet } from "react-helmet-async";
+
 
 const Faq = () => {
   const [openId, setOpenId] = useState(null);
@@ -74,14 +74,7 @@ const Faq = () => {
   return (
     <Section customPaddings="py-0">
 
-       <Helmet>
-        <title>FAQ | FatCamel</title>
-        <link rel="canonical" href="https://www.fatcamel.ai/faq" />
-        <meta
-          name="description"
-          content="Find answers to frequently asked questions about FatCamel’s AI automation services, integrations, and digital solutions."
-        />
-      </Helmet>
+       
       <div className="bg-black relative overflow-hidden">
         {/* Background glow */}
         <div className="absolute inset-0 overflow-hidden">

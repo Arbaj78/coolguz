@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // STEP 1: Link ko import karein
 import { 
   CheckCircle, 
   XCircle, 
@@ -19,6 +20,7 @@ import {
 import { Helmet } from "react-helmet-async";
 
 const HRVoiceAIPage = () => {
+  // ... (Aapka baki ka component code waisa hi rahega)
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -97,7 +99,6 @@ const HRVoiceAIPage = () => {
 
   return (
     <div className="min-h-screen bg-white text-gray-900 overflow-hidden">
-
         <Helmet>
         <title>HR Agent | FatCamel</title>
         <link rel="canonical" href="https://www.fatcamel.ai/hragent" />
@@ -120,7 +121,6 @@ const HRVoiceAIPage = () => {
             Your end-to-end hiring assistant. From resume screening to AI-powered candidate interviews, 
             our HR AI agent streamlines recruitment while you focus on finding the best talent.
           </p>
-         
         </div>
       </div>
 
@@ -231,10 +231,31 @@ const HRVoiceAIPage = () => {
           </div>
         </div>
       </div>
-
-     
+      
+      {/* <<< CTA SECTION ADDED HERE >>> */}
+      <div className="bg-gradient-to-r from-orange-600 to-purple-600">
+        <div className="max-w-7xl mx-auto px-6 py-20 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Find Your Next Top Talent, Faster.
+          </h2>
+          <p className="text-lg text-orange-100 max-w-3xl mx-auto mb-10">
+            Let our AI agent handle the repetitive tasks of screening, interviewing, and scheduling. Free up your team to focus on what matters—building relationships with the best candidates.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              to="/contact"
+              className="group inline-flex items-center justify-center w-full sm:w-auto bg-white text-orange-600 font-bold px-8 py-4 rounded-lg shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
+            >
+              <Zap className="w-5 h-5 mr-3 group-hover:animate-ping" />
+              Book a Free Demo
+            </Link>
+            
+          </div>
+        </div>
       </div>
-    
+      {/* <<< END OF CTA SECTION >>> */}
+
+    </div>
   );
 };
 

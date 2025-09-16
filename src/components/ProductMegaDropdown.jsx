@@ -27,7 +27,7 @@ const ProductMegaDropdown = ({ onClose, mobileVersion }) => {
       description:
         "AI voice assistant for real estate handling client calls so you can close more deals.",
       logo: realtor,
-      link: "/realtor",
+      link: "/Retail-Consumer",
     },
     {
       id: 4,
