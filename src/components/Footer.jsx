@@ -13,6 +13,9 @@ import clutch from "../assets/clutch.jpg";
 import google from "../assets/google-review.png";
 import trustpilot from "../assets/trustpilot.svg";
 
+// Note: This component uses Tailwind CSS for styling.
+// Ensure your project is configured with Tailwind CSS for the classes to apply.
+
 const Footer = () => {
   const footerLinks = {
     Services: [
@@ -60,6 +63,7 @@ const Footer = () => {
     },
   ];
 
+  // ReviewCard अब नॉर्मल दिखेगा और होवर भी होगा, लेकिन यह clickable नहीं है
   const ReviewCard = ({ children }) => (
     <div className="block w-full">
       <div className="border border-slate-700 rounded-lg p-3 h-full flex items-center justify-center space-x-3 hover:bg-slate-800/50 transition-colors duration-300">
@@ -71,10 +75,8 @@ const Footer = () => {
   return (
     <footer className="bg-slate-950 border-t border-slate-800/50">
       <div className="container mx-auto px-6 py-16">
-        {/* === FIX 2: ग्रिड को बेहतर रिस्पॉन्सिव बनाया गया है === */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {/* === FIX 2: ब्रांड सेक्शन को टैबलेट पर पूरी चौड़ाई दी गई है === */}
-          <div className="md:col-span-2 lg:col-span-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+          <div className="lg:col-span-2">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -99,7 +101,8 @@ const Footer = () => {
               Empowering your digital experience with cutting-edge solutions
               and seamless connectivity.
             </motion.p>
-            
+
+            {/* रिव्यू कार्ड्स अब नॉर्मल दिख रहे हैं */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -175,8 +178,7 @@ const Footer = () => {
                         {link.icon && (
                           <link.icon className="inline-block w-4 h-4 mr-2 text-orange-400 flex-shrink-0 mt-1" />
                         )}
-                        {/* === FIX 1: लम्बे टेक्स्ट को ब्रेक करने के लिए 'break-all' क्लास जोड़ी गई === */}
-                        <span className="break-all">{link.label}</span>
+                        <span>{link.label}</span>
                       </a>
                     </motion.div>
                   </li>
