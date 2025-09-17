@@ -1,183 +1,220 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Mail, Twitter, Instagram, Linkedin, Globe, Briefcase, Server, ArrowUp } from 'lucide-react';
+import { motion } from "framer-motion";
+import {
+  Mail,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Globe,
+  Star,
+} from "lucide-react";
+import React from "react";
 import logo from "../assets/logo-white.svg";
+import clutch from "../assets/clutch.jpg";
+import google from "../assets/google-review.png";
+import trustpilot from "../assets/trustpilot.svg";
 
 const Footer = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const footerLinks = {
+    Services: [
+      { label: "Social Media", href: "/Social-Media-Service" },
+      { label: "Chatbots", href: "/Chat-Bots-Service" },
+      { label: "Voice Assistants", href: "/Voice-Assitent-Service" },
+      { label: "Email Management", href: "/Email-Management-Service" },
+      { label: "CRM Automation", href: "/CRM-Automation-Service" },
+      { label: "Notion Integration", href: "/Notion-Integaration-Service" },
+    ],
+    Company: [
+      { label: "About", href: "/about" },
+      { label: "Blog", href: "/blog" },
+      { label: "Contact", href: "/contact" },
+    ],
+    Contact: [
+      {
+        icon: Mail,
+        label: "Basant.choudharynz@gmail.com",
+        href: "mailto:Basant.choudharynz@gmail.com",
+      },
+      {
+        icon: Globe,
+        label: "fatcamel.ai",
+        href: "https://fatcamel.ai",
+      },
+    ],
   };
 
-  const servicesSection = {
-    title: "Services",
-    links: [
-      { name: "Social Media", href: "/Social-Media-Service" },
-      { name: "Chatbots", href: "/Chat-Bots-Service" },
-      { name: "Voice Assistants", href: "/Voice-Assitent-Service" },
-      { name: "Email Management", href: "/Email-Management-Service" },
-      { name: "CRM Automation", href: "/CRM-Automation-Service" },
-      { name: "Notion Integration", href: "/Notion-Integaration-Service" }
-    ]
-  };
-
-  const companySection = {
-    title: "Company",
-    links: [
-      { name: "About", href: "/about" },
-      { name: "Blog", href: "/blog" },
-      // { name: "Careers", href: "/careers" },
-      { name: "Contact", href: "/contact" }
-    ]
-  };
-
-  const socialIcons = [
-    { Icon: Twitter, color: "hover:bg-blue-400", name: "Twitter", link: "https://x.com/vasantaddy" },
-    { Icon: Instagram, color: "hover:bg-pink-500", name: "Instagram", link: "https://www.instagram.com/the_boring_ai_guy/" },
-    { Icon: Linkedin, color: "hover:bg-blue-700", name: "LinkedIn", link: "https://www.linkedin.com/company/fatcamelai/" }
+  const socialLinks = [
+    {
+      icon: Twitter,
+      href: "https://x.com/vasantaddy",
+      label: "Twitter",
+    },
+    {
+      icon: Instagram,
+      href: "https://www.instagram.com/the_boring_ai_guy/",
+      label: "Instagram",
+    },
+    {
+      icon: Linkedin,
+      href: "https://www.linkedin.com/company/fatcamelai/",
+      label: "LinkedIn",
+    },
   ];
 
+  const ReviewCard = ({ children }) => (
+    <div className="block w-full">
+      <div className="border border-slate-700 rounded-lg p-3 h-full flex items-center justify-center space-x-3 hover:bg-slate-800/50 transition-colors duration-300">
+        {children}
+      </div>
+    </div>
+  );
+
   return (
-    <footer className="relative bg-gray-900 text-white overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-orange-400 to-transparent"></div>
-        <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-500 rounded-full blur-3xl"></div>
-      </div>
-
-      {/* Main Content */}
-      <div className={`relative z-10 container mx-auto px-6 py-12 transform transition-all duration-1000 ${
-        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-      }`}>
-        
-        {/* Using a 12-column grid for better control */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
-          
-          {/* Brand Info (takes 4 columns on md screens) */}
-          <div className="md:col-span-4 space-y-6">
-            <div className="flex items-center gap-3 mb-4">
-              <img 
-                src={logo} 
-                alt="fatcamel AI agent services"  
-                className="w-[100px] h-[50px] object-contain rounded-lg"
+    <footer className="bg-slate-950 border-t border-slate-800/50">
+      <div className="container mx-auto px-6 py-16">
+        {/* === FIX 2: ग्रिड को बेहतर रिस्पॉन्सिव बनाया गया है === */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+          {/* === FIX 2: ब्रांड सेक्शन को टैबलेट पर पूरी चौड़ाई दी गई है === */}
+          <div className="md:col-span-2 lg:col-span-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="flex items-center space-x-3 mb-6"
+            >
+              <img
+                src={logo}
+                alt="fatcamel AI agent services"
+                className="w-[100px] h-[50px] object-contain"
               />
-            </div>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="text-gray-400 mb-8 leading-relaxed max-w-sm"
+            >
+              Empowering your digital experience with cutting-edge solutions
+              and seamless connectivity.
+            </motion.p>
             
-            <p className="text-gray-300 text-lg max-w-md">
-              Empowering your digital experience with cutting-edge solutions and seamless connectivity.
-            </p>
-            
-            {/* Contact Info */}
-            <div className="space-y-4 pt-4">
-              <a href="mailto:Basant.choudharynz@gmail.com" className="flex items-center space-x-3 group">
-                <div className="p-2 bg-gray-800 rounded-lg group-hover:bg-orange-500 transition-colors duration-300">
-                  <Mail className="w-5 h-5 text-orange-400 group-hover:text-white transition-colors duration-300" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="mt-8 flex flex-col sm:flex-row gap-4 items-stretch"
+            >
+              <ReviewCard>
+                <img
+                  src={clutch}
+                  alt="Clutch Logo"
+                  width="40"
+                  height="40"
+                  className="rounded-md flex-shrink-0"
+                />
+                <div>
+                  <div className="flex items-center">
+                    <span className="text-white font-bold text-lg mr-2">
+                      5.0
+                    </span>
+                    <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className="w-4 h-4 text-red-500"
+                          fill="currentColor"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-400">5 Clutch reviews</p>
                 </div>
-                <span className="text-gray-300 group-hover:text-white transition-colors duration-300">
-                  Basant.choudharynz@gmail.com
-                </span>
-              </a>
-              <a href="https://fatcamel.ai" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-3 group">
-                <div className="p-2 bg-gray-800 rounded-lg group-hover:bg-orange-500 transition-colors duration-300">
-                  <Globe className="w-5 h-5 text-orange-400 group-hover:text-white transition-colors duration-300" />
-                </div>
-                <span className="text-gray-300 group-hover:text-white transition-colors duration-300">
-                  fatcamel.ai
-                </span>
-              </a>
-            </div>
+              </ReviewCard>
+
+              <ReviewCard>
+                <img
+                  src={trustpilot}
+                  alt="Trustpilot Logo"
+                  width="100"
+                  height="24"
+                />
+              </ReviewCard>
+
+              <ReviewCard>
+                <img
+                  src={google}
+                  alt="Google Review Logo"
+                  width="120"
+                  height="30"
+                  className="object-contain"
+                />
+              </ReviewCard>
+            </motion.div>
           </div>
 
-          {/* Services Links (takes 2 columns on md screens) */}
-          <div className="md:col-span-2 space-y-6">
-            <h3 className="text-xl font-bold text-white flex items-center gap-2">
-              <Server className="w-5 h-5 text-orange-400" />
-              {servicesSection.title}
-            </h3>
-            {/* Reduced space-y to 2 for tighter packing */}
-            <ul className="space-y-2">
-              {servicesSection.links.map((link, index) => (
-                <li key={index}>
-                  <Link 
-                    to={link.href} 
-                    className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center gap-2 group p-1 rounded-lg hover:bg-gray-800/30"
-                  >
-                    <span className="w-1.5 h-1.5 bg-orange-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company Links (takes 2 columns on md screens) */}
-          <div className="md:col-span-2 space-y-6">
-            <h3 className="text-xl font-bold text-white flex items-center gap-2">
-              <Briefcase className="w-5 h-5 text-orange-400" />
-              {companySection.title}
-            </h3>
-            {/* Kept space-y-3 here or you can change to 2 */}
-            <ul className="space-y-3">
-              {companySection.links.map((link, index) => (
-                <li key={index}>
-                  <Link 
-                    to={link.href} 
-                    className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center gap-2 group p-2 rounded-lg hover:bg-gray-800/30"
-                  >
-                    <span className="w-2 h-2 bg-orange-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Social Media (takes 4 columns on md screens to fill the row) */}
-          <div className="md:col-span-4 space-y-6">
-            <h3 className="text-xl font-bold text-white">Connect With Us</h3>
-            <p className="text-gray-300">Follow us on social media for updates and news.</p>
-            <div className="flex space-x-3">
-              {socialIcons.map(({ Icon, color, name, link }) => (
-                <a
-                  key={name}
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center cursor-pointer transform transition-all duration-300 hover:scale-110 ${color} group border border-gray-700 hover:border-transparent`}
-                >
-                  <Icon className="w-5 h-5 text-gray-300 group-hover:text-white transition-colors duration-300" />
-                </a>
-              ))}
-            </div>
-          </div>
+          {Object.entries(footerLinks).map(([title, links]) => (
+            <motion.div
+              key={title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <h4 className="text-white font-semibold mb-6">{title}</h4>
+              <ul className="space-y-3">
+                {links.map((link, i) => (
+                  <li key={i}>
+                    <motion.div whileHover={{ x: 5 }}>
+                      <a
+                        href={link.href}
+                        className="text-gray-400 hover:text-orange-400 transition-colors duration-300 flex items-start"
+                      >
+                        {link.icon && (
+                          <link.icon className="inline-block w-4 h-4 mr-2 text-orange-400 flex-shrink-0 mt-1" />
+                        )}
+                        {/* === FIX 1: लम्बे टेक्स्ट को ब्रेक करने के लिए 'break-all' क्लास जोड़ी गई === */}
+                        <span className="break-all">{link.label}</span>
+                      </a>
+                    </motion.div>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Bottom Footer */}
-        <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between">
-          <p className="text-gray-400 text-sm">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          viewport={{ once: true }}
+          className="flex flex-col md:flex-row justify-between items-center pt-12 mt-12 border-t border-slate-800/50"
+        >
+          <div className="text-gray-400 text-sm text-center md:text-left mb-4 md:mb-0">
             © {new Date().getFullYear()} fatcamel. All rights reserved.
-          </p>
-          <div className="flex items-center space-x-6 mt-4 md:mt-0">
-            <a href="/terms" className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm">Terms</a>
-            <a href="/privacy" className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm">Privacy</a>
-            <a href="/cookies" className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm">Cookies</a>
           </div>
-        </div>
-      </div>
 
-      {/* Scroll to Top Button */}
-      <button
-        onClick={scrollToTop}
-        className="fixed bottom-6 right-6 w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 hover:shadow-orange-500/30 z-50 flex items-center justify-center group"
-      >
-        <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" />
-      </button>
+          <div className="flex items-center space-x-4">
+            {socialLinks.map((social, index) => (
+              <motion.a
+                key={index}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -2, scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="p-3 bg-slate-800/50 text-gray-400 rounded-full hover:text-orange-400 hover:bg-orange-500/20 transition-all duration-300"
+                aria-label={social.label}
+              >
+                <social.icon className="w-5 h-5" />
+              </motion.a>
+            ))}
+          </div>
+        </motion.div>
+      </div>
     </footer>
   );
 };
