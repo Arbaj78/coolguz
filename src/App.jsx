@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
+
+// <<< YAHAN SCROLLTOTOP COMPONENT KO IMPORT KIYA GAYA HAI >>>
+import ScrollToTop from './components/ScrollToTop'; 
+
 import ButtonGradient from "./assets/svg/ButtonGradient";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-
-
 import HomePage from './components/HomePage'; 
-
-
 import ContactPage from "./components/ContactPage";
 import Faq from "./components/faq";
 import Roadmap from "./components/Roadmap";
@@ -36,15 +36,18 @@ import VoiceAssitent from "./components/services/VoiceAssitent";
 import EmailManagement from './components/services/EmailService';
 import CRMAutomation from './components/services/CRMService';
 import NotionService from './components/services/NotionService';
+
 const App = () => {
   return (
     <div>
       <div className="pt-[3.75rem] lg:pt-[4.25rem] overflow-hidden">
+        
+      
+        <ScrollToTop />
+        
         <Header />
         <Routes>
-      
           <Route path="/" element={<HomePage />} />
-
           <Route path="/roadmap" element={<Roadmap />} />
           <Route path="/testimonials" element={<Testimonil />} />
           <Route path="/faq" element={<Faq />} />
@@ -74,7 +77,6 @@ const App = () => {
           <Route path="/Email-Management-Service" element={<EmailManagement />} />
           <Route path="/CRM-Automation-Service" element={<CRMAutomation />} />
           <Route path="/Notion-Integaration-Service" element={<NotionService />} />
-
         </Routes>
         <Footer />
       </div>
@@ -84,3 +86,4 @@ const App = () => {
 };
 
 export default App;
+
