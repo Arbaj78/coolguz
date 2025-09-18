@@ -14,7 +14,7 @@ const Section = ({ children, id, crosses }) => (
 const Roadmap = () => {
   const [visibleSteps, setVisibleSteps] = useState([]);
   const [activeStep, setActiveStep] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
   const timelineStepsRef = useRef([]);
   const observersRef = useRef([]);

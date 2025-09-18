@@ -1,8 +1,9 @@
+import React, { useState, useEffect } from 'react'; // <-- useState और useEffect को इम्पोर्ट करें
 import { Routes, Route } from 'react-router-dom';
 
-// <<< YAHAN SCROLLTOTOP COMPONENT KO IMPORT KIYA GAYA HAI >>>
+// <<< आपके सारे कंपोनेंट इम्पोर्ट्स >>>
 import ScrollToTop from './components/ScrollToTop'; 
-
+import Preloader from './components/Preloader'; // यह इम्पोर्ट पहले से है, बहुत बढ़िया!
 import ButtonGradient from "./assets/svg/ButtonGradient";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -38,13 +39,34 @@ import CRMAutomation from './components/services/CRMService';
 import NotionService from './components/services/NotionService';
 
 const App = () => {
+  // प्रीलोडर को कंट्रोल करने के लिए स्टेट
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // चेक करें कि यूजर इस सेशन में पहले आ चुका है या नहीं
+    const hasVisitedBefore = sessionStorage.getItem('hasVisitedBefore');
+    
+    // पहली बार आने पर 5 सेकंड, वरना 2 सेकंड का डिले
+    const delay = hasVisitedBefore ? 2000 : 5000;
+
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      // सेशन स्टोरेज में सेट करें ताकि अगली बार रिफ्रेश करने पर डिले कम हो
+      sessionStorage.setItem('hasVisitedBefore', 'true');
+    }, delay);
+
+    // कंपोनेंट अनमाउंट होने पर टाइमर को साफ़ करें
+    return () => clearTimeout(timer);
+  }, []); // [] का मतलब है कि यह इफ़ेक्ट सिर्फ एक बार चलेगा
+
   return (
     <div>
-      <div className="pt-[3.75rem] lg:pt-[4.25rem] overflow-hidden">
-        
+      {/* Preloader कंपोनेंट */}
+      <Preloader isVisible={isLoading} />
       
+      {/* आपकी वेबसाइट का मुख्य कंटेंट (प्रीलोडर हटने के बाद दिखेगा) */}
+      <div className="pt-[3.75rem] lg:pt-[4.25rem] overflow-hidden">
         <ScrollToTop />
-        
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -86,4 +108,3 @@ const App = () => {
 };
 
 export default App;
-
