@@ -23,10 +23,12 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build Project
         run: npm run build
+        env:
+          PRERENDER: "1"
 
       # 🔎 SEO & Performance checks before deployment
       - name: Install Lighthouse CI & Link Checker
@@ -50,7 +52,7 @@ jobs:
           blc http://localhost:8080 -ro --filter-level 3 || true
 
       - name: Upload SEO Reports
-        uses: actions/upload-artifact@v4   # ✅ updated to v4
+        uses: actions/upload-artifact@v4
         with:
           name: lighthouse-reports
           path: ./lhci-reports
@@ -61,7 +63,7 @@ jobs:
         env:
           REPO: self
           BRANCH: gh-pages
-          FOLDER: dist   # ⚠️ Use build if CRA, dist if Vite
+          FOLDER: dist
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MESSAGE: "Deploy: ({sha}) {msg}"
 
