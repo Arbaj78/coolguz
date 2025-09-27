@@ -37,6 +37,7 @@ import VoiceAssitent from "./components/services/VoiceAssitent";
 import EmailManagement from './components/services/EmailService';
 import CRMAutomation from './components/services/CRMService';
 import NotionService from './components/services/NotionService';
+import DomainsSection from './components/Domain';
 
 const App = () => {
   // प्रीलोडर को कंट्रोल करने के लिए स्टेट
@@ -99,6 +100,8 @@ const App = () => {
           <Route path="/Email-Management-Service" element={<EmailManagement />} />
           <Route path="/CRM-Automation-Service" element={<CRMAutomation />} />
           <Route path="/Notion-Integaration-Service" element={<NotionService />} />
+          <Route path="/Domain" element={<DomainsSection />} />
+
         </Routes>
         <Footer />
       </div>
