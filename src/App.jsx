@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'; // <-- useState और useEffect को इम्पोर्ट करें
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-// <<< आपके सारे कंपोनेंट इम्पोर्ट्स >>>
+// <<< Component Imports >>>
 import ScrollToTop from './components/ScrollToTop'; 
-import Preloader from './components/Preloader'; // यह इम्पोर्ट पहले से है, बहुत बढ़िया!
+import Preloader from './components/Preloader';
 import ButtonGradient from "./assets/svg/ButtonGradient";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -40,32 +40,32 @@ import NotionService from './components/services/NotionService';
 import DomainsSection from './components/Domain';
 
 const App = () => {
-  // प्रीलोडर को कंट्रोल करने के लिए स्टेट
+  // Preloader state
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // चेक करें कि यूजर इस सेशन में पहले आ चुका है या नहीं
+    // Check if the user has visited before in this session
     const hasVisitedBefore = sessionStorage.getItem('hasVisitedBefore');
     
-    // पहली बार आने पर 5 सेकंड, वरना 2 सेकंड का डिले
+    // 5 seconds delay for the first visit, otherwise 2 seconds
     const delay = hasVisitedBefore ? 2000 : 5000;
 
     const timer = setTimeout(() => {
       setIsLoading(false);
-      // सेशन स्टोरेज में सेट करें ताकि अगली बार रिफ्रेश करने पर डिले कम हो
+      // Set in session storage so the delay is shorter on next refresh
       sessionStorage.setItem('hasVisitedBefore', 'true');
     }, delay);
 
-    // कंपोनेंट अनमाउंट होने पर टाइमर को साफ़ करें
+    // Clean up the timer when the component unmounts
     return () => clearTimeout(timer);
-  }, []); // [] का मतलब है कि यह इफ़ेक्ट सिर्फ एक बार चलेगा
+  }, []); // The empty dependency array ensures this effect runs only once.
 
   return (
     <div>
-      {/* Preloader कंपोनेंट */}
+      {/* Preloader Component */}
       <Preloader isVisible={isLoading} />
       
-      {/* आपकी वेबसाइट का मुख्य कंटेंट (प्रीलोडर हटने के बाद दिखेगा) */}
+      {/* Main content of your website (will be visible after preloader) */}
       <div className="pt-[3.75rem] lg:pt-[4.25rem] overflow-hidden">
         <ScrollToTop />
         <Header />
@@ -101,7 +101,6 @@ const App = () => {
           <Route path="/CRM-Automation-Service" element={<CRMAutomation />} />
           <Route path="/Notion-Integaration-Service" element={<NotionService />} />
           <Route path="/Domain" element={<DomainsSection />} />
-
         </Routes>
         <Footer />
       </div>

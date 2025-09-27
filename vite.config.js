@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig({
-  base: '/', 
+  base: '/',
   plugins: [
     react(),
     new Prerenderer({
@@ -46,13 +46,11 @@ export default defineConfig({
         '/Domain'
       ],
 
-      // ✅ FIX: Replaced waiting for an element with a fixed time delay.
-      renderer: {
-        // Force the renderer to wait 6 seconds before capturing the HTML.
-        renderAfterTime: 6000, 
-        // Set a total timeout to prevent the build from hanging indefinitely.
-        timeout: 10000 
-      }
+      // This is the key fix. Use the simple 'string' renderer.
+      renderer: 'string', 
+      
+      // We still need to wait for your preloader to finish.
+      renderAfterTime: 6000, 
     }),
   ],
   server: {
