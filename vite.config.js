@@ -6,16 +6,19 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs';
 
+// Fix for GitHub Actions spinner issue
+if (process.env.CI || process.env.DISABLE_SPIN) {
+  process.stdout.clearLine = () => {};
+  process.stdout.cursorTo = () => {};
+}
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// ✅ Detect CI environment to disable spinner safely
-const isCI = process.env.CI === 'true' || process.env.DISABLE_SPIN === 'true';
-
-// Toggle prerender: default = ON (best for SEO). Disable by set PRERENDER=0 in env.
+// Toggle prerender: default = ON (best for SEO)
 const ENABLE_PRERENDER = process.env.PRERENDER !== '0';
 
-// default fallback routes (matches your App.jsx routes)
+// Default routes (update if needed)
 const defaultRoutes = [
   '/', '/roadmap', '/testimonials', '/faq', '/subscribe', '/blog',
   '/industry', '/about', '/contact', '/linkedin-agent', '/content-flow', '/linkbuddy',
@@ -25,24 +28,21 @@ const defaultRoutes = [
   '/Email-Management-Service', '/CRM-Automation-Service', '/Notion-Integaration-Service', '/Domain'
 ];
 
-// Try to load prerender-routes.json if it exists
+// Try loading prerender-routes.json
 let routesList = defaultRoutes;
 const routesFile = path.join(__dirname, 'prerender-routes.json');
 if (fs.existsSync(routesFile)) {
   try {
-    const raw = fs.readFileSync(routesFile, 'utf8');
-    const parsed = JSON.parse(raw);
+    const parsed = JSON.parse(fs.readFileSync(routesFile, 'utf8'));
     if (Array.isArray(parsed) && parsed.length > 0) {
       routesList = parsed;
-      console.log('[vite] using prerender routes from prerender-routes.json:', routesList.length);
+      console.log('[vite] Using prerender routes from prerender-routes.json:', routesList.length);
     } else {
-      console.warn('[vite] prerender-routes.json is empty or not an array — using defaultRoutes');
+      console.warn('[vite] prerender-routes.json empty — using defaultRoutes');
     }
   } catch (err) {
-    console.warn('[vite] failed to parse prerender-routes.json — falling back to defaultRoutes', err.message);
+    console.warn('[vite] Failed to parse prerender-routes.json:', err.message);
   }
-} else {
-  console.log('[vite] prerender-routes.json not found — using defaultRoutes.');
 }
 
 export default defineConfig({
@@ -55,8 +55,6 @@ export default defineConfig({
         routes: routesList,
         renderer: 'string',
         renderAfterDocumentEvent: 'prerender-ready',
-        // ✅ Disable CLI spinner & logs in CI to prevent crash
-        silent: isCI,
       }),
   ].filter(Boolean),
   server: {
