@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // STEP 1: Link ko import karein
 import { ChevronRight, Users, MessageCircle, Target, Zap, Brain, CheckCircle, ArrowRight, Linkedin, Bot, Eye, Edit3, Send, TrendingUp } from 'lucide-react';
 import { Helmet } from "react-helmet-async";
+import SEO from "./SEO"
+import { seo, SITE } from "../seo/seoData";
 
 // ... (AnimatedCounter, WorkflowTree, FeatureCard, ProblemSolutionCard components ka code waisa hi rahega) ...
 
@@ -134,10 +136,10 @@ const WorkflowTree = () => {
   return (
     <div className={`relative ${width} ${height} ${containerHeight} bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl lg:rounded-3xl overflow-hidden mx-auto ${maxWidth} shadow-lg hover:shadow-xl transition-all duration-500`}>
 
-      <Helmet>
-        <title>LinkBuddy | FatCamel</title>
-        <link rel="canonical" href="https://www.fatcamel.ai/linkbuddy" />
-      </Helmet>
+     
+
+ <SEO {...seo['/linkbuddy']} url={`${SITE.domain}/linkbuddy`} />
+
       
       <svg className="absolute inset-0 w-full h-full">
         {connections.map(([from, to], index) => {
@@ -330,6 +332,7 @@ export default function LinkBuddyProductPage() {
   return (
     <div className="min-h-screen bg-white overflow-hidden">
       {/* ... (Hero Section, Workflow, Problem/Solution, Agent Training, Modules, Key Features sections) ... */}
+      
       
         <div className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-100/20 to-purple-100/20 opacity-50" />

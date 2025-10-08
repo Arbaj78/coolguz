@@ -13,6 +13,8 @@ import {
   Star,
   Sparkles
 } from 'lucide-react';
+import SEO from "./SEO"
+import { seo, SITE } from "../seo/seoData";
 
 const IndustryShowcase = () => {
   const [visibleCards, setVisibleCards] = useState([]);
@@ -70,6 +72,8 @@ const IndustryShowcase = () => {
 
   return (
     <div className="min-h-screen bg-white">
+
+       <SEO {...seo['/industry']} url={`${SITE.domain}/industry`} />
       {/* Hero Section */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto text-center">

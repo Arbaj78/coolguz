@@ -1,19 +1,16 @@
 import React from 'react';
 import { ShoppingCart, TrendingUp, Users, Database, Zap, Target, BarChart3, Package, Eye, CheckCircle, ArrowRight, Globe, Shield, Cpu, Clock } from 'lucide-react';
 import { Helmet } from "react-helmet-async";
+import SEO from "../SEO"
+import { seo, SITE } from "./../../seo/seoData";
+
 
 const RetailCPGPage = () => {
   return (
     <div className="min-h-screen bg-white">
 
-        <Helmet>
-        <title>Retail Consumer Industry | FatCamel</title>
-        <link rel="canonical" href="https://www.fatcamel.ai/retail-consumer" />
-        <meta
-          name="description"
-          content="Discover how FatCamel’s AI solutions transform the retail consumer industry with automation, personalization, and growth-focused strategies."
-        />
-      </Helmet>
+        
+ <SEO {...seo['/RetailConsumer']} url={`${SITE.domain}/RetailConsumer`} />
 
       {/* Breadcrumb */}
       <div className="bg-gray-50 py-4">

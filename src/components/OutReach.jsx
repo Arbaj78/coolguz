@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // STEP 1: Link ko import karein
 import { Phone, Clock, Users, CheckCircle, XCircle, ArrowRight, Zap, Target, TrendingUp, Database } from 'lucide-react';
 import outreach from "../assets/outreach.png";
-import { Helmet } from "react-helmet-async";
+import SEO from "./SEO"
+import { seo, SITE } from "../seo/seoData";
 
 export default function OutreachAILanding() {
   // ... (Aapka baki ka component code waisa hi rahega)
@@ -55,14 +56,7 @@ export default function OutreachAILanding() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Helmet>
-        <title>Outreach AI Service | FatCamel</title>
-        <link rel="canonical" href="https://www.fatcamel.ai/outreach-ai" />
-        <meta
-          name="description"
-          content="Boost your outreach with FatCamel’s AI-powered outreach solutions. Automate lead generation, emails, and client engagement effortlessly."
-        />
-      </Helmet>
+      <SEO {...seo['/outreach']} url={`${SITE.domain}/outreach`} />
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50"></div>

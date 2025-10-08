@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Activity, Brain, Microscope, Stethoscope, Pill, Users, Monitor, Shield, CheckCircle, ArrowRight, Play } from 'lucide-react';
 import { Helmet } from "react-helmet-async";
-
+import SEO from "../SEO"
+import { seo, SITE } from "./../../seo/seoData";
 const HealthcarePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -102,14 +103,8 @@ const HealthcarePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-       <Helmet>
-        <title>Healthcare Industry | FatCamel</title>
-        <link rel="canonical" href="https://www.fatcamel.ai/healthcare" />
-        <meta
-          name="description"
-          content="Discover how FatCamel’s AI solutions revolutionize the healthcare industry with smarter workflows, automation, and improved patient experiences."
-        />
-      </Helmet>
+      
+ <SEO {...seo['/HealthCare']} url={`${SITE.domain}/HealthCare`} />
       
       {/* Navigation Breadcrumb */}
       <div className="bg-white shadow-sm">

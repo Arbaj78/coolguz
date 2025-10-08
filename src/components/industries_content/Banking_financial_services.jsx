@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, TrendingUp, Shield, Cloud, Leaf, Lock, CreditCard, Smartphone, DollarSign, BarChart3, Users, FileCheck, Cog, ArrowUpRight, CheckCircle } from 'lucide-react';
 import { Helmet } from "react-helmet-async";
+import SEO from "../SEO"
+import { seo, SITE } from "./../../seo/seoData";
 const BFSIPage = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [isVisible, setIsVisible] = useState({});
@@ -109,14 +111,7 @@ const BFSIPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
 
-       <Helmet>
-        <title>BFS Industry | FatCamel</title>
-        <link rel="canonical" href="https://www.fatcamel.ai/bfs" />
-        <meta
-          name="description"
-          content="Explore AI-powered automation for Banking and Financial Services (BFS) with FatCamel. Boost efficiency, compliance, and customer experience."
-        />
-      </Helmet>
+       <SEO {...seo['/BFS']} url={`${SITE.domain}/BFS`} />
       
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">

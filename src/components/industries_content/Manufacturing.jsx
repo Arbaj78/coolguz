@@ -18,6 +18,8 @@ import {
   Target
 } from 'lucide-react';
 import { Helmet } from "react-helmet-async";
+import SEO from "../SEO"
+import { seo, SITE } from "./../../seo/seoData";
 
 const ManufacturingPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -130,14 +132,7 @@ const ManufacturingPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white">
 
-       <Helmet>
-        <title>Manufacturing Industry | FatCamel</title>
-        <link rel="canonical" href="https://www.fatcamel.ai/manufacturing" />
-        <meta
-          name="description"
-          content="FatCamel provides AI-driven automation for the manufacturing industry, helping optimize processes, reduce costs, and boost efficiency."
-        />
-      </Helmet>
+   <SEO {...seo['/Manufacturing']} url={`${SITE.domain}/Manufacturing`} />
       
       {/* Header */}
       <div className="container mx-auto px-6 py-8">

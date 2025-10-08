@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import logo from '../assets/logo-dark.svg';
-import SEO from "./SEO";
 
-import { seo, SITE } from "../seo/seoData";
-const LinkedinAgent = () => {
+
+// Step 1: Component ka naam badal diya gaya hai
+const InstagramAgent = () => {
   const [formData, setFormData] = useState({ name: '', email: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -132,8 +132,12 @@ const LinkedinAgent = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#ffb477] flex flex-col items-center justify-center p-4">
-      <SEO {...seo['/linkedin-agent']} url={`${SITE.domain}/linkedin-agent`} />
+    // Style Change: Instagram gradient background
+    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 flex flex-col items-center justify-center p-4 font-sans">
+      
+      {/* Step 2: SEO URL/key ko update kiya gaya hai (Aapko seoData.js me isko add karna pad sakta hai) */}
+   
+      
       <div className="mb-8">
         <img
           src={logo}
@@ -142,16 +146,19 @@ const LinkedinAgent = () => {
         />
       </div>
 
-      <div className="bg-[#f77f27] p-8 rounded-xl shadow-2xl w-full max-w-md">
-        <h2 className="text-white text-2xl font-bold text-center mb-6">LinkedIn Agent</h2>
+      {/* Style Change: Form container ko glass effect diya gaya hai */}
+      <div className="bg-white/20 backdrop-blur-lg p-8 rounded-xl shadow-2xl w-full max-w-md">
+        
+        {/* Step 2: Heading text badal diya gaya hai */}
+        <h2 className="text-white text-3xl font-bold text-center mb-6">Instagram Agent</h2>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-center">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <input
             type="text"
             name="name"
@@ -159,7 +166,8 @@ const LinkedinAgent = () => {
             onChange={handleChange}
             placeholder="Your Name"
             required
-            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ffb477] text-center"
+            // Style Change: Input field ka focus color badla hai
+            className="w-full p-3 rounded-lg border-none bg-white/50 text-gray-800 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 text-center transition"
           />
           <input
             type="email"
@@ -168,12 +176,14 @@ const LinkedinAgent = () => {
             onChange={handleChange}
             placeholder="Your Email"
             required
-            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ffb477] text-center"
+            // Style Change: Input field ka focus color badla hai
+            className="w-full p-3 rounded-lg border-none bg-white/50 text-gray-800 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 text-center transition"
           />
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 px-4 bg-white text-[#f77f27] font-bold rounded-lg hover:bg-gray-100 transition-colors duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
+            // Style Change: Button ko naya gradient aur hover effect diya hai
+            className="w-full py-3 px-4 bg-gradient-to-r from-pink-500 to-orange-500 text-white font-bold rounded-lg hover:opacity-90 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center transform hover:scale-105"
           >
             {isLoading ? (
               <>
@@ -190,4 +200,5 @@ const LinkedinAgent = () => {
   );
 };
 
-export default LinkedinAgent;
+// Step 1: Export name bhi badal diya gaya hai
+export default InstagramAgent;

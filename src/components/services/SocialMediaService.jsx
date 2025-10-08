@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Play, BarChart3, MessageSquare, Calendar, Zap, TrendingUp, Users, Clock, CheckCircle, ArrowRight, Bot, Target, Globe } from 'lucide-react';
 import { Helmet } from "react-helmet-async";
+import SEO from "../SEO"
+import { seo, SITE } from "./../../seo/seoData";
+
 const SocialMediaPage = () => {
   const [activeTab, setActiveTab] = useState('posting');
   const [animateStats, setAnimateStats] = useState(false);
@@ -45,14 +48,9 @@ const SocialMediaPage = () => {
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
 
-        <Helmet>
-        <title>Social Media Service | FatCamel</title>
-        <link rel="canonical" href="https://www.fatcamel.ai/social-media-service" />
-        <meta
-          name="description"
-          content="Enhance your social media presence with FatCamel’s AI-powered social media automation services. Save time and grow faster."
-        />
-      </Helmet>
+        
+ <SEO {...seo['/Social-Media-Service']} url={`${SITE.domain}/Social-Media-Service`} />
+
       {/* Hero Section */}
       <section className="relative px-6 py-20 text-center">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-transparent to-orange-500/10"></div>

@@ -1,75 +1,58 @@
+// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import Prerenderer from 'vite-plugin-prerenderer';
+import PrerenderSPAPlugin from 'vite-plugin-prerenderer';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// -------------------------
-// Safety polyfill for CI / non-TTY environments.
-// Prevents "process.stdout.clearLine is not a function" errors from spinner libs.
-// -------------------------
-if (typeof process !== 'undefined' && process && process.stdout) {
-  if (typeof process.stdout.clearLine !== 'function') {
-    // no-op polyfill
-    process.stdout.clearLine = function() {};
-  }
-  if (typeof process.stdout.cursorTo !== 'function') {
-    process.stdout.cursorTo = function() {};
-  }
-}
-
-// Toggle prerender: default = ON (best for SEO).
-// Disable by setting PRERENDER=0 in env (e.g., local dev if you want to skip).
+// Toggle prerender: default = ON (best for SEO). Disable by set PRERENDER=0 in env.
 const ENABLE_PRERENDER = process.env.PRERENDER !== '0';
+
+// default fallback routes (matches your App.jsx routes). Edit if needed.
+const defaultRoutes = [
+  '/', '/roadmap', '/testimonials', '/faq', '/subscribe', '/blog',
+  '/industry', '/about', '/contact', '/linkedin-agent', '/content-flow', '/linkbuddy',
+  '/Retail-Consumer', '/HrAgent', '/Out-Reach-Ai', '/BFS', '/CME', '/HealthCare',
+  '/Manufacturing', '/Oil_and_gas', '/PUE', '/Renuable_energy', '/RetailConsumer',
+  '/Social-Media-Service', '/Chat-Bots-Service', '/Voice-Assitent-Service',
+  '/Email-Management-Service', '/CRM-Automation-Service', '/Notion-Integaration-Service', '/Domain'
+];
+
+// Try to load prerender-routes.json if it exists
+let routesList = defaultRoutes;
+const routesFile = path.join(__dirname, 'prerender-routes.json');
+if (fs.existsSync(routesFile)) {
+  try {
+    const raw = fs.readFileSync(routesFile, 'utf8');
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      routesList = parsed;
+      console.log('[vite] using prerender routes from prerender-routes.json:', routesList.length);
+    } else {
+      console.warn('[vite] prerender-routes.json is empty or not an array — using defaultRoutes');
+    }
+  } catch (err) {
+    console.warn('[vite] failed to parse prerender-routes.json — falling back to defaultRoutes', err.message);
+  }
+} else {
+  console.log('[vite] prerender-routes.json not found — using defaultRoutes.');
+}
 
 export default defineConfig({
   base: '/',
   plugins: [
     react(),
     ENABLE_PRERENDER &&
-      new Prerenderer({
+      new PrerenderSPAPlugin({
         staticDir: path.join(__dirname, 'dist'),
-        routes: [
-          '/',
-          '/roadmap',
-          '/testimonials',
-          '/faq',
-          '/subscribe',
-          '/blog',
-          '/industry',
-          '/about',
-          '/contact',
-          '/linkedin-agent',
-          '/content-flow',
-          '/linkbuddy',
-          '/Retail-Consumer',
-          '/HrAgent',
-          '/Out-Reach-Ai',
-          '/BFS',
-          '/CME',
-          '/HealthCare',
-          '/Manufacturing',
-          '/Oil_and_gas',
-          '/PUE',
-          '/Renuable_energy',
-          '/RetailConsumer',
-          '/Social-Media-Service',
-          '/Chat-Bots-Service',
-          '/Voice-Assitent-Service',
-          '/Email-Management-Service',
-          '/CRM-Automation-Service',
-          '/Notion-Integaration-Service',
-          '/Domain'
-        ],
-
-        // Use string renderer (simple and stable)
+        routes: routesList,
         renderer: 'string',
-
-        // Wait for client-side preloader (ms)
-        renderAfterTime: 6000,
+        // Use event-based render: dispatch `prerender-ready` from client when page is ready.
+        renderAfterDocumentEvent: 'prerender-ready',
       }),
   ].filter(Boolean),
   server: {
@@ -78,7 +61,6 @@ export default defineConfig({
   },
   assetsInclude: ['**/*.mp4'],
   build: {
-    // increase to reduce noisy chunk-size warnings; tune as needed
     chunkSizeWarningLimit: 1200,
   },
 });
