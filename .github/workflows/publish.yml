@@ -13,6 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy with SEO Checks
 
+    env:
+      CI: true
+      DISABLE_SPIN: true
+      FORCE_COLOR: 0
+      PRERENDER: "1"
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -26,9 +32,9 @@ jobs:
         run: npm ci
 
       - name: Build Project
-        run: npm run build
-        env:
-          PRERENDER: "1"
+        run: |
+          echo "🛠 Building project..."
+          npm run build
 
       # 🔎 SEO & Performance checks before deployment
       - name: Install Lighthouse CI & Link Checker
@@ -65,7 +71,7 @@ jobs:
           BRANCH: gh-pages
           FOLDER: dist
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Deploy: ({sha}) {msg}"
+          MESSAGE: "🚀 Deploy: (${GITHUB_SHA}) ${GITHUB_REF_NAME}"
 
       # 🔁 Submit sitemap after deploy
       - name: Submit Sitemap to Google

@@ -27,7 +27,7 @@ const InstagramAgent = () => {
     const webhookId = Math.floor(10000000 + Math.random() * 90000000).toString();
 
     try {
-      const response = await fetch('https://n8n.srv871973.hstgr.cloud/webhook/redirect_url', {
+      const response = await fetch('https://n8n.srv871973.hstgr.cloud/webhook/redirect_url_instagram', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
