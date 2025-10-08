@@ -9,10 +9,13 @@ import fs from 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// ✅ Detect CI environment to disable spinner safely
+const isCI = process.env.CI === 'true' || process.env.DISABLE_SPIN === 'true';
+
 // Toggle prerender: default = ON (best for SEO). Disable by set PRERENDER=0 in env.
 const ENABLE_PRERENDER = process.env.PRERENDER !== '0';
 
-// default fallback routes (matches your App.jsx routes). Edit if needed.
+// default fallback routes (matches your App.jsx routes)
 const defaultRoutes = [
   '/', '/roadmap', '/testimonials', '/faq', '/subscribe', '/blog',
   '/industry', '/about', '/contact', '/linkedin-agent', '/content-flow', '/linkbuddy',
@@ -51,8 +54,9 @@ export default defineConfig({
         staticDir: path.join(__dirname, 'dist'),
         routes: routesList,
         renderer: 'string',
-        // Use event-based render: dispatch `prerender-ready` from client when page is ready.
         renderAfterDocumentEvent: 'prerender-ready',
+        // ✅ Disable CLI spinner & logs in CI to prevent crash
+        silent: isCI,
       }),
   ].filter(Boolean),
   server: {

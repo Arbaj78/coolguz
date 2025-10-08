@@ -20,51 +20,51 @@ jobs:
       PRERENDER: "1"
 
     steps:
-      - name: Checkout repository
+      - name: 🧩 Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: 🟢 Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: npm ci
 
-      - name: Build Project
+      - name: 🛠 Build Project
         run: |
-          echo "🛠 Building project..."
+          echo "Building project for production..."
           npm run build
 
-      # 🔎 SEO & Performance checks before deployment
-      - name: Install Lighthouse CI & Link Checker
+      # 🔍 SEO & Performance checks before deployment
+      - name: 🧠 Install Lighthouse CI & Link Checker
         run: |
           npm install -g @lhci/cli broken-link-checker serve
 
-      - name: Start Local Server
+      - name: 🚀 Start Local Server
         run: |
           npx serve -s dist -l 8080 &
           sleep 5
 
-      - name: Run Lighthouse (SEO/Performance)
+      - name: 🌐 Run Lighthouse (SEO/Performance)
         run: |
           lhci autorun \
             --url=http://localhost:8080 \
             --upload.target=filesystem \
             --upload.outputDir=./lhci-reports || true
 
-      - name: Broken Link Checker
+      - name: 🔗 Broken Link Checker
         run: |
           blc http://localhost:8080 -ro --filter-level 3 || true
 
-      - name: Upload SEO Reports
+      - name: 📤 Upload SEO Reports
         uses: actions/upload-artifact@v4
         with:
           name: lighthouse-reports
           path: ./lhci-reports
 
-      # 🚀 Deploy to gh-pages
-      - name: Deploy to gh-pages branch
+      # 🚀 Deploy to GitHub Pages
+      - name: 🚢 Deploy to gh-pages branch
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: self
@@ -74,6 +74,6 @@ jobs:
           MESSAGE: "🚀 Deploy: (${GITHUB_SHA}) ${GITHUB_REF_NAME}"
 
       # 🔁 Submit sitemap after deploy
-      - name: Submit Sitemap to Google
+      - name: 📬 Submit Sitemap to Google
         run: |
           curl "http://www.google.com/ping?sitemap=https://www.fatcamel.ai/sitemap.xml"
