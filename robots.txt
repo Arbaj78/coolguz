@@ -1,7 +1,7 @@
+# Allow all friendly web crawlers
 User-agent: *
-Disallow: /private/
-Disallow: /tmp/
-Allow: /public/
+Disallow: /private/ # Example: Disallow access to a private directory
+Disallow: /tmp/     # Example: Disallow access to a temporary directory
 
-
-Sitemap: https://www.fatcamel.ai/sitemap.xml 
+# Sitemap location
+Sitemap: https://www.fatcamel.ai/sitemap.xml
