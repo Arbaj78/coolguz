@@ -1,7 +1,6 @@
 // src/components/HomePage.jsx
 import React from "react";
-import SEO from "./SEO"
-import { seo, SITE } from "../seo/seoData";
+
 import Hero from "./Hero";
 import Collaboration from "./Collaboration";
 import CompanyLogos from "./CompanyLogos";
@@ -9,12 +8,15 @@ import Roadmap from "./Roadmap";
 import Testimonil from "./Testimonil";
 import Review from "./Review";
 import Faq from "./faq";
-import { Helmet } from "react-helmet-async";
+
+import Domain from "./Domain";
+
+
 
 const HomePage = () => {
   return (
     <>
-      <SEO {...seo["/"]} url={`${SITE.domain}/`} />
+    
       <Hero />
 
       <section className="bg-slate-50 py-20 sm:py-24">
@@ -33,6 +35,7 @@ const HomePage = () => {
 
       <Collaboration />
       <CompanyLogos />
+      <Domain/>
       <Roadmap />
       <Testimonil />
       <Review />

@@ -1,121 +1,105 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from "react"; 
+import { Routes, Route } from "react-router-dom";
 
-// Assets
+
+import Preloader from "./components/Preloader"; 
+
+
 import ButtonGradient from "./assets/svg/ButtonGradient";
-import InstagramAgent from './components/InstaAgent';
+import ScrollToTop from "./components/ScrollToTop";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import HomePage from "./components/HomePage";
+import ContactPage from "./components/ContactPage";
+import Faq from "./components/faq";
+import Roadmap from "./components/Roadmap";
+import Testimonil from "./components/Testimonil";
+import LinkedinAgent from "./components/LinkedinAgent";
+import InstaAgent from "./components/InstaAgent";
+import BlogPosts from "./components/BlogPosts";
+import SinglePost from "./components/SinglePost";
+import AboutPage from "./components/AboutPage";
+import SubscribePage from "./components/SubscribePage";
+import Industry from "./components/Industry";
+import ContentFlow from "./components/ContentFlow";
+import Linkbuddy from "./components/Linkbuddy";
+import Realtor from "./components/Realtor";
+import HrAgent from "./components/HrAgent";
+import OutReach from "./components/OutReach";
+import Banking_financial_services from "./components/industries_content/Banking_financial_services";
+import Communication_media_entertainment from "./components/industries_content/Communication_media_entertainment";
+import HealthCare from "./components/industries_content/HealthCare";
+import Manufacturing from "./components/industries_content/Manufacturing";
+import OilGas from "./components/industries_content/OilGas";
+import Power_utilities_engergies from "./components/industries_content/Power_utilities_engergies";
+import Renuable from "./components/industries_content/Renuable";
+import Retail_consumer from "./components/industries_content/Retail_consumer";
+import SocialMediaService from "./components/services/SocialMediaService";
+import ChatBotsService from "./components/services/ChetBotsService";
+import VoiceAssitent from "./components/services/VoiceAssitent";
+import EmailManagement from "./components/services/EmailService";
+import CRMAutomation from "./components/services/CRMService";
+import NotionService from "./components/services/NotionService";
 
-// Fallback component for Suspense
-const LoadingSpinner = () => (
-  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-    <p>Loading...</p>
-  </div>
-);
-
-// <<< Lazy Loaded Component Imports (The Optimized Way) >>>
-const ScrollToTop = lazy(() => import('./components/ScrollToTop'));
-const Preloader = lazy(() => import('./components/Preloader'));
-const Footer = lazy(() => import('./components/Footer'));
-const Header = lazy(() => import('./components/Header'));
-const HomePage = lazy(() => import('./components/HomePage'));
-const ContactPage = lazy(() => import('./components/ContactPage'));
-const Faq = lazy(() => import('./components/faq'));
-const Roadmap = lazy(() => import('./components/Roadmap'));
-const Testimonil = lazy(() => import('./components/Testimonil'));
-const LinkedinAgent = lazy(() => import('./components/LinkedinAgent'));
-const InstaAgent = lazy(() => import('./components/InstaAgent'));
-
-const BlogPosts = lazy(() => import('./components/BlogPosts'));
-const SinglePost = lazy(() => import('./components/SinglePost'));
-const AboutPage = lazy(() => import('./components/AboutPage'));
-const SubscribePage = lazy(() => import('./components/SubscribePage'));
-const Industry = lazy(() => import('./components/Industry'));
-const ContentFlow = lazy(() => import('./components/ContentFlow'));
-const Linkbuddy = lazy(() => import('./components/Linkbuddy'));
-const Realtor = lazy(() => import('./components/Realtor'));
-const HrAgent = lazy(() => import('./components/HrAgent'));
-const OutReach = lazy(() => import('./components/OutReach'));
-const Banking_financial_services = lazy(() => import("./components/industries_content/Banking_financial_services"));
-const Communication_media_entertainment = lazy(() => import("./components/industries_content/Communication_media_entertainment"));
-const HealthCare = lazy(() => import("./components/industries_content/HealthCare"));
-const Manufacturing = lazy(() => import("./components/industries_content/Manufacturing"));
-const OilGas = lazy(() => import("./components/industries_content/OilGas"));
-const Power_utilities_engergies = lazy(() => import("./components/industries_content/Power_utilities_engergies"));
-const Renuable = lazy(() => import("./components/industries_content/Renuable"));
-const Retail_consumer = lazy(() => import("./components/industries_content/Retail_consumer"));
-const SocialMediaService = lazy(() => import("./components/services/SocialMediaService"));
-const ChatBotsService = lazy(() => import("./components/services/ChetBotsService"));
-const VoiceAssitent = lazy(() => import("./components/services/VoiceAssitent"));
-const EmailManagement = lazy(() => import('./components/services/EmailService'));
-const CRMAutomation = lazy(() => import('./components/services/CRMService'));
-const NotionService = lazy(() => import('./components/services/NotionService'));
-const DomainsSection = lazy(() => import('./components/Domain'));
 
 const App = () => {
+
   const [isLoading, setIsLoading] = useState(true);
 
-  // FIX: Removed the artificial 5-second delay.
-  // The preloader now shows for a minimal time (300ms) to handle fast connections
-  // without a jarring flash of content.
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 300); // Drastically reduced from 5000ms
+    }, 2000); 
 
     return () => clearTimeout(timer);
-  }, []);
+  }, []); 
 
   return (
-    <div>
-      <Suspense fallback={<div />}> {/* Suspense for Preloader itself */}
-        {isLoading && <Preloader isVisible={isLoading} />}
-      </Suspense>
-      
-      {!isLoading && (
-        <div className="pt-[3.75rem] lg:pt-[4.25rem] overflow-hidden">
-          <Suspense fallback={<LoadingSpinner />}> {/* Main content Suspense */}
-            <ScrollToTop />
-            <Header />
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/roadmap" element={<Roadmap />} />
-              <Route path="/testimonials" element={<Testimonil />} />
-              <Route path="/faq" element={<Faq />} />
-              <Route path="/subscribe" element={<SubscribePage />} />
-              <Route path="/blog" element={<BlogPosts />} />
-              <Route path="/blog/:slug" element={<SinglePost />} />
-              <Route path="/industry" element={<Industry />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/linkedin-agent" element={<LinkedinAgent />} />
-              <Route path="/instagram-agent" element={<InstaAgent />} />
-              <Route path="/content-flow" element={<ContentFlow />} />
-              <Route path="/linkbuddy" element={<Linkbuddy />} />
-              <Route path="/Retail-Consumer" element={<Realtor />} />
-              <Route path="/HrAgent" element={<HrAgent />} />
-              <Route path="/Out-Reach-Ai" element={<OutReach />} />
-              <Route path="/BFS" element={<Banking_financial_services />} />
-              <Route path="/CME" element={<Communication_media_entertainment />} />
-              <Route path="/HealthCare" element={<HealthCare />} />
-              <Route path="/Manufacturing" element={<Manufacturing />} />
-              <Route path="/Oil_and_gas" element={<OilGas />} />
-              <Route path="/PUE" element={<Power_utilities_engergies />} />
-              <Route path="/Renuable_energy" element={<Renuable />} />
-              <Route path="/RetailConsumer" element={<Retail_consumer />} />
-              <Route path="/Social-Media-Service" element={<SocialMediaService />} />
-              <Route path="/Chat-Bots-Service" element={<ChatBotsService />} />
-              <Route path="/Voice-Assitent-Service" element={<VoiceAssitent />} />
-              <Route path="/Email-Management-Service" element={<EmailManagement />} />
-              <Route path="/CRM-Automation-Service" element={<CRMAutomation />} />
-              <Route path="/Notion-Integaration-Service" element={<NotionService />} />
-              <Route path="/Domain" element={<DomainsSection />} />
-            </Routes>
-            <Footer />
-          </Suspense>
-        </div>
-      )}
-      <ButtonGradient />
-    </div>
+
+    <>
+    
+      <Preloader isVisible={isLoading} />
+
+      <div className="pt-[3.75rem] lg:pt-[4.25rem] overflow-hidden">
+        <ScrollToTop />
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/roadmap" element={<Roadmap />} />
+          <Route path="/testimonials" element={<Testimonil />} />
+          <Route path="/faq" element={<Faq />} />
+          <Route path="/subscribe" element={<SubscribePage />} />
+          <Route path="/blog" element={<BlogPosts />} />
+          <Route path="/blog/:slug" element={<SinglePost />} />
+          <Route path="/industry" element={<Industry />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/linkedin-agent" element={<LinkedinAgent />} />
+          <Route path="/instagram-agent" element={<InstaAgent />} />
+          <Route path="/content-flow" element={<ContentFlow />} />
+          <Route path="/linkbuddy" element={<Linkbuddy />} />
+          <Route path="/Retail-Consumer" element={<Realtor />} />
+          <Route path="/HrAgent" element={<HrAgent />} />
+          <Route path="/Out-Reach-Ai" element={<OutReach />} />
+          <Route path="/BFS" element={<Banking_financial_services />} />
+          <Route path="/CME" element={<Communication_media_entertainment />} />
+          <Route path="/HealthCare" element={<HealthCare />} />
+          <Route path="/Manufacturing" element={<Manufacturing />} />
+          <Route path="/Oil_and_gas" element={<OilGas />} />
+          <Route path="/PUE" element={<Power_utilities_engergies />} />
+          <Route path="/Renuable_energy" element={<Renuable />} />
+          <Route path="/RetailConsumer" element={<Retail_consumer />} />
+          <Route path="/Social-Media-Service" element={<SocialMediaService />} />
+          <Route path="/Chat-Bots-Service" element={<ChatBotsService />} />
+          <Route path="/Voice-Assitent-Service" element={<VoiceAssitent />} />
+          <Route path="/Email-Management-Service" element={<EmailManagement />} />
+          <Route path="/CRM-Automation-Service" element={<CRMAutomation />} />
+          <Route path="/Notion-Integaration-Service" element={<NotionService />} />
+        </Routes>
+        <Footer />
+        <ButtonGradient />
+      </div>
+    </>
   );
 };
 

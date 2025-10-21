@@ -7,8 +7,7 @@ import trip3 from '../assets/trip3.jpeg';
 import ceo from '../assets/basantJi.jpg';
 import cfo from '../assets/rahulKrishna.jpeg';
 import usp from '../assets/usPartner.jpeg';
-import SEO from "./SEO"
-import { seo, SITE } from '../seo/seoData';
+
 
 const AboutPage = () => {
   const [showDetails, setShowDetails] = useState(false);
@@ -90,22 +89,11 @@ const AboutPage = () => {
   ];
 
   // Organization JSON-LD without logo/image
-  const orgSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: SITE.name,
-    url: SITE.domain,
-    description: seo['/about'].description,
-    sameAs: [
-      'https://www.linkedin.com/company/fatcamel',
-      'https://twitter.com/fatcamel'
-    ]
-  };
+ 
 
   return (
     <div className="min-h-screen bg-white">
-      <SEO {...seo['/about']} url={`${SITE.domain}/about`} jsonLd={orgSchema} />
-
+    
       {/* sections unchanged visually */}
       <section className="bg-gradient-to-br from-black via-gray-900 to-gray-800 py-20 px-4 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden" aria-hidden="true">

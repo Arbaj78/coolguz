@@ -13,10 +13,9 @@ import {
   Image as ImageIcon,
   Share2,
 } from "lucide-react";
-import { Helmet } from "react-helmet-async";
+
 import contentimg from "../assets/contentflow-hero.png";
-import SEO from "./SEO"
-import { seo, SITE } from "../seo/seoData";
+
 
 export default function ContentFlowPage() {
   const [activeStep, setActiveStep] = useState(0);
@@ -97,7 +96,6 @@ export default function ContentFlowPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* SEO: no images */}
-      <SEO {...seo["/content-flow"]} url={`${SITE.domain}/content-flow`} />
 
       {/* Hero */}
       <div className="relative overflow-hidden">

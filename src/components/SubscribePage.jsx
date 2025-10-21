@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // <-- ✅ Step 1
 import basant from '../assets/basantJi.jpg';
-import SEO from "./SEO"
-import { seo, SITE } from "../seo/seoData";
+
 
 const SubscribePage = () => {
   const [status, setStatus] = useState('');
@@ -53,7 +52,7 @@ const SubscribePage = () => {
 
   return (
     <div className="min-h-screen bg-white font-sans text-[#000000cc] grid place-items-center p-12 px-4">
-      <SEO {...seo['/subscribe']} url={`${SITE.domain}/subscribe`} />
+   
 
       <main className="container max-w-[450px] w-full text-center" role="main">
         <div

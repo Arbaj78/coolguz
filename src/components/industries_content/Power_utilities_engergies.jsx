@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronRight, Zap, Shield, Settings, Users, Lock, FileCheck, BookOpen, Play, Download } from 'lucide-react';
-import { Helmet } from "react-helmet-async";
-import SEO from "../SEO"
-import { seo, SITE } from "./../../seo/seoData";
+
 const PowerUtilitiesPage = () => {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -90,7 +88,7 @@ const PowerUtilitiesPage = () => {
 
 
 
- <SEO {...seo['/PUE']} url={`${SITE.domain}/PUE`} />
+ 
 
       {/* Navigation Breadcrumb */}
       <div className="bg-gray-50 py-3">

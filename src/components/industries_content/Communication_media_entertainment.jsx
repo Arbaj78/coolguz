@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ChevronRight, Play, Users, Zap, Target, Award, ArrowRight } from 'lucide-react';
-import { Helmet } from "react-helmet-async";
-import SEO from "../SEO"
-import { seo, SITE } from "./../../seo/seoData";
+
 
 const CMEPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -64,7 +62,7 @@ const CMEPage = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white overflow-hidden">
 
-        <SEO {...seo['/CME']} url={`${SITE.domain}/CME`} />
+      
 
       {/* Navigation Breadcrumb */}
       <div className="container mx-auto px-6 py-4">

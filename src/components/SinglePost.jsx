@@ -5,8 +5,7 @@ import { client } from "../client";
 import BlockContent from "@sanity/block-content-to-react";
 import { urlFor } from "../imageUrlBuilder";
 import { Calendar } from "lucide-react";
-import SEO from "./SEO"
-import { SITE } from "../seo/seoData";
+
 
 const SinglePost = () => {
   const [singlePost, setSinglePost] = useState(null);
@@ -106,7 +105,7 @@ const SinglePost = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
-      <SEO title={`${singlePost.title} — ${SITE.name}`} description={excerpt || singlePost.title} url={canonicalUrl} canonical={canonicalUrl} jsonLd={jsonLd} />
+    
 
       {/* Top hero (optional image display kept but not required for SEO) */}
       <div className="relative">

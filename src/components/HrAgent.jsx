@@ -2,9 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CheckCircle, XCircle, Users, Clock, Target, TrendingUp, FileText, Phone, Database, BarChart3, Mail, Award, Zap, Shield, DollarSign } from "lucide-react";
-import SEO from "./SEO"
-import { seo, SITE } from "../seo/seoData";
-import { Helmet } from "react-helmet-async";
+
 
 const HRVoiceAIPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -58,7 +56,7 @@ const HRVoiceAIPage = () => {
 
   return (
     <div className="min-h-screen bg-white text-gray-900 overflow-hidden">
-      <SEO {...seo["/HrAgent"]} url={`${SITE.domain}/HrAgent`} />
+    
       <div className={`relative px-6 py-20 text-center transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 -z-10" />
         <div className="max-w-4xl mx-auto">

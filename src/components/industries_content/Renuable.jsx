@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Zap, Wind, Sun, Battery, Shield, DollarSign, TrendingUp } from 'lucide-react';
-import { Helmet } from "react-helmet-async";
-import SEO from "../SEO"
-import { seo, SITE } from "./../../seo/seoData";
+
 const RenewableEnergyPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   
@@ -78,7 +76,7 @@ const RenewableEnergyPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
        
- <SEO {...seo['/Renuable_energy']} url={`${SITE.domain}/Renuable_energy`} />
+
 
       {/* Navigation */}
       <nav className="bg-white shadow-sm">

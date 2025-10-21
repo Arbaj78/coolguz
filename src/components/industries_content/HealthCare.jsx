@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Activity, Brain, Microscope, Stethoscope, Pill, Users, Monitor, Shield, CheckCircle, ArrowRight, Play } from 'lucide-react';
-import { Helmet } from "react-helmet-async";
-import SEO from "../SEO"
-import { seo, SITE } from "./../../seo/seoData";
+
 const HealthcarePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -104,7 +102,7 @@ const HealthcarePage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       
- <SEO {...seo['/HealthCare']} url={`${SITE.domain}/HealthCare`} />
+
       
       {/* Navigation Breadcrumb */}
       <div className="bg-white shadow-sm">

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, ArrowRight, Zap, Database, Bot, Clock, Shield, Target, Users, Workflow, Star, RefreshCw } from 'lucide-react';
-import { Helmet } from "react-helmet-async";
-import SEO from "../SEO"
-import { seo, SITE } from "./../../seo/seoData";
+
 
 const NotionIntegrationPage = () => {
   const [isVisible, setIsVisible] = useState({});
@@ -104,7 +102,7 @@ const NotionIntegrationPage = () => {
         
 
 
-   <SEO {...seo['/Notion-Integaration-Service']} url={`${SITE.domain}/Notion-Integaration-Service`} />
+  
 
       <section className="relative py-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-900/20 via-black to-black"></div>

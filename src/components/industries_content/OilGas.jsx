@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Play, CheckCircle, TrendingUp, Shield, Database, Users, Globe, Zap, BarChart3, Target, Leaf, FileText, AlertTriangle } from 'lucide-react';
-import { Helmet } from "react-helmet-async";
-import SEO from "../SEO"
-import { seo, SITE } from "./../../seo/seoData";
+
 const OilGasIndustryPage = () => {
   const [currentChallenge, setCurrentChallenge] = useState(0);
 
@@ -115,7 +113,7 @@ const OilGasIndustryPage = () => {
     <div className="min-h-screen bg-white">
     
 
- <SEO {...seo['/Oil_and_gas']} url={`${SITE.domain}/Oil_and_gas`} />
+
 
 
       {/* Navigation Breadcrumb */}

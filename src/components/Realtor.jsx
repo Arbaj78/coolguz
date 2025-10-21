@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // STEP 1: Link ko import karein
 import { Phone, CheckCircle, XCircle, Calendar, MessageCircle, Clock, Users, TrendingUp, Star, ArrowRight, Zap, Shield, Headphones } from 'lucide-react';
-import SEO from "./SEO"
-import { seo, SITE } from "../seo/seoData";
+
 
 const RealtorVoiceAI = () => {
   // ... (Aapka baki ka component code waisa hi rahega)
@@ -74,7 +73,7 @@ const RealtorVoiceAI = () => {
 
   return (
     <div className="min-h-screen bg-white">
-          <SEO {...seo['/Retail-Consumer']} url={`${SITE.domain}/Retail-Consumer`} />
+    
 
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50">

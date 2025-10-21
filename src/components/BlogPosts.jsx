@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import { client } from "../client";
 import { Search, Calendar, ArrowRight } from "lucide-react";
 import { urlFor } from "../imageUrlBuilder";
-import SEO from "./SEO"
-import { seo, SITE } from "../seo/seoData";
+
 
 const BlogPosts = () => {
   const [posts, setPosts] = useState(null); // null = loading, [] = loaded empty
@@ -84,12 +83,11 @@ const BlogPosts = () => {
     }
   };
 
-  const meta = seo['/blog'];
+  
 
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
-      <SEO {...meta} url={`${SITE.domain}/blog`} />
-
+    
       {/* Animated Background */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
         <div className="absolute top-10 left-5 w-32 h-32 bg-orange-100 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-blob"></div>

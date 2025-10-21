@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mic, MessageCircle, Phone, Zap, Shield, Clock, Users, Volume2, Play, Pause } from 'lucide-react';
-import { Helmet } from "react-helmet-async";
-import SEO from "../SEO"
-import { seo, SITE } from "./../../seo/seoData";
+
 
 const VoiceAssistantsPage = () => {
   const [isListening, setIsListening] = useState(false);
@@ -50,7 +48,7 @@ const VoiceAssistantsPage = () => {
     <div className="min-h-screen bg-white">
 
        
-    <SEO {...seo['/Voice-Assitent-Service']} url={`${SITE.domain}/Voice-Assitent-Service`} />
+   
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-transparent"></div>

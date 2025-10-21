@@ -1,8 +1,7 @@
 // src/components/ContactPage.jsx
 import React, { useState, useEffect } from 'react';
 import { Mail, Clock } from 'lucide-react';
-import SEO from "./SEO"
-import { seo, SITE } from '../seo/seoData';
+
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({ name: '', email: '', mobile: '', address: '', message: '' });
@@ -44,7 +43,7 @@ const ContactPage = () => {
 
   return (
     <div className="relative overflow-hidden min-h-screen">
-      <SEO {...seo['/contact']} url={`${SITE.domain}/contact`} />
+    
 
       <div className="relative z-10 container mx-auto px-4 py-16">
         <div className={`text-center mb-16 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>

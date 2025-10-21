@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { MessageCircle, Clock, Zap, Users, BarChart3, Shield, ArrowRight, CheckCircle, Bot, Sparkles } from 'lucide-react';
-import SEO from "../SEO"
-import { seo, SITE } from "./../../seo/seoData";
+
+
 export default function ChatbotsServicePage() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0);
@@ -72,7 +72,7 @@ export default function ChatbotsServicePage() {
   return (
     <div className="min-h-screen bg-white">
 
-         <SEO {...seo['/Chat-Bots-Service']} url={`${SITE.domain}/Chat-Bots-Service`} />
+       
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black py-20 px-6">
         <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-orange-600/20"></div>

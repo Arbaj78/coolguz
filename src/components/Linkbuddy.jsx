@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // STEP 1: Link ko import karein
 import { ChevronRight, Users, MessageCircle, Target, Zap, Brain, CheckCircle, ArrowRight, Linkedin, Bot, Eye, Edit3, Send, TrendingUp } from 'lucide-react';
-import { Helmet } from "react-helmet-async";
-import SEO from "./SEO"
-import { seo, SITE } from "../seo/seoData";
+
+
 
 // ... (AnimatedCounter, WorkflowTree, FeatureCard, ProblemSolutionCard components ka code waisa hi rahega) ...
 
@@ -138,7 +137,6 @@ const WorkflowTree = () => {
 
      
 
- <SEO {...seo['/linkbuddy']} url={`${SITE.domain}/linkbuddy`} />
 
       
       <svg className="absolute inset-0 w-full h-full">

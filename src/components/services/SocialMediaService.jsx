@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Play, BarChart3, MessageSquare, Calendar, Zap, TrendingUp, Users, Clock, CheckCircle, ArrowRight, Bot, Target, Globe } from 'lucide-react';
-import { Helmet } from "react-helmet-async";
-import SEO from "../SEO"
-import { seo, SITE } from "./../../seo/seoData";
+
 
 const SocialMediaPage = () => {
   const [activeTab, setActiveTab] = useState('posting');
@@ -49,7 +47,7 @@ const SocialMediaPage = () => {
     <div className="min-h-screen bg-black text-white overflow-hidden">
 
         
- <SEO {...seo['/Social-Media-Service']} url={`${SITE.domain}/Social-Media-Service`} />
+ 
 
       {/* Hero Section */}
       <section className="relative px-6 py-20 text-center">

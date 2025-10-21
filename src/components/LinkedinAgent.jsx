@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import logo from '../assets/logo-dark.svg';
-import SEO from "./SEO";
 
-import { seo, SITE } from "../seo/seoData";
 const LinkedinAgent = () => {
   const [formData, setFormData] = useState({ name: '', email: '' });
   const [isLoading, setIsLoading] = useState(false);
@@ -133,7 +131,7 @@ const LinkedinAgent = () => {
 
   return (
     <div className="min-h-screen bg-[#ffb477] flex flex-col items-center justify-center p-4">
-      <SEO {...seo['/linkedin-agent']} url={`${SITE.domain}/linkedin-agent`} />
+  
       <div className="mb-8">
         <img
           src={logo}

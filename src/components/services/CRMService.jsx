@@ -15,9 +15,7 @@ import {
   Star,
   ChevronRight
 } from 'lucide-react';
-import { Helmet } from "react-helmet-async";
-import SEO from "../SEO"
-import { seo, SITE } from "./../../seo/seoData";
+
 
 const CRMAutomationPage = () => {
   const [activeFeature, setActiveFeature] = useState(0);
@@ -67,7 +65,7 @@ const CRMAutomationPage = () => {
   return (
     <div className="min-h-screen bg-white text-black">
 
-      <SEO {...seo['/CRM-Automation-Service']} url={`${SITE.domain}/CRM-Automation-Service`} />
+  
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black">
         <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-transparent"></div>
