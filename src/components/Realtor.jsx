@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // STEP 1: Link ko import karein
 import { Phone, CheckCircle, XCircle, Calendar, MessageCircle, Clock, Users, TrendingUp, Star, ArrowRight, Zap, Shield, Headphones } from 'lucide-react';
-
+import { Helmet } from "react-helmet-async";
 
 const RealtorVoiceAI = () => {
   // ... (Aapka baki ka component code waisa hi rahega)
@@ -74,6 +74,11 @@ const RealtorVoiceAI = () => {
   return (
     <div className="min-h-screen bg-white">
     
+<Helmet>
+  <title>Realtor Agent — AI for Real Estate Automation | FatCamel AI</title>
+  <meta name="description" content="Enhance your real estate sales with FatCamel AI's Realtor Agent that automates property listings, follow-ups, and CRM updates." />
+  <link rel="canonical" href="https://www.fatcamel.ai/Retail-Consumer" />
+</Helmet>
 
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50">

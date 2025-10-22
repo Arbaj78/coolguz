@@ -13,9 +13,8 @@ import {
   Image as ImageIcon,
   Share2,
 } from "lucide-react";
-
+import { Helmet } from "react-helmet-async";
 import contentimg from "../assets/contentflow-hero.png";
-
 
 export default function ContentFlowPage() {
   const [activeStep, setActiveStep] = useState(0);
@@ -28,7 +27,10 @@ export default function ContentFlowPage() {
     }, 3000);
 
     // signal prerenderer after first paint + small delay so animations settle
-    const t = setTimeout(() => window.dispatchEvent(new Event("prerender-ready")), 120);
+    const t = setTimeout(
+      () => window.dispatchEvent(new Event("prerender-ready")),
+      120
+    );
     return () => {
       clearInterval(interval);
       clearTimeout(t);
@@ -39,7 +41,8 @@ export default function ContentFlowPage() {
     {
       id: 1,
       title: "Dashboard & Setup",
-      description: "User-friendly interface for topic selection and brand customization",
+      description:
+        "User-friendly interface for topic selection and brand customization",
       icon: <Target className="w-6 h-6" />,
       color: "from-blue-500 to-cyan-500",
     },
@@ -96,6 +99,16 @@ export default function ContentFlowPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* SEO: no images */}
+      <Helmet>
+        <title>
+          Content Flow — AI-Powered Content Management | FatCamel AI
+        </title>
+        <meta
+          name="description"
+          content="Streamline content creation, organization, and publishing with FatCamel AI's Content Flow automation tool."
+        />
+        <link rel="canonical" href="https://www.fatcamel.ai/content-flow" />
+      </Helmet>
 
       {/* Hero */}
       <div className="relative overflow-hidden">
@@ -114,14 +127,21 @@ export default function ContentFlowPage() {
 
           <div
             className={`text-center transition-all duration-1000 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
             }`}
           >
             <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-              ContentFlow <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">AI</span>
+              ContentFlow{" "}
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                AI
+              </span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Fully automated blog and social media management platform. From research to publishing, our AI agents handle your entire content lifecycle while you focus on strategy.
+              Fully automated blog and social media management platform. From
+              research to publishing, our AI agents handle your entire content
+              lifecycle while you focus on strategy.
             </p>
           </div>
         </div>
@@ -133,20 +153,32 @@ export default function ContentFlowPage() {
           <div className="space-y-6">
             <h2 className="text-3xl font-bold text-gray-900">The Problem</h2>
             <p className="text-gray-600 leading-relaxed">
-              Marketing teams spend countless hours on repetitive content tasks — researching topics, identifying keywords, drafting content, sourcing visuals and distributing across channels. This manual process is time-consuming and inconsistent.
+              Marketing teams spend countless hours on repetitive content tasks
+              — researching topics, identifying keywords, drafting content,
+              sourcing visuals and distributing across channels. This manual
+              process is time-consuming and inconsistent.
             </p>
             <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded-r-lg">
-              <p className="text-red-700 font-medium">High-value strategic work gets sidelined for routine content tasks</p>
+              <p className="text-red-700 font-medium">
+                High-value strategic work gets sidelined for routine content
+                tasks
+              </p>
             </div>
           </div>
 
           <div className="space-y-6">
             <h2 className="text-3xl font-bold text-gray-900">Our Solution</h2>
             <p className="text-gray-600 leading-relaxed">
-              Complete automation of your content pipeline. From topic research and SEO optimization to publishing blog posts and distributing content across social media — all handled by specialized AI agents.
+              Complete automation of your content pipeline. From topic research
+              and SEO optimization to publishing blog posts and distributing
+              content across social media — all handled by specialized AI
+              agents.
             </p>
             <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
-              <p className="text-green-700 font-medium">Faster publishing, broader reach, consistent presence, reduced costs</p>
+              <p className="text-green-700 font-medium">
+                Faster publishing, broader reach, consistent presence, reduced
+                costs
+              </p>
             </div>
           </div>
         </div>
@@ -156,38 +188,81 @@ export default function ContentFlowPage() {
       <div className="bg-gradient-to-br from-gray-50 to-blue-50 py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Automated Workflow</h2>
-            <p className="text-xl text-gray-600">Watch how our AI agents transform your content strategy</p>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Automated Workflow
+            </h2>
+            <p className="text-xl text-gray-600">
+              Watch how our AI agents transform your content strategy
+            </p>
           </div>
 
           <div className="relative">
             <div className="hidden md:block absolute left-1/2 top-0 w-1 h-full bg-gradient-to-b from-blue-600 to-purple-600 transform -translate-x-1/2 rounded-full" />
             <div className="space-y-16">
               {workflowSteps.map((step, index) => (
-                <div key={step.id} className={`relative flex items-center ${index % 2 === 0 ? "justify-start" : "justify-start md:justify-end"}`}>
-                  <div className={`hidden md:block absolute top-1/2 w-20 h-0.5 bg-gradient-to-r ${step.color} ${index % 2 === 0 ? "left-1/2 ml-2" : "right-1/2 mr-2"}`} />
-                  <div className={`w-full md:w-80 transition-all duration-700 ${activeStep === index ? "scale-105 shadow-xl" : "scale-100 shadow-lg hover:shadow-xl"} ${index % 2 === 0 ? "md:ml-24" : "md:mr-24"}`}>
+                <div
+                  key={step.id}
+                  className={`relative flex items-center ${
+                    index % 2 === 0
+                      ? "justify-start"
+                      : "justify-start md:justify-end"
+                  }`}
+                >
+                  <div
+                    className={`hidden md:block absolute top-1/2 w-20 h-0.5 bg-gradient-to-r ${
+                      step.color
+                    } ${index % 2 === 0 ? "left-1/2 ml-2" : "right-1/2 mr-2"}`}
+                  />
+                  <div
+                    className={`w-full md:w-80 transition-all duration-700 ${
+                      activeStep === index
+                        ? "scale-105 shadow-xl"
+                        : "scale-100 shadow-lg hover:shadow-xl"
+                    } ${index % 2 === 0 ? "md:ml-24" : "md:mr-24"}`}
+                  >
                     <div className="bg-white rounded-2xl p-6 border border-gray-200">
                       <div className="flex items-center gap-4 mb-4">
-                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${step.color} flex items-center justify-center text-white`}>
+                        <div
+                          className={`w-12 h-12 rounded-xl bg-gradient-to-r ${step.color} flex items-center justify-center text-white`}
+                        >
                           {step.icon}
                         </div>
                         <div className="flex-1">
-                          <div className="text-sm text-gray-500 font-medium">Step {step.id}</div>
-                          <h3 className="text-lg font-bold text-gray-900">{step.title}</h3>
+                          <div className="text-sm text-gray-500 font-medium">
+                            Step {step.id}
+                          </div>
+                          <h3 className="text-lg font-bold text-gray-900">
+                            {step.title}
+                          </h3>
                         </div>
                       </div>
-                      <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        {step.description}
+                      </p>
 
                       <div className="mt-4 flex items-center gap-2">
                         <div className="flex-1 bg-gray-200 rounded-full h-2">
-                          <div className={`h-2 rounded-full bg-gradient-to-r ${step.color} transition-all duration-1000 ${activeStep >= index ? "w-full" : "w-0"}`} />
+                          <div
+                            className={`h-2 rounded-full bg-gradient-to-r ${
+                              step.color
+                            } transition-all duration-1000 ${
+                              activeStep >= index ? "w-full" : "w-0"
+                            }`}
+                          />
                         </div>
-                        {activeStep === index && <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 animate-pulse" />}
+                        {activeStep === index && (
+                          <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 animate-pulse" />
+                        )}
                       </div>
                     </div>
                   </div>
-                  <div className={`hidden md:block absolute left-1/2 top-1/2 w-4 h-4 rounded-full transform -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ${activeStep >= index ? `bg-gradient-to-r ${step.color} scale-125` : "bg-gray-300 scale-100"}`} />
+                  <div
+                    className={`hidden md:block absolute left-1/2 top-1/2 w-4 h-4 rounded-full transform -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ${
+                      activeStep >= index
+                        ? `bg-gradient-to-r ${step.color} scale-125`
+                        : "bg-gray-300 scale-100"
+                    }`}
+                  />
                 </div>
               ))}
             </div>
@@ -198,25 +273,68 @@ export default function ContentFlowPage() {
       {/* Key Benefits */}
       <div className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Key Benefits</h2>
-          <p className="text-xl text-gray-600">Transform your content strategy with intelligent automation</p>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            Key Benefits
+          </h2>
+          <p className="text-xl text-gray-600">
+            Transform your content strategy with intelligent automation
+          </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {[
-            { title: "End-to-End Automation", description: "Complete workflow without human intervention", icon: <Zap className="w-8 h-8" />, color: "from-blue-500 to-cyan-500" },
-            { title: "Data-Driven SEO", description: "100+ keywords ensure optimal search performance", icon: <BarChart3 className="w-8 h-8" />, color: "from-green-500 to-teal-500" },
-            { title: "Platform-Optimized Content", description: "Tailored posts for each social media algorithm", icon: <Share2 className="w-8 h-8" />, color: "from-purple-500 to-pink-500" },
-            { title: "Visual Content Creation", description: "AI-generated infographics for better engagement", icon: <ImageIcon className="w-8 h-8" />, color: "from-orange-500 to-red-500" },
-            { title: "Operational Efficiency", description: "Significant time and cost savings", icon: <Clock className="w-8 h-8" />, color: "from-indigo-500 to-blue-500" },
-            { title: "Multi-Platform Reach", description: "Automated distribution across all social channels", icon: <Globe className="w-8 h-8" />, color: "from-teal-500 to-green-500" },
+            {
+              title: "End-to-End Automation",
+              description: "Complete workflow without human intervention",
+              icon: <Zap className="w-8 h-8" />,
+              color: "from-blue-500 to-cyan-500",
+            },
+            {
+              title: "Data-Driven SEO",
+              description: "100+ keywords ensure optimal search performance",
+              icon: <BarChart3 className="w-8 h-8" />,
+              color: "from-green-500 to-teal-500",
+            },
+            {
+              title: "Platform-Optimized Content",
+              description: "Tailored posts for each social media algorithm",
+              icon: <Share2 className="w-8 h-8" />,
+              color: "from-purple-500 to-pink-500",
+            },
+            {
+              title: "Visual Content Creation",
+              description: "AI-generated infographics for better engagement",
+              icon: <ImageIcon className="w-8 h-8" />,
+              color: "from-orange-500 to-red-500",
+            },
+            {
+              title: "Operational Efficiency",
+              description: "Significant time and cost savings",
+              icon: <Clock className="w-8 h-8" />,
+              color: "from-indigo-500 to-blue-500",
+            },
+            {
+              title: "Multi-Platform Reach",
+              description: "Automated distribution across all social channels",
+              icon: <Globe className="w-8 h-8" />,
+              color: "from-teal-500 to-green-500",
+            },
           ].map((benefit, i) => (
-            <div key={i} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${benefit.color} flex items-center justify-center text-white mb-6`}>
+            <div
+              key={i}
+              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+            >
+              <div
+                className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${benefit.color} flex items-center justify-center text-white mb-6`}
+              >
                 {benefit.icon}
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">{benefit.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                {benefit.title}
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                {benefit.description}
+              </p>
             </div>
           ))}
         </div>
@@ -225,10 +343,18 @@ export default function ContentFlowPage() {
       {/* CTA */}
       <div className="bg-gradient-to-r from-orange-600 to-purple-600">
         <div className="max-w-4xl mx-auto text-center py-20 px-6">
-          <h2 className="text-4xl font-bold text-white mb-4">Ready to Automate Your Content?</h2>
-          <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">Stop wasting time on manual tasks. Let our AI agents handle your entire content lifecycle and start seeing results today.</p>
+          <h2 className="text-4xl font-bold text-white mb-4">
+            Ready to Automate Your Content?
+          </h2>
+          <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
+            Stop wasting time on manual tasks. Let our AI agents handle your
+            entire content lifecycle and start seeing results today.
+          </p>
           <div className="flex justify-center items-center gap-4">
-            <Link to="/contact" className="inline-flex items-center bg-white text-blue-600 font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition-all duration-300">
+            <Link
+              to="/contact"
+              className="inline-flex items-center bg-white text-blue-600 font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition-all duration-300"
+            >
               Schedule a Demo <Sparkles className="w-4 h-4 ml-2" />
             </Link>
           </div>

@@ -17,7 +17,7 @@ import {
   Globe,
   Target
 } from 'lucide-react';
-
+import { Helmet } from "react-helmet-async";
 
 const ManufacturingPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -130,7 +130,12 @@ const ManufacturingPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white">
 
-  
+    <Helmet>
+  <title>AI in Manufacturing — Smart Automation | FatCamel AI</title>
+  <meta name="description" content="Increase productivity and reduce costs with FatCamel AI's manufacturing automation and predictive analytics solutions." />
+  <link rel="canonical" href="https://www.fatcamel.ai/Manufacturing" />
+</Helmet>
+
       
       {/* Header */}
       <div className="container mx-auto px-6 py-8">

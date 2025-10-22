@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mic, MessageCircle, Phone, Zap, Shield, Clock, Users, Volume2, Play, Pause } from 'lucide-react';
-
+import { Helmet } from "react-helmet-async";
 
 const VoiceAssistantsPage = () => {
   const [isListening, setIsListening] = useState(false);
@@ -47,7 +47,12 @@ const VoiceAssistantsPage = () => {
   return (
     <div className="min-h-screen bg-white">
 
-       
+       <Helmet>
+  <title>Voice Assistant Automation — Smart Voice AI | FatCamel AI</title>
+  <meta name="description" content="Create personalized voice assistants for business operations with FatCamel AI's voice automation service." />
+  <link rel="canonical" href="https://www.fatcamel.ai/Voice-Assitent-Service" />
+</Helmet>
+
    
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">

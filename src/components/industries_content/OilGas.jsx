@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Play, CheckCircle, TrendingUp, Shield, Database, Users, Globe, Zap, BarChart3, Target, Leaf, FileText, AlertTriangle } from 'lucide-react';
-
+import { Helmet } from "react-helmet-async";
 const OilGasIndustryPage = () => {
   const [currentChallenge, setCurrentChallenge] = useState(0);
 
@@ -112,6 +112,11 @@ const OilGasIndustryPage = () => {
   return (
     <div className="min-h-screen bg-white">
     
+    <Helmet>
+  <title>AI in Oil & Gas — Predictive Operations | FatCamel AI</title>
+  <meta name="description" content="Optimize exploration, maintenance, and energy management using FatCamel AI's automation tools for the oil and gas industry." />
+  <link rel="canonical" href="https://www.fatcamel.ai/Oil_and_gas" />
+</Helmet>
 
 
 

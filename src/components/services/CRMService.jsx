@@ -15,7 +15,7 @@ import {
   Star,
   ChevronRight
 } from 'lucide-react';
-
+import { Helmet } from "react-helmet-async";
 
 const CRMAutomationPage = () => {
   const [activeFeature, setActiveFeature] = useState(0);
@@ -64,8 +64,13 @@ const CRMAutomationPage = () => {
 
   return (
     <div className="min-h-screen bg-white text-black">
+      
+      <Helmet>
+  <title>CRM Automation — Streamline Customer Management | FatCamel AI</title>
+  <meta name="description" content="Automate customer data, follow-ups, and reporting with FatCamel AI's CRM automation service." />
+  <link rel="canonical" href="https://www.fatcamel.ai/CRM-Automation-Service" />
+</Helmet>
 
-  
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black">
         <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-transparent"></div>

@@ -1,13 +1,18 @@
 import React from 'react';
 import { ShoppingCart, TrendingUp, Users, Database, Zap, Target, BarChart3, Package, Eye, CheckCircle, ArrowRight, Globe, Shield, Cpu, Clock } from 'lucide-react';
-
+import { Helmet } from "react-helmet-async";
 
 
 const RetailCPGPage = () => {
   return (
     <div className="min-h-screen bg-white">
 
-        
+        <Helmet>
+  <title>AI in Retail & Consumer Goods — Automation Solutions | FatCamel AI</title>
+  <meta name="description" content="Boost customer engagement and streamline supply chain operations using FatCamel AI retail automation systems." />
+  <link rel="canonical" href="https://www.fatcamel.ai/RetailConsumer" />
+</Helmet>
+
 
       {/* Breadcrumb */}
       <div className="bg-gray-50 py-4">

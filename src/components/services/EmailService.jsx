@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Zap, Brain, Clock, CheckCircle, ArrowRight, Star, Users, TrendingUp } from 'lucide-react';
-
+import { Helmet } from "react-helmet-async";
 const EmailManagementPage = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0);
@@ -48,6 +48,11 @@ const EmailManagementPage = () => {
   return (
     <div className="min-h-screen bg-white">
          
+    <Helmet>
+  <title>Email Automation Service — Smart Email Workflows | FatCamel AI</title>
+  <meta name="description" content="Automate email outreach, responses, and CRM integration using FatCamel AI’s email management service." />
+  <link rel="canonical" href="https://www.fatcamel.ai/Email-Management-Service" />
+</Helmet>
 
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Play, BarChart3, MessageSquare, Calendar, Zap, TrendingUp, Users, Clock, CheckCircle, ArrowRight, Bot, Target, Globe } from 'lucide-react';
-
+import { Helmet } from "react-helmet-async";
 
 const SocialMediaPage = () => {
   const [activeTab, setActiveTab] = useState('posting');
@@ -46,7 +46,12 @@ const SocialMediaPage = () => {
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
 
-        
+        <Helmet>
+  <title>Social Media Automation Services | FatCamel AI</title>
+  <meta name="description" content="Automate social media management, scheduling, and analytics using FatCamel AI's powerful automation services." />
+  <link rel="canonical" href="https://www.fatcamel.ai/Social-Media-Service" />
+</Helmet>
+
  
 
       {/* Hero Section */}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, ArrowRight, Zap, Database, Bot, Clock, Shield, Target, Users, Workflow, Star, RefreshCw } from 'lucide-react';
-
+import { Helmet } from "react-helmet-async";
 
 const NotionIntegrationPage = () => {
   const [isVisible, setIsVisible] = useState({});
@@ -99,7 +99,12 @@ const NotionIntegrationPage = () => {
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* Hero Section */}
 
-        
+        <Helmet>
+  <title>Notion Integration Service — Automate Workspace Workflows | FatCamel AI</title>
+  <meta name="description" content="Connect and automate Notion with FatCamel AI to manage tasks, projects, and data efficiently." />
+  <link rel="canonical" href="https://www.fatcamel.ai/Notion-Integaration-Service" />
+</Helmet>
+
 
 
   

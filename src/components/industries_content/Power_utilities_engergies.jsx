@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronRight, Zap, Shield, Settings, Users, Lock, FileCheck, BookOpen, Play, Download } from 'lucide-react';
-
+import { Helmet } from "react-helmet-async";
 const PowerUtilitiesPage = () => {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -86,6 +86,11 @@ const PowerUtilitiesPage = () => {
     <div className="min-h-screen bg-white">
       
 
+      <Helmet>
+  <title>AI for Power & Utilities — Energy Automation | FatCamel AI</title>
+  <meta name="description" content="Modernize energy and utilities management with FatCamel AI's predictive maintenance and process automation." />
+  <link rel="canonical" href="https://www.fatcamel.ai/PUE" />
+</Helmet>
 
 
  

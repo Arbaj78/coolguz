@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { MessageCircle, Clock, Zap, Users, BarChart3, Shield, ArrowRight, CheckCircle, Bot, Sparkles } from 'lucide-react';
-
+import { Helmet } from "react-helmet-async";
 
 export default function ChatbotsServicePage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -72,7 +72,12 @@ export default function ChatbotsServicePage() {
   return (
     <div className="min-h-screen bg-white">
 
-       
+       <Helmet>
+  <title>Chatbot Development — AI-Powered Bots | FatCamel AI</title>
+  <meta name="description" content="Build intelligent chatbots for sales, support, and engagement with FatCamel AI’s chatbot automation service." />
+  <link rel="canonical" href="https://www.fatcamel.ai/Chat-Bots-Service" />
+</Helmet>
+
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black py-20 px-6">
         <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-orange-600/20"></div>

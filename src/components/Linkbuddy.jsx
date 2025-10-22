@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // STEP 1: Link ko import karein
 import { ChevronRight, Users, MessageCircle, Target, Zap, Brain, CheckCircle, ArrowRight, Linkedin, Bot, Eye, Edit3, Send, TrendingUp } from 'lucide-react';
 
-
+import { Helmet } from "react-helmet-async";
 
 // ... (AnimatedCounter, WorkflowTree, FeatureCard, ProblemSolutionCard components ka code waisa hi rahega) ...
 
@@ -330,7 +330,12 @@ export default function LinkBuddyProductPage() {
   return (
     <div className="min-h-screen bg-white overflow-hidden">
       {/* ... (Hero Section, Workflow, Problem/Solution, Agent Training, Modules, Key Features sections) ... */}
-      
+      <Helmet>
+  <title>LinkBuddy — Automated Link Management Tool | FatCamel AI</title>
+  <meta name="description" content="Simplify and automate your link management process with FatCamel AI's LinkBuddy tool for businesses." />
+  <link rel="canonical" href="https://www.fatcamel.ai/linkbuddy" />
+</Helmet>
+
       
         <div className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-100/20 to-purple-100/20 opacity-50" />

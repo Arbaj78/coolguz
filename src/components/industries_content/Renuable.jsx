@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Zap, Wind, Sun, Battery, Shield, DollarSign, TrendingUp } from 'lucide-react';
-
+import { Helmet } from "react-helmet-async";
 const RenewableEnergyPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   
@@ -76,6 +76,11 @@ const RenewableEnergyPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
        
+    <Helmet>
+  <title>AI in Renewable Energy — Smart Energy Optimization | FatCamel AI</title>
+  <meta name="description" content="Enhance renewable energy efficiency and sustainability using FatCamel AI's intelligent automation tools." />
+  <link rel="canonical" href="https://www.fatcamel.ai/Renuable_energy" />
+</Helmet>
 
 
       {/* Navigation */}

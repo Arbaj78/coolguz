@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { client } from "../client";
 import { Search, Calendar, ArrowRight } from "lucide-react";
 import { urlFor } from "../imageUrlBuilder";
-
+import { Helmet } from "react-helmet-async";
 
 const BlogPosts = () => {
   const [posts, setPosts] = useState(null); // null = loading, [] = loaded empty
@@ -43,17 +43,23 @@ const BlogPosts = () => {
       } finally {
         // Always notify prerender once we attempted to load (avoids hanging)
         // small delay to let DOM settle
-        setTimeout(() => window.dispatchEvent(new Event("prerender-ready")), 50);
+        setTimeout(
+          () => window.dispatchEvent(new Event("prerender-ready")),
+          50
+        );
       }
     }
     fetchPosts();
-    return () => { mounted = false; };
+    return () => {
+      mounted = false;
+    };
   }, []);
 
-  const filteredPosts = (posts || []).filter((post) =>
-    (post.title || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (post.excerpt || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (post.description || "").toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredPosts = (posts || []).filter(
+    (post) =>
+      (post.title || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (post.excerpt || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (post.description || "").toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const getPostDescription = (post) => {
@@ -61,33 +67,42 @@ const BlogPosts = () => {
     if (post.description) return post.description;
     if (post.excerpt) return post.excerpt;
     if (post.body && Array.isArray(post.body)) {
-      const firstTextBlock = post.body.find(block => block._type === 'block' && block.children && block.children.length);
+      const firstTextBlock = post.body.find(
+        (block) =>
+          block._type === "block" && block.children && block.children.length
+      );
       if (firstTextBlock) {
-        const t = firstTextBlock.children.map(c => c.text || '').join('');
-        return t.slice(0, 160) + (t.length > 160 ? '...' : '');
+        const t = firstTextBlock.children.map((c) => c.text || "").join("");
+        return t.slice(0, 160) + (t.length > 160 ? "..." : "");
       }
     }
-    return 'Discover insights and knowledge in this article.';
+    return "Discover insights and knowledge in this article.";
   };
 
   const formatDate = (dateString) => {
-    if (!dateString) return 'Date unavailable';
+    if (!dateString) return "Date unavailable";
     try {
-      return new Date(dateString).toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric'
+      return new Date(dateString).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
       });
     } catch (error) {
-      return 'Date unavailable';
+      return "Date unavailable";
     }
   };
 
-  
-
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
-    
+      <Helmet>
+        <title>FatCamel AI Blog — Insights on Automation & AI</title>
+        <meta
+          name="description"
+          content="Read expert articles, case studies, and tips from FatCamel AI on AI-driven automation and business optimization."
+        />
+        <link rel="canonical" href="https://www.fatcamel.ai/blog" />
+      </Helmet>
+
       {/* Animated Background */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
         <div className="absolute top-10 left-5 w-32 h-32 bg-orange-100 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-blob"></div>
@@ -99,7 +114,9 @@ const BlogPosts = () => {
       <div className="relative z-10">
         <div className="max-w-4xl mx-auto px-4 pt-6 pb-3">
           <div className="text-center mb-6 animate-fade-in-up">
-            <h1 className="text-3xl md:text-4xl font-bold text-black mb-2">The AI Playbook</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-black mb-2">
+              The AI Playbook
+            </h1>
             <p className="text-base text-gray-600 max-w-xl mx-auto leading-relaxed">
               Discover insights, stories, and knowledge that inspire innovation
             </p>
@@ -125,11 +142,14 @@ const BlogPosts = () => {
 
             <div className="relative">
               <button
-                onClick={() => setShowSearch(s => !s)}
+                onClick={() => setShowSearch((s) => !s)}
                 className="p-2 hover:bg-orange-50 rounded-full transition-all duration-300 group"
                 aria-label="Toggle search"
               >
-                <Search size={20} className="text-gray-600 group-hover:text-orange-500 transition-colors duration-300" />
+                <Search
+                  size={20}
+                  className="text-gray-600 group-hover:text-orange-500 transition-colors duration-300"
+                />
               </button>
             </div>
           </div>
@@ -156,7 +176,10 @@ const BlogPosts = () => {
           <div className="text-center py-8">
             <div className="animate-pulse space-y-3">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-gray-100 rounded-xl p-4 shadow-sm shadow-gray-200/40">
+                <div
+                  key={i}
+                  className="bg-gray-100 rounded-xl p-4 shadow-sm shadow-gray-200/40"
+                >
                   <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
                   <div className="h-3 bg-gray-200 rounded w-1/2 mb-2"></div>
                   <div className="h-3 bg-gray-200 rounded w-1/4"></div>
@@ -167,7 +190,9 @@ const BlogPosts = () => {
         ) : filteredPosts.length === 0 ? (
           <div className="text-center py-8 animate-fade-in">
             <div className="text-4xl mb-2">🔍</div>
-            <p className="text-lg text-gray-600">No posts found matching your search.</p>
+            <p className="text-lg text-gray-600">
+              No posts found matching your search.
+            </p>
           </div>
         ) : (
           <div className="grid gap-4">
@@ -176,32 +201,48 @@ const BlogPosts = () => {
                 key={post.slug || index}
                 className="group bg-white border border-gray-100 rounded-2xl p-4 shadow-md shadow-gray-200/50 hover:shadow-2xl hover:shadow-orange-200/60 hover:border-orange-200 transition-all duration-500 transform hover:-translate-y-2"
               >
-                <Link to={`/blog/${post.slug}`} className="flex items-start gap-4" aria-label={`Read ${post.title}`}>
+                <Link
+                  to={`/blog/${post.slug}`}
+                  className="flex items-start gap-4"
+                  aria-label={`Read ${post.title}`}
+                >
                   <div className="flex-1">
                     <div className="mb-2">
-                      <span className="inline-block px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-medium">Featured</span>
+                      <span className="inline-block px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-medium">
+                        Featured
+                      </span>
                     </div>
 
                     <h2 className="text-xl lg:text-2xl font-bold text-black mb-2 group-hover:text-orange-600 transition-all duration-300 leading-tight">
-                      {post.title || 'Untitled Post'}
+                      {post.title || "Untitled Post"}
                     </h2>
 
-                    <p className="text-gray-600 mb-3 leading-relaxed text-sm line-clamp-2">{getPostDescription(post)}</p>
+                    <p className="text-gray-600 mb-3 leading-relaxed text-sm line-clamp-2">
+                      {getPostDescription(post)}
+                    </p>
 
                     <div className="flex items-center text-gray-500 text-sm">
                       <Calendar size={16} className="mr-2 text-orange-500" />
-                      <span className="font-medium">{formatDate(post.publishedAt)}</span>
+                      <span className="font-medium">
+                        {formatDate(post.publishedAt)}
+                      </span>
                       <span className="mx-2 text-orange-500">•</span>
                       <div className="flex items-center">
-                        {post.author?.image && post.author?.image.asset?.url && (
-                          <img
-                            src={urlFor(post.author.image).width(24).height(24).url()}
-                            alt={post.author?.name || 'Author'}
-                            className="w-5 h-5 rounded-full mr-2 object-cover"
-                            loading="lazy"
-                          />
-                        )}
-                        <span className="font-medium">{post.author?.name || 'Author'}</span>
+                        {post.author?.image &&
+                          post.author?.image.asset?.url && (
+                            <img
+                              src={urlFor(post.author.image)
+                                .width(24)
+                                .height(24)
+                                .url()}
+                              alt={post.author?.name || "Author"}
+                              className="w-5 h-5 rounded-full mr-2 object-cover"
+                              loading="lazy"
+                            />
+                          )}
+                        <span className="font-medium">
+                          {post.author?.name || "Author"}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -210,14 +251,19 @@ const BlogPosts = () => {
                     <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-xl overflow-hidden bg-gradient-to-br from-orange-400 to-orange-500 transform group-hover:rotate-3 transition-all duration-500 shadow-lg shadow-orange-300/40">
                       {post.mainImage && post.mainImage.asset?.url ? (
                         <img
-                          src={urlFor(post.mainImage).width(400).height(400).url()}
+                          src={urlFor(post.mainImage)
+                            .width(400)
+                            .height(400)
+                            .url()}
                           alt={post.mainImage.alt || post.title}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                           loading="lazy"
                         />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-orange-400 to-orange-500 flex items-center justify-center">
-                          <div className="text-2xl text-white opacity-90">📝</div>
+                          <div className="text-2xl text-white opacity-90">
+                            📝
+                          </div>
                         </div>
                       )}
                     </div>
@@ -226,7 +272,10 @@ const BlogPosts = () => {
 
                 <div className="mt-3 flex items-center text-orange-500 font-medium text-sm opacity-0 group-hover:opacity-100 transition-all duration-300">
                   <span className="mr-1">Continue Reading</span>
-                  <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform duration-300" />
+                  <ArrowRight
+                    size={16}
+                    className="transform group-hover:translate-x-1 transition-transform duration-300"
+                  />
                 </div>
               </article>
             ))}
