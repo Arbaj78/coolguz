@@ -1,11 +1,10 @@
-// src/components/SinglePost.jsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { client } from "../client";
 import BlockContent from "@sanity/block-content-to-react";
 import { urlFor } from "../imageUrlBuilder";
 import { Calendar } from "lucide-react";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet-async"; // ✅ SEO ke liye add kiya
 
 const SinglePost = () => {
   const [singlePost, setSinglePost] = useState(null);
@@ -13,50 +12,38 @@ const SinglePost = () => {
   const { slug } = useParams();
 
   useEffect(() => {
-    let mounted = true;
-    async function fetchPost() {
-      try {
-        const q = `*[_type == "post" && slug.current == $slug][0]{
+    client
+      .fetch(
+        `*[slug.current == "${slug}"]{
           title,
           body,
           publishedAt,
           "slug": slug.current,
-          mainImage { asset-> { _id, url }, alt },
-          "authorName": author->name
-        }`;
-        const data = await client.fetch(q, { slug });
-        if (!mounted) return;
-        setSinglePost(data || null);
-      } catch (err) {
-        console.error("SinglePost fetch error:", err);
-        if (!mounted) return;
-        setSinglePost(null);
-      } finally {
+          mainImage {
+            asset-> {
+              _id,
+              url
+            },
+            alt
+          }
+        }[0]`
+      )
+      .then((data) => {
+        setSinglePost(data);
         setIsLoading(false);
-        // dispatch prerender-ready to avoid hanging prerender
-        setTimeout(
-          () => window.dispatchEvent(new Event("prerender-ready")),
-          50
-        );
-      }
-    }
-    fetchPost();
-    return () => {
-      mounted = false;
-    };
+      })
+      .catch((error) => {
+        console.error(error);
+        setIsLoading(false);
+      });
   }, [slug]);
 
   const formatDate = (dateString) => {
-    if (!dateString) return "";
-    try {
-      return new Date(dateString).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-    } catch {
-      return dateString;
-    }
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
   };
 
   if (isLoading) {
@@ -101,6 +88,19 @@ const SinglePost = () => {
             to="/blog"
             className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-lg hover:shadow-xl"
           >
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              />
+            </svg>
             Return to Blog
           </Link>
         </div>
@@ -108,68 +108,81 @@ const SinglePost = () => {
     );
   }
 
-  // generate excerpt from first block text
-  const excerpt = (() => {
-    try {
-      if (!singlePost.body) return "";
-      const first = singlePost.body.find(
-        (b) => b._type === "block" && b.children && b.children.length
-      );
-      if (!first) return "";
-      return first.children
-        .map((c) => c.text || "")
-        .join("")
-        .slice(0, 160);
-    } catch {
-      return "";
-    }
-  })();
-
-  const canonicalUrl = `${SITE.domain}/blog/${singlePost.slug || slug}`;
-
-  // Article JSON-LD (no images per request)
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
-    headline: singlePost.title,
-    datePublished: singlePost.publishedAt || new Date().toISOString(),
-    author: singlePost.authorName
-      ? { "@type": "Person", name: singlePost.authorName }
-      : undefined,
-    description: excerpt || `Read this article on ${SITE.name}`,
-  };
+  // ✅ Canonical URL generate
+  const canonicalUrl = `https://www.fatcamel.ai/blog/${singlePost.slug}`;
+  const ogImage =
+    singlePost.mainImage?.asset?.url ||
+    "https://www.fatcamel.ai/default-og-image.jpg";
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
+      {/* ✅ SEO Helmet */}
       <Helmet>
-        <title>{postTitle} | FatCamel AI Blog</title>
-        <meta name="description" content={postExcerpt} />
-        <link rel="canonical" href={`https://www.fatcamel.ai/blog/${slug}`} />
+        <title>{singlePost.title} | FatCamel</title>
+        <meta
+          name="description"
+          content={singlePost.body[0]?.children?.[0]?.text || singlePost.title}
+        />
+        <link rel="canonical" href={canonicalUrl} />
+
+        {/* Open Graph Tags */}
+        <meta property="og:title" content={singlePost.title} />
+        <meta
+          property="og:description"
+          content={singlePost.body[0]?.children?.[0]?.text || singlePost.title}
+        />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={ogImage} />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={singlePost.title} />
+        <meta
+          name="twitter:description"
+          content={singlePost.body[0]?.children?.[0]?.text || singlePost.title}
+        />
+        <meta name="twitter:image" content={ogImage} />
       </Helmet>
 
-      {/* Top hero (optional image display kept but not required for SEO) */}
+      {/* Hero Section */}
       <div className="relative">
-        {singlePost.mainImage && singlePost.mainImage.asset?.url && (
-          <div className="relative h-[50vh] md:h-[60vh] overflow-hidden">
+        {singlePost.mainImage && (
+          <div className="relative h-[60vh] md:h-[70vh] overflow-hidden">
             <img
-              src={urlFor(singlePost.mainImage).width(1600).url()}
+              src={urlFor(singlePost.mainImage).width(1920).url()}
               alt={singlePost.mainImage.alt || "Blog cover"}
               className="w-full h-full object-cover"
               loading="eager"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+
+            {/* Back Button */}
             <div className="absolute top-6 left-6 z-10">
               <Link
                 to="/blog"
                 className="inline-flex items-center px-4 py-2 bg-white/90 backdrop-blur-sm text-gray-800 font-medium rounded-full hover:bg-white transition-all duration-200 shadow-lg hover:shadow-xl"
               >
+                <svg
+                  className="w-4 h-4 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  />
+                </svg>
                 Back
               </Link>
             </div>
           </div>
         )}
 
+        {/* Title Section */}
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
@@ -185,6 +198,7 @@ const SinglePost = () => {
         </div>
       </div>
 
+      {/* Content Section */}
       <div className="relative -mt-20 z-10">
         <div className="max-w-4xl mx-auto px-6 md:px-8">
           <article className="bg-white rounded-2xl shadow-2xl overflow-hidden">
@@ -202,7 +216,6 @@ const SinglePost = () => {
                             src={urlFor(node).width(800).url()}
                             alt={node.alt || "Blog Image"}
                             className="w-full h-auto"
-                            loading="lazy"
                           />
                           {node.caption && (
                             <figcaption className="text-center text-sm text-gray-500 mt-2">
@@ -218,25 +231,79 @@ const SinglePost = () => {
             </div>
           </article>
 
+          {/* Back to Blog Button */}
           <div className="mt-12 mb-16 text-center">
             <Link
               to="/blog"
-              className="inline-flex items-center px-8 py-4 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-all duration-200 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center px-8 py-4 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group"
             >
+              <svg
+                className="w-5 h-5 mr-3 group-hover:-translate-x-1 transition-transform duration-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                />
+              </svg>
               Explore More Articles
             </Link>
           </div>
         </div>
       </div>
 
-      <style>{`
-        .article-content p { margin-bottom: 1.5rem; font-size: 1.125rem; line-height: 1.7; color: #374151; }
-        .article-content h1, .article-content h2, .article-content h3, .article-content h4 { color: #1f2937; font-weight: bold; margin-top: 2rem; margin-bottom: 1rem; }
-        .article-content h1 { font-size: 2rem; } .article-content h2 { font-size: 1.5rem; } .article-content h3 { font-size: 1.25rem; } .article-content h4 { font-size: 1.125rem; }
-        .article-content blockquote { border-left: 4px solid #2563eb; background: #eff6ff; padding: 1rem 1.5rem; margin: 2rem 0; border-radius: 0 0.5rem 0.5rem 0; font-style: italic; }
-        .article-content ul, .article-content ol { margin: 1.5rem 0; padding-left: 2rem; } .article-content li { margin-bottom: 0.5rem; line-height: 1.6; }
-        .article-content a { color: #2563eb; text-decoration: underline; } .article-content a:hover { color: #1d4ed8; } .article-content strong { font-weight: 600; color: #1f2937; }
-      `}</style>
+      {/* Article Content Styles */}
+      <style>
+        {`
+        .article-content p {
+          margin-bottom: 1.5rem;
+          font-size: 1.125rem;
+          line-height: 1.7;
+          color: #374151;
+        }
+        .article-content h1, .article-content h2, .article-content h3, .article-content h4 {
+          color: #1f2937;
+          font-weight: bold;
+          margin-top: 2rem;
+          margin-bottom: 1rem;
+        }
+        .article-content h1 { font-size: 2rem; }
+        .article-content h2 { font-size: 1.5rem; }
+        .article-content h3 { font-size: 1.25rem; }
+        .article-content h4 { font-size: 1.125rem; }
+        .article-content blockquote {
+          border-left: 4px solid #2563eb;
+          background: #eff6ff;
+          padding: 1rem 1.5rem;
+          margin: 2rem 0;
+          border-radius: 0 0.5rem 0.5rem 0;
+          font-style: italic;
+        }
+        .article-content ul, .article-content ol {
+          margin: 1.5rem 0;
+          padding-left: 2rem;
+        }
+        .article-content li {
+          margin-bottom: 0.5rem;
+          line-height: 1.6;
+        }
+        .article-content a {
+          color: #2563eb;
+          text-decoration: underline;
+        }
+        .article-content a:hover {
+          color: #1d4ed8;
+        }
+        .article-content strong {
+          font-weight: 600;
+          color: #1f2937;
+        }
+      `}
+      </style>
     </div>
   );
 };
