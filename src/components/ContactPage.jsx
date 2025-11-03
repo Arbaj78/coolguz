@@ -251,10 +251,8 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-700">Email</h4>
-                    <p className="text-gray-600">fatcamelteam@gmail.com</p>
-                    <p className="text-gray-600">
-                      Basant.choudharynz@gmail.com
-                    </p>
+                    <p className="text-gray-600"> info@fatcamel.ai</p>
+                    
                   </div>
                 </div>
 
@@ -264,7 +262,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-700">Hours</h4>
-                    <p className="text-gray-600">Monday - Friday</p>
+                    <p className="text-gray-600">Monday - Saturday</p>
                     <p className="text-gray-600">9:00 AM - 6:00 PM</p>
                   </div>
                 </div>

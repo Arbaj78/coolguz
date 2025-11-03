@@ -34,8 +34,8 @@ const Footer = () => {
     Contact: [
       {
         icon: Mail,
-        label: "Basant.choudharynz@gmail.com",
-        href: "mailto:Basant.choudharynz@gmail.com",
+        label: " info@fatcamel.ai",
+        href: "mailto:info@fatcamel.ai",
       },
       {
         icon: Globe,
